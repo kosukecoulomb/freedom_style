@@ -20,6 +20,7 @@
 ## 設計書
 - ER図：https://app.diagrams.net/#G1dQLHJ1HT5Pm8M7VMjwfHJsUfp28D2hba
 - テーブル定義書：https://docs.google.com/spreadsheets/d/1f4V1EAoIEo7YeRqLUvAKpUpWw7EOupQUU1ppW8BmrCI/edit#gid=931002870
+- 詳細設計：https://docs.google.com/spreadsheets/d/1j1W-7xHJVkawBFEYuGp_ATOPFgLmSrZuvVbkXv38vyk/edit#gid=2133469642
 
 ## 開発環境
 - OS：Linux(CentOS)
