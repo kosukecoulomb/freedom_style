@@ -1,29 +1,69 @@
-<h2>Sign up</h2>
+<div class='mt-5 container'>
+  <h2 class="m-5">Sign Up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "public/shared/error_messages", resource: resource %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "public/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <div class="form-group row">
+      <%= f.label :name, "お名前",class: "col-md-3" %><br />
+      <%= f.text_field :name, autocomplete: "email",class: "col-md-2" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+    <div class="form-group row">
+      <%= f.label :email, "メールアドレス",class: "col-md-3" %><br />
+      <%= f.email_field :email, autocomplete: "email",class: "col-md-2" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    <div class="form-group row">
+      <%= f.label :introduction, "自己紹介", class: "col-md-3" %>
+      <%= f.text_area :introduction, class: "col-md-2" %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+    <div class="form-group row">
+      <%= f.label :gender, "性別", class: "col-md-3" %>
+      <%= f.select :gender, User.genders.keys.map{|k| [I18n.t("enums.user.gender.#{k}"), k]}, { include_blank: '選択してください'}, class: "col-md-2" %>
+    </div>
 
-<%= render "public/shared/links" %>
+    <div class="form-group row">
+      <%= f.label :generation, "世代", class: "col-md-3" %>
+      <%= f.select :generation, User.generations.keys.map{|k| [I18n.t("enums.user.generation.#{k}"), k]}, { include_blank: '選択してください'}, class: "col-md-2" %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :tall, "身長", class: "col-md-3" %>
+      <%= f.select :tall, User.talls.keys.map{|k| [I18n.t("enums.user.tall.#{k}"), k]}, { include_blank: '選択してください'}, class: "col-md-2" %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :body_shape, "体型", class: "col-md-3" %>
+      <%= f.select :body_shape, User.body_shapes.keys.map{|k| [I18n.t("enums.user.body_shape.#{k}"), k]}, { include_blank: '選択してください'}, class: "col-md-2" %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :foot_size, "足のサイズ", class: "col-md-3" %>
+      <%= f.select :foot_size, User.foot_sizes.keys.map{|k| [I18n.t("enums.user.foot_size.#{k}"), k]}, { include_blank: '選択してください'}, class: "col-md-2" %>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-3">
+        <%= f.label :password, "パスワード" %>
+        <% if @minimum_password_length %>
+          (<%= @minimum_password_length %> 文字以上)
+        <% end %><br />
+      </div>
+      <%= f.password_field :password, autocomplete: "new-password", class: "col-md-2" %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :password_confirmation, "パスワード(確認用)" , class: "col-md-3"%>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "col-md-2" %>
+    </div>
+
+    <div class="actions m-2">
+      <%= f.submit "新規登録" , class: "btn btn-outline-success col-md-offset-6" %>
+    </div>
+  <% end %>
+
+  <h3 class="mt-7">既に登録済みの方</h3>
+    <%= render "public/shared/links" %>
+</div>

@@ -11,14 +11,14 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
       
-      t.string :name, null: false
-      t.string :introduction, null: true
-      t.integer :gender, null: false
-      t.integer :generation, null: false
-      t.integer :tall, null: false
-      t.integer :body_syape, null: false
-      t.integer :foot_size, null: false
-      t.boorean :is_active, null: false, default: true
+      t.string :name
+      t.string :introduction
+      t.integer :gender
+      t.integer :generation
+      t.integer :tall
+      t.integer :body_syape
+      t.integer :foot_size
+      t.boolean :is_deleted, null: false, default: false
 
       ## Rememberable
       t.datetime :remember_created_at
