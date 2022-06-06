@@ -11,14 +11,17 @@
   </head>
   
   <body>
-    <% if user_signed_in? %>
-      <%= render 'layouts/login_user_header' %>
-    <% elsif admin_signed_in? %>
-      <%= render 'layouts/admin_header' %>
-    <% else %>
-      <%= render 'layouts/top_header' %>
-    <% end %>
-    <main style="flex: 1; background-color: #f5f5f5; padding-bottom: 50px; padding-top: 50px;">
+    <header>
+      <% if user_signed_in? %>
+        <%= render 'layouts/login_user_header' %>
+      <% elsif admin_signed_in? %>
+        <%= render 'layouts/admin_header' %>
+      <% else %>
+        <%= render 'layouts/top_header' %>
+      <% end %>
+    </header>
+    
+    <main style="padding-bottom: 50px; padding-top: 50px;">
       <div id="flash-success">
         <% if notice %>
         <p id="notice" class="text-secondary text-center"><%= notice %></p>
@@ -26,6 +29,9 @@
       </div>
       <%= yield %>
     </main>
-    <%= render 'layouts/footer' %>
+    
+    <footer style="position: sticky; margin-bottom: 2px; width: 100%; background-color: #33CCFF;">
+      <%= render 'layouts/footer' %>
+    </footer>
   </body>
 </html>

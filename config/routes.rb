@@ -1,22 +1,25 @@
 Rails.application.routes.draw do
 
   #ユーザー部分
-  root to: "public/homes#top"
-  get "homes/about" => "public/homes#about", as: "about"
-
-  get "/users/my_page" => "public/users#show", as: "my_page"
-  get "/users/edit" => "public/users#edit", as: "edit_users"
-  patch "users" => "public/users#update"
-  get "/users/unsubscribe" => "public/users#unsubscribe", as: "unsubscribe"
-  patch "/users/withdrawal" => "public/users#withdrawal", as: "withdrawal"
-
-  resources :coordinates, only:[:index, :new, :show, :edit, :create, :update, :destroy], controller: "public/coordinates" do
-    resources :comments, only: [:create, :destroy]
-    resource :favorites, only: [:create, :destroy]
+  scope module: :public do
+    root to: "homes#top"
+    get "homes/about" => "homes#about", as: "about"
+  
+    get "/users/my_page" => "users#my_page", as: "my_page"
+    get "/users/:id" => "users#show"
+    get "/users/edit" => "users#edit", as: "edit_users"
+    patch "users" => "users#update", as: "update_users"
+    get "/users/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
+    patch "/users/withdrawal" => "users#withdrawal", as: "withdrawal"
+  
+    resources :coordinates, only:[:index, :new, :show, :edit, :create, :update, :destroy] do
+      resources :comments, only: [:create, :destroy]
+      resource :favorites, only: [:create, :destroy]
+    end
+  
+    resources :items, only:[:index, :new, :show, :edit, :create, :update, :destroy]
   end
-
-  resources :items, only:[:index, :new, :show, :edit, :create, :update, :destroy], controller: "public/items"
-
+  
 
   #devise部分
   devise_for :admin, controllers: {

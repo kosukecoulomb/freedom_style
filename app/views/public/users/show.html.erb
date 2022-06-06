@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+      <h1><%= @user.name %>のプロフィール</h1>
+      <table class="table">
+        <tr>
+          <%= image_tag @user.get_profile_image(50,50) %>
+          <%= @user.introduction %>
+        </tr>
+      </table>
+
+      <h2>投稿</h2>
+  </div>
+</div>

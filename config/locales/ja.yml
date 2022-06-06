@@ -14,14 +14,14 @@
           over_fifties: "50代以上"
         tall:
           under_fifty: "150cm以下"
-          fifty: "150cm〜"
-          sixty: "160cm〜"
-          seventy: "170cm〜"
+          fifty: "150cm〜159cm"
+          sixty: "160cm〜169cm"
+          seventy: "170cm〜179cm"
           over_eighty: "180c以上"
         body_shape:
           slender: "痩せ型"
           normal: "普通"
-          fat: "大きめ"
+          fat: "ぽっちゃり"
           solid: "がっちり"
         foot_size:
           two: "22cm"
