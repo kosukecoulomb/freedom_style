@@ -1,26 +1,5 @@
 Rails.application.routes.draw do
 
-  #ユーザー部分
-  scope module: :public do
-    root to: "homes#top"
-    get "homes/about" => "homes#about", as: "about"
-  
-    get "/users/my_page" => "users#my_page", as: "my_page"
-    get "/users/:id" => "users#show"
-    get "/users/edit" => "users#edit", as: "edit_users"
-    patch "users" => "users#update", as: "update_users"
-    get "/users/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
-    patch "/users/withdrawal" => "users#withdrawal", as: "withdrawal"
-  
-    resources :coordinates, only:[:index, :new, :show, :edit, :create, :update, :destroy] do
-      resources :comments, only: [:create, :destroy]
-      resource :favorites, only: [:create, :destroy]
-    end
-  
-    resources :items, only:[:index, :new, :show, :edit, :create, :update, :destroy]
-  end
-  
-
   #devise部分
   devise_for :admin, controllers: {
     sessions: "admin/sessions"
@@ -31,6 +10,26 @@ Rails.application.routes.draw do
   }
   devise_scope :user do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
+  end
+  
+  #ユーザー部分
+  scope module: :public do
+    root to: "homes#top"
+    get "homes/about" => "homes#about", as: "about"
+  
+    get "/users/my_page" => "users#my_page", as: "my_page"
+    get "/users/:id" => "users#show"
+    get "/users/profile/edit" => "users#edit", as: "edit_profile"
+    patch "users/profile" => "users#update", as: "update_profile"
+    get "/users/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
+    patch "/users/withdrawal" => "users#withdrawal", as: "withdrawal"
+  
+    resources :coordinates, only:[:index, :new, :show, :edit, :create, :update, :destroy] do
+      resources :comments, only: [:create, :destroy]
+      resource :favorites, only: [:create, :destroy]
+    end
+  
+    resources :items, only:[:index, :new, :show, :edit, :create, :update, :destroy]
   end
 
 

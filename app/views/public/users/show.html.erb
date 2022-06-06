@@ -1,13 +1,24 @@
 <div class="container">
   <div class="row">
+    <div class="col">
       <h1><%= @user.name %>のプロフィール</h1>
-      <table class="table">
-        <tr>
-          <%= image_tag @user.get_profile_image(50,50) %>
-          <%= @user.introduction %>
-        </tr>
-      </table>
+      <div class="row no-padding card-wrapper">
+        <div class="card shadow-lg" style="width: 80rem;">
+          <div class='row g-0'>
+            <div class="col-md-7">
+              <%= image_tag @user.profile_image, class: "card-img-top" %>
+            </div>
+            <div class="col-md-5">
+              <div class="card-body justify-content-center">
+                <h6 class="text-black-50"><%= @user.introduction %></h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <h2>投稿</h2>
+
+    </div>
   </div>
 </div>
