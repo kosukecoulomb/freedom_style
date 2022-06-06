@@ -1,6 +1,6 @@
 <div class='mt-2 container'>
   <h2 class="mb-2">プロフィール修正</h2>
-  
+
   <% if @user.errors.any? %>
     <%= @user.errors.count %>件のエラーが発生しました
     <ul>
@@ -10,7 +10,7 @@
     </ul>
   <% end %>
 
-  <%= form_with model: @user, url: update_users_path do |f| %>
+  <%= form_with model: @user, url: update_profile_path do |f| %>
     <div class="form-group row">
       <%= f.label :profile_image, "プロフィール画像",class: "col-md-3" %><br />
       <%= f.file_field :profile_image, accept: "image/*", class: "col-md-4" %>
@@ -18,17 +18,17 @@
 
     <div class="form-group row">
       <%= f.label :name, "お名前",class: "col-md-3" %><br />
-      <%= f.text_field :name,class: "col-md-2" %>
+      <%= f.text_field :name,class: "col-md-4" %>
     </div>
 
     <div class="form-group row">
       <%= f.label :email, "メールアドレス",class: "col-md-3" %><br />
-      <%= f.email_field :email, autocomplete: "email",class: "col-md-2" %>
+      <%= f.email_field :email, autocomplete: "email",class: "col-md-4" %>
     </div>
 
     <div class="form-group row">
       <%= f.label :introduction, "自己紹介", class: "col-md-3" %>
-      <%= f.text_area :introduction, class: "col-md-2" %>
+      <%= f.text_area :introduction, class: "col-md-4", rows: 10 %>
     </div>
 
     <div class="form-group row">
@@ -43,7 +43,7 @@
 
     <div class="form-group row">
       <%= f.label :tall, "身長", class: "col-md-3" %>
-      <%= f.select :tall, User.talls.keys.map{|k| [I18n.t("enums.user.tall.#{k}"), k]}, { include_blank: '選択してください'}, class: "col-md-2" %>
+      <%= f.number_field :tall, in: 100..200, class: "col-md-2" %>cm
     </div>
 
     <div class="form-group row">

@@ -1,24 +1,51 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h1><%= @user.name %>のプロフィール</h1>
+      <h2><%= @user.name %>さんのプロフィール</h2>
       <div class="row no-padding card-wrapper">
-        <div class="card shadow-lg" style="width: 80rem;">
+        <div class="card shadow-lg" style="width: 60rem;">
           <div class='row g-0'>
             <div class="col-md-7">
               <%= image_tag @user.profile_image, class: "card-img-top" %>
             </div>
             <div class="col-md-5">
               <div class="card-body justify-content-center">
-                <h6 class="text-black-50"><%= @user.introduction %></h6>
+                <h5>自己紹介</h5>
+                <p class="card-text mb-5"><%= @user.introduction %></p>
+                <h5>基本データ</h5>
+                <table class="table mb-5">
+                  <tr>
+                    <th>年齢</th>
+                    <td><%= @user.generation_i18n %></td>
+                  </tr>
+                  <tr>
+                    <th>身長</th>
+                    <td><%= @user.tall %>cm</td>
+                  </tr>
+                  <tr>
+                    <th>体型</th>
+                    <td><%= @user.body_shape_i18n %></td>
+                  </tr>
+                </table>
+                <h5>コレクション</h5>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <h2>投稿</h2>
-
+      <h2 class="mt-5"><%= @user.name %>の投稿</h2>
+      <% if @coordinates.exists? %>
+        <% @coordinates.each do |coordinate| %>
+          <div class="card shadow-lg m-2" style="width: 11.8rem;">
+            <%= link_to coordinate_path(coordinate.id) do %>
+              <%= image_tag coordinate.get_coordinate_image(50,100), class: "card-img-top" %>
+            <% end %>
+          </div>
+        <% end %>
+      <% else %>
+        <P><%= @user.name %>さんの投稿はありません</P>
+      <% end %>
     </div>
   </div>
 </div>

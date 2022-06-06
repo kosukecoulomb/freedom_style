@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 2022_06_06_031810) do
     t.integer "gender"
     t.integer "generation"
     t.integer "tall"
-    t.integer "body_syape"
+    t.integer "body_shape"
     t.integer "foot_size"
     t.boolean "is_deleted", default: false, null: false
     t.datetime "remember_created_at"

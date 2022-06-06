@@ -12,12 +12,6 @@
           thirties: "30代"
           forties: "40代"
           over_fifties: "50代以上"
-        tall:
-          under_fifty: "150cm以下"
-          fifty: "150cm〜159cm"
-          sixty: "160cm〜169cm"
-          seventy: "170cm〜179cm"
-          over_eighty: "180c以上"
         body_shape:
           slender: "痩せ型"
           normal: "普通"
