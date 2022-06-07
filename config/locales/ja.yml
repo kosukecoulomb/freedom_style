@@ -26,3 +26,19 @@
           seven: "27cm"
           eight: "28cm"
           over_nine: "29cm以上"
+      coordinate:
+        dress_code:
+          casual: "カジュアル"
+          clean: "きれいめ"
+          formal: "フォーマル"
+        season:
+          spring: "春"
+          summer: "夏"
+          autumn: "秋"
+          winter: "冬"
+        temperature:
+          under_ten: "10度以下(寒い)"
+          eleven_fifteen: "11度〜15度(肌寒い)"
+          sixteen_twenty: "16度〜20度(温かい)"
+          twentyone_five: "21度〜25度(少し暑い)"
+          over_twentysix: "26度以上(暑い)"

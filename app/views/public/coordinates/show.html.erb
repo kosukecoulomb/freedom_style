@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+      <h2><%= @coordinate.title %></h2>
+      <%= form_with model: @coordinate do |f| %>
+
+      <div class="row no-padding card-wrapper mx-auto">
+        <div class="card shadow-lg" style="width: 60rem;">
+          <div class='row g-0'>
+
+            <div class="col-md-7">
+              <%= image_tag @coordinate.coordinate_image, class: "card-img-top" %>
+            </div>
+
+            <div class="col-md-5">
+              <div class="card-body justify-content-center">
+                <h5 class="pb-2">コーディネート情報</h5>
+                <table class="table table no-borderless">
+                  <tr>
+                    <th>シーン:</th>
+                    <td><%= @coordinate.dress_code_i18n %></td>
+                  </tr>
+                  <tr>
+                    <th>季節: </th>
+                    <td><%= @coordinate.season_i18n %></td>
+                  </tr>
+                  <tr>
+                    <th>気温: </th>
+                    <td><%= @coordinate.temperature_i18n %></td>
+                  </tr>
+                </table>
+                <%= @coordinate.body %>
+                
+                <h5 class="mt-5">投稿者情報</h5>
+                <table class="table mb-5">
+                  <%= link_to "プロフィールへ", user_path(@user.id) %>
+                  <tr>
+                    <th><%= image_tag @user.get_profile_image(30,30) %></th>
+                    <td><%= @user.name %></td>
+                  </tr>
+                  <tr>
+                    <th>年齢:</th>
+                    <td><%= @user.generation_i18n %></td>
+                  </tr>
+                  <tr>
+                    <th>身長:</th>
+                    <td><%= @user.tall %>cm</td>
+                  </tr>
+                  <tr>
+                    <th>体型:</th>
+                    <td><%= @user.body_shape_i18n %></td>
+                  </tr>
+                </table>
+                
+                
+                <% if current_user.id == @coordinate.user_id %>
+                  <%= link_to "投稿を編集する", edit_coordinate_path, class: "btn btn-outline-primary" %>
+                <% end %>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

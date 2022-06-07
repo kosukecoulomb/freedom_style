@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  
   #devise部分
   devise_for :admin, controllers: {
     sessions: "admin/sessions"
@@ -18,7 +18,8 @@ Rails.application.routes.draw do
     get "homes/about" => "homes#about", as: "about"
   
     get "/users/my_page" => "users#my_page", as: "my_page"
-    get "/users/:id" => "users#show"
+    get "/users/:id" => "users#show", as: "user"
+    # customers/editのようにするとdeviseのルーティングとかぶってしまうためprofileを付け加えている。
     get "/users/profile/:id/edit" => "users#edit", as: "edit_profile"
     patch "users/profile" => "users#update", as: "update_profile"
     get "/users/unsubscribe" => "users#unsubscribe", as: "unsubscribe"

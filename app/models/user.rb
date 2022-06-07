@@ -13,6 +13,7 @@ class User < ApplicationRecord
 
   #アソシエーション
   has_many :coordinates, dependent: :destroy
+  has_many :items, dependent: :destroy
 
   #画像投稿
   has_one_attached :profile_image
@@ -27,7 +28,6 @@ class User < ApplicationRecord
 
 
   #バリデーション
-  validates :profile_image, presence: true
   validates :name, presence: true, length:{in: 2..20}
   validates :email, presence: true, uniqueness: true
   validates :introduction, presence: true, length:{in: 2..140}
