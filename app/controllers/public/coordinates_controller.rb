@@ -1,6 +1,7 @@
 class Public::CoordinatesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  
+  before_action :ensure_current_user, only: [:edit, :update, :destroy]
+
   def index
     @coordinates = Coordinate.all.order(Arel.sql(" created_at DESC "))
   end
@@ -37,7 +38,7 @@ class Public::CoordinatesController < ApplicationController
       render :edit
     end
   end
-  
+
   def destroy
     @coordinate = Coordinate.find(params[:id])
     @coordinate.destroy
@@ -48,6 +49,14 @@ class Public::CoordinatesController < ApplicationController
 
   def coordinate_params
     params.require(:coordinate).permit(:coordinate_image, :user_id, :coordinate_item_id, :title, :body, :dress_code, :season, :temperature, :total_price)
+  end
+
+  def ensure_current_user
+    @coordinate = Coordinate.find(params[:id])
+    if current_user.id != @coordinate.user_id
+      flash[:notice]="権限がありません"
+      redirect_to coordinates_path
+    end
   end
 
 end

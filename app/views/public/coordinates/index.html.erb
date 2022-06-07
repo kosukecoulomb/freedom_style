@@ -1,16 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <div class="coordinate_image">
+      <h2>みんなの投稿</h2>
         <% @coordinates.each do |coordinate| %>
           <%= link_to coordinate_path(coordinate) do %>
-            <%= image_tag coordinate.get_coordinate_image(200,400) %>
-            <div class="mask">
-              <div class="caption"><%= coordinate.title %></div>
-            </div>
+            <%= image_tag coordinate.get_coordinate_image(200,400), class: "img-fluid" %>
           <% end %>
         <% end %>
-      </div>
     </div>
   </div>
 </div>
