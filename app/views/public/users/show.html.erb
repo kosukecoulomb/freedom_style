@@ -17,6 +17,10 @@
                 <h5>基本データ</h5>
                 <table class="table mb-5">
                   <tr>
+                    <th>好みのスタイル</th>
+                    <td><%= @user.gender_i18n %></td>
+                  </tr>
+                  <tr>
                     <th>年齢</th>
                     <td><%= @user.generation_i18n %></td>
                   </tr>
@@ -36,19 +40,14 @@
           </div>
         </div>
       </div>
-
-      <h2 class="mt-5"><%= @user.name %>の投稿</h2>
-      <% if @coordinates.exists? %>
-        <% @coordinates.each do |coordinate| %>
-          <div class="card shadow-lg m-2" style="width: 11.8rem;">
-            <%= link_to coordinate_path(coordinate.id) do %>
-              <%= image_tag coordinate.get_coordinate_image(50,100), class: "card-img-top" %>
-            <% end %>
-          </div>
+      <div class="col-md-12">
+        <h2 class="mt-5"><%= @user.name %>の投稿</h2>
+        <div class="row no-padding card-wrapper mx-auto">
+        <% if @coordinates != nil %>
+            <%= render "layouts/coordinates", coordinates: @coordinates %>
+        <% else %>
+          <P><%= @user.name %>さんの投稿はありません</P>
         <% end %>
-      <% else %>
-        <P><%= @user.name %>さんの投稿はありません</P>
-      <% end %>
     </div>
   </div>
 </div>

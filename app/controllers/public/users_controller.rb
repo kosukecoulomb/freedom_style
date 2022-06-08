@@ -3,6 +3,14 @@ class Public::UsersController < ApplicationController
 
   def my_page
     @user = current_user
+    more_short = current_user.tall.to_i - 4
+    more_tall = current_user.tall.to_i + 5
+    #ユーザー本人でない人の投稿で、ユーザーの身長-4~+5cmの投稿を絞り込んで新着順に４件表示
+    #他にも絞込めるが基本身長ベース
+    @similar_talls = User.where(tall: more_short..more_tall).where.not(id: current_user.id)
+    @similar_talls.each do |user|
+      @coordinates = user.coordinates.all.limit(4).order(created_at: :desc)
+    end
   end
 
   def show
@@ -23,6 +31,17 @@ class Public::UsersController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def unsubscribe
+    @user = current_user
+  end
+
+  def destroy
+    @user = current_user
+    @user.destroy
+    redirect_to root_path
+    flash[:notice] = "アカウントを削除しました"
   end
 
   private

@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="mb-3">マイページ</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <h4><%= @user.name %>さんの基本データ</h4>
+      <table>
+        <table class="table mb-5">
+          <tr>
+            <th>好みのスタイル</th>
+            <td><%= @user.gender_i18n %></td>
+          </tr>
+          <tr>
+            <th>年齢</th>
+            <td><%= @user.generation_i18n %></td>
+          </tr>
+          <tr>
+            <th>身長</th>
+            <td><%= @user.tall %>cm</td>
+          </tr>
+          <tr>
+            <th>体型</th>
+            <td><%= @user.body_shape_i18n %></td>
+          </tr>
+          <tr>
+            <th>足のサイズ</th>
+            <td><%= @user.foot_size_i18n %></td>
+          </tr>
+      </table>
+      <%= link_to "登録情報を編集する", edit_profile_path(@user), class: "btn btn-outline-primary" %>
+    </div>
+
+    <div class="col-md-8">
+      <h4><%= @user.name %>さんに似たユーザーの投稿</h4>
+      <% if @coordinates != nil %>
+        <%= render "layouts/coordinates", coordinates: @coordinates %>
+      <% else %>
+        <P>該当する投稿はありません</P>
+      <% end %>
+
+      <h4>いいねした投稿</h4>
+    </div>
+  </div>
+</div>

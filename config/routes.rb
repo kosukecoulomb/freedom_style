@@ -19,11 +19,12 @@ Rails.application.routes.draw do
   
     get "/users/my_page" => "users#my_page", as: "my_page"
     get "/users/:id" => "users#show", as: "user"
-    # customers/editのようにするとdeviseのルーティングとかぶってしまうためprofileを付け加えている。
+    # user/editのようにするとdeviseのルーティングとかぶってしまうためprofileを付け加えている。
     get "/users/profile/:id/edit" => "users#edit", as: "edit_profile"
     patch "users/profile" => "users#update", as: "update_profile"
-    get "/users/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
+    get "/users/profile/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
     patch "/users/withdrawal" => "users#withdrawal", as: "withdrawal"
+    delete "/users" => "users#destroy", as: "user_destroy"
   
     resources :coordinates, only:[:index, :new, :show, :edit, :create, :update, :destroy] do
       resources :comments, only: [:create, :destroy]

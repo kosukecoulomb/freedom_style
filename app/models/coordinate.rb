@@ -21,7 +21,7 @@ class Coordinate < ApplicationRecord
   validates :temperature, presence: true
   
   #enum
-  enum dress_code: { casual:0, clean:1, formal:2 }
+  enum dress_code: { casual:0, clean:1, formal:2,  }
   enum season: { spring:0, summer:1, autumn:2, winter:3 }
   enum temperature: { under_ten:0, eleven_fifteen:1, sixteen_twenty:2, twentyone_five:3, over_twentysix:4 }
   

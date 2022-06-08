@@ -3,7 +3,7 @@ class Public::CoordinatesController < ApplicationController
   before_action :ensure_current_user, only: [:edit, :update, :destroy]
 
   def index
-    @coordinates = Coordinate.all.order(Arel.sql(" created_at DESC "))
+    @coordinates = Coordinate.all.order(created_at: :desc)
   end
 
   def new

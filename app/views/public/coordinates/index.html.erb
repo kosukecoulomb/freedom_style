@@ -2,11 +2,8 @@
   <div class="row">
     <div class="col-md-12">
       <h2>みんなの投稿</h2>
-        <% @coordinates.each do |coordinate| %>
-          <%= link_to coordinate_path(coordinate) do %>
-            <%= image_tag coordinate.get_coordinate_image(200,400), class: "img-fluid" %>
-          <% end %>
-        <% end %>
+        <div class="row no-padding card-wrapper mx-auto">
+          <%= render "layouts/coordinates", coordinates: @coordinates %>
     </div>
   </div>
 </div>
