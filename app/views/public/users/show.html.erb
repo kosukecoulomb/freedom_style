@@ -1,25 +1,21 @@
 <div class="container">
   <div class="row">
-    <div class="col">
+    <div class="col-md-12">
       <h2><%= @user.name %>さんのプロフィール</h2>
       <div class="row no-padding card-wrapper">
         <div class="card shadow-lg" style="width: 60rem;">
           <div class='row g-0'>
-            
+
             <div class="col-md-7">
               <%= image_tag @user.profile_image, class: "card-img-top" %>
             </div>
-            
+
             <div class="col-md-5">
               <div class="card-body justify-content-center">
                 <h5>自己紹介</h5>
                 <p class="card-text mb-5"><%= @user.introduction %></p>
                 <h5>基本データ</h5>
                 <table class="table mb-5">
-                  <tr>
-                    <th>好みのスタイル</th>
-                    <td><%= @user.gender_i18n %></td>
-                  </tr>
                   <tr>
                     <th>年齢</th>
                     <td><%= @user.generation_i18n %></td>
@@ -36,13 +32,12 @@
                 <h5>コレクション</h5>
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>
       <div class="col-md-12">
         <h2 class="mt-5"><%= @user.name %>の投稿</h2>
-        <div class="row no-padding card-wrapper mx-auto">
         <% if @coordinates != nil %>
             <%= render "layouts/coordinates", coordinates: @coordinates %>
         <% else %>

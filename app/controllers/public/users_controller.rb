@@ -5,9 +5,8 @@ class Public::UsersController < ApplicationController
     @user = current_user
     more_short = current_user.tall.to_i - 4
     more_tall = current_user.tall.to_i + 5
-    #ユーザー本人でない人の投稿で、ユーザーの身長-4~+5cmの投稿を絞り込んで新着順に４件表示
-    #他にも絞込めるが基本身長ベース
-    @similar_talls = User.where(tall: more_short..more_tall).where.not(id: current_user.id)
+    #ユーザー本人でない人の投稿で、ユーザーのジェンダーが同じ身長-4~+5cmの投稿を絞り込んで新着順に４件表示
+    @similar_talls = User.where(tall: more_short..more_tall, gender: current_user.gender).where.not(id: current_user.id)
     @similar_talls.each do |user|
       @coordinates = user.coordinates.all.limit(4).order(created_at: :desc)
     end

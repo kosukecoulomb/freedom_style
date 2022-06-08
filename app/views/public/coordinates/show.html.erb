@@ -36,7 +36,7 @@
                 <table class="table mb-5">
                   <%= link_to "プロフィールへ", user_path(@user.id) %>
                   <tr>
-                    <th><%= image_tag @user.get_profile_image(30,30) %></th>
+                    <th>名前</th>
                     <td><%= @user.name %></td>
                   </tr>
                   <tr>
@@ -53,9 +53,10 @@
                   </tr>
                 </table>
                 
-                
-                <% if current_user.id == @coordinate.user_id %>
-                  <%= link_to "投稿を編集する", edit_coordinate_path, class: "btn btn-outline-primary" %>
+                <% if user_signed_in? %>
+                  <% if current_user.id == @coordinate.user_id %>
+                    <%= link_to "投稿を編集する", edit_coordinate_path, class: "btn btn-outline-primary" %>
+                  <% end %>
                 <% end %>
               </div>
             </div>
