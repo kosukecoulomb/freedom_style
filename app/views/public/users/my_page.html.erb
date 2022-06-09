@@ -7,27 +7,29 @@
 
   <div class="row">
     <div class="col-md-4">
-      <h4><%= @user.name %>さんの基本データ</h4>
-      <table>
-        <table class="table mb-5">
-          <tr>
-            <th>年齢</th>
-            <td><%= @user.generation_i18n %></td>
-          </tr>
-          <tr>
-            <th>身長</th>
-            <td><%= @user.tall %>cm</td>
-          </tr>
-          <tr>
-            <th>体型</th>
-            <td><%= @user.body_shape_i18n %></td>
-          </tr>
-          <tr>
-            <th>足のサイズ</th>
-            <td><%= @user.foot_size_i18n %></td>
-          </tr>
+      <h4><%= @user.name %>さんの基本データ<%= link_to "登録情報を編集する", edit_profile_path(@user), class: "btn btn-outline-primary" %></h4>
+      <table class="table mb-5">
+        <tr>
+          <th>年齢</th>
+          <td><%= @user.generation_i18n %></td>
+        </tr>
+        <tr>
+          <th>身長</th>
+          <td><%= @user.tall %>cm</td>
+        </tr>
+        <tr>
+          <th>体型</th>
+          <td><%= @user.body_shape_i18n %></td>
+        </tr>
+        <tr>
+          <th>足のサイズ</th>
+          <td><%= @user.foot_size_i18n %></td>
+        </tr>
       </table>
-      <%= link_to "登録情報を編集する", edit_profile_path(@user), class: "btn btn-outline-primary" %>
+      
+      <h4>新しい投稿をする</h4>
+      <%= link_to "コーディネート", new_coordinate_path, class: "btn btn-outline-success" %>
+      <%= link_to "コレクション", new_item_path, class: "btn btn-outline-success" %>
     </div>
 
     <div class="col-md-8">

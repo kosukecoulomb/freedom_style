@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  namespace :public do
+    get 'items/new'
+    get 'items/index'
+  end
   #devise部分
   devise_for :admin, controllers: {
     sessions: "admin/sessions"

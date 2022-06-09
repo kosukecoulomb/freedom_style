@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+      <% if @item.errors.any? %>
+        <%= @item.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @item.errors.full_messages.each do |message| %>
+            <li><%= mcdessage %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <h2>コレクションを追加</h2>
+      <%= form_with model: @item do |f| %>
+
+      <div class="row no-padding card-wrapper mx-auto">
+        <div class="card shadow-lg" style="width: 60rem;">
+          <div class='row g-0'>
+
+            <div class="col-md-6">
+              <%= f.label :item_image do %>
+                <%= image_tag('non-item.jpg', class: 'item') %>
+                <%= f.file_field :item_image, accept: "image/*", class: 'uploader', style: 'display:none' %>
+              <% end %>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card-body justify-content-center">
+                <%= f.hidden_field :user_id, :value => current_user.id %>
+                <table class="table table no-borderless">
+                  <tr>
+                    <th>カテゴリー:</th>
+                    <td><%= f.select :category, Item.categories.keys.map{|k| [I18n.t("enums.item.category.#{k}"), k]}, { include_blank: '選択してください'} %></td>
+                  </tr>
+                  <tr>
+                    <th>ブランド: </th>
+                    <td><%= f.text_field :brand_name %></td>
+                  </tr>
+                  <tr>
+                    <th>商品名: </th>
+                    <td><%= f.text_field :item_name %></td>
+                  </tr>
+                  <tr>
+                    <th>サイズ: </th>
+                    <td><%= f.text_field :size %></td>
+                  </tr>
+                  <tr>
+                    <th>色: </th>
+                    <td><%= f.color_field :color %></td>
+                  </tr>
+                  <tr>
+                    <th>価格(税抜): </th>
+                    <td>¥<%= f.text_field :price %></td>
+                  </tr>
+                </table>
+                <%= f.submit "保存する" , class: "btn btn-outline-success col-md-offset-6" %>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

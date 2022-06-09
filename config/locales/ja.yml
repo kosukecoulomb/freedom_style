@@ -42,3 +42,10 @@
           sixteen_twenty: "16度〜20度(温かい)"
           twentyone_five: "21度〜25度(少し暑い)"
           over_twentysix: "26度以上(暑い)"
+      item:
+        category:
+          outer: "アウター"
+          tops: "トップス"
+          bottoms: "ボトムス"
+          shoes: "靴"
+          others: "その他"
