@@ -2,7 +2,8 @@ class Coordinate < ApplicationRecord
   
   #アソシエーション
   belongs_to :user
-  has_many :items
+  has_one :coordinate_items
+  
   
   #画像投稿
   has_one_attached :coordinate_image

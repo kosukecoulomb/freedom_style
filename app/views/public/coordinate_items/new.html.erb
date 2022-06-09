@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h5 class="mt-3 ml-3">使用したアイテム</h5>
+      <P class="ml-3">コレクションにあるアイテムを登録できます</P>
+      <%= link_to "コレクション新規登録", new_item_path, class: "ml-3 btn btn-outline-success" %>
+    </div>
+  </div>
+    
+  <div class="row">  
+    <div class="col-md-6">
+      <%= image_tag @coordinate.coordinate_image %>
+    </div>
+      
+      <div class="col-md-6">
+        <%= form_with model: @coordinate_item do |f| %>
+        <%= f.hidden_field :coordinate_id, :value => @coordinate.id %>
+        <table class="table text-center">
+          <tr>
+            <th>アウター</th>
+            <td><%= f.select :outer_item_id, @outer_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+          </tr>
+          <tr>
+            <th>トップス</th>
+            <td><%= f.select :tops_item_id, @tops_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+          </tr>
+          <tr>
+            <th>ボトムス</th>
+            <td><%= f.select :bottoms_item_id, @bottoms_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+          </tr>
+          <tr>
+            <th>靴</th>
+            <td><%= f.select :shoes_item_id, @shoes_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+          </tr>
+          <tr>
+            <th>その他1</th>
+            <td><%= f.select :other_item1_id, @other_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+          </tr>
+          <tr>
+            <th>その他2</th>
+            <td><%= f.select :other_item2_id, @other_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+          </tr>
+        </table>
+        <%= f.submit "保存する" , class: "btn btn-outline-success col-md-offset-6" %>
+        <% end %>
+      </div>
+    
+</div>

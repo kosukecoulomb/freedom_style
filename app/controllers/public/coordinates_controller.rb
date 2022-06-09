@@ -9,17 +9,12 @@ class Public::CoordinatesController < ApplicationController
   def new
     @user = current_user
     @coordinate = Coordinate.new
-    @outer_items = Item.where(user_id: @user.id, category: 0)
-    @tops_items = Item.where(user_id: @user.id, category: 1)
-    @bottoms_items = Item.where(user_id: @user.id, category: 2)
-    @shoes_items = Item.where(user_id: @user.id, category: 3)
-    @other_items = Item.where(user_id: @user.id, category: 4)
   end
 
   def create
     @coordinate = Coordinate.new(coordinate_params)
     if @coordinate.save
-      redirect_to coordinate_path(@coordinate)
+      redirect_to new_coordinate_item_path
       flash[:notice] = "投稿に成功しました"
     else
       render :new
@@ -60,7 +55,7 @@ class Public::CoordinatesController < ApplicationController
   private
 
   def coordinate_params
-    params.require(:coordinate).permit(:coordinate_image, :user_id, :item_id, :title, :body, :dress_code, :season, :temperature, :total_price)
+    params.require(:coordinate).permit(:coordinate_image, :user_id, :coordinate_item_id, :title, :body, :dress_code, :season, :temperature, :total_price)
   end
 
   def ensure_current_user

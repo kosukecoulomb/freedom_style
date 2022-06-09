@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   
   namespace :public do
+    get 'coordinate_items/new'
+    get 'coordinate_items/edit'
+  end
+  namespace :public do
     get 'items/new'
     get 'items/index'
   end
@@ -34,6 +38,8 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
     end
+    
+    resources :coordinate_items, only: [:new, :create, :edit, :update]
   
     resources :items, only:[:index, :new, :show, :edit, :create, :update, :destroy]
   end
