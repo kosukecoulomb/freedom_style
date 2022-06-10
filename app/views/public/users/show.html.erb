@@ -38,7 +38,7 @@
       </div>
       <div class="col-md-12">
         <h2 class="mt-5"><%= @user.name %>の投稿</h2>
-        <% if @coordinates != nil %>
+        <% if @coordinates.exists? %>
             <%= render "layouts/coordinates", coordinates: @coordinates %>
         <% else %>
           <P><%= @user.name %>さんの投稿はありません</P>

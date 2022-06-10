@@ -24,6 +24,12 @@ class Public::ItemsController < ApplicationController
     @shoes_items = Item.where(user_id: @user.id, category: 3)
     @other_items = Item.where(user_id: @user.id, category: 4)
   end
+  
+  def destroy
+    @item = Item.find(params[:id])
+    @item.destroy
+    redirect_to my_page_path
+  end
 
   private
 

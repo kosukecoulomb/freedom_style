@@ -3,19 +3,30 @@ class Public::UsersController < ApplicationController
 
   def my_page
     @user = current_user
+    @coordinates = Coordinate.where(user_id: @user.id)
+    
     more_short = current_user.tall.to_i - 4
     more_tall = current_user.tall.to_i + 5
     #ユーザー本人でない人の投稿で、ユーザーのジェンダーが同じ身長-4~+5cmの投稿を絞り込んで新着順に４件表示
     @similar_talls = User.where(tall: more_short..more_tall, gender: current_user.gender).where.not(id: current_user.id)
     @similar_talls.each do |user|
-      @coordinates = user.coordinates.all.limit(4).order(created_at: :desc)
+      @similar_coordinates = user.coordinates.all.limit(6).order(created_at: :desc)
     end
+
+    #いいねしたアイテム最新４つ表示
+    favorites = Favorite.where(user_id: current_user.id).pluck(:coordinate_id)
+    @favorite_coordinates = Coordinate.limit(6).order(created_at: :desc).find(favorites)
+  end
+  
+  
+  def favorites
+    favorites = Favorite.where(user_id: current_user.id).pluck(:coordinate_id)
+    @favorite_coordinates = Coordinate.order(created_at: :desc).find(favorites)
   end
 
   def show
     @user = User.find(params[:id])
     @coordinates = @user.coordinates.all
-    #@items = @user.coordinates_items
   end
 
   def edit

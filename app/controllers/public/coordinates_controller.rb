@@ -24,9 +24,16 @@ class Public::CoordinatesController < ApplicationController
   def show
     @coordinate = Coordinate.find(params[:id])
     @comment = Comment.new
+    
+    #コーディネートに紐付けられたアイテムの
     @user = @coordinate.user
     @coordinate_item = CoordinateItem.find_by(coordinate_id: @coordinate.id)
-    #@items = @coordinate_item
+    @outer_item = Item.find_by(id: @coordinate_item.outer_item_id)
+    @tops_item = Item.find_by(id: @coordinate_item.tops_item_id)
+    @bottoms_item = Item.find_by(id: @coordinate_item.bottoms_item_id)
+    @shoes_item = Item.find_by(id: @coordinate_item.shoes_item_id)
+    @other_item1 = Item.find_by(id: @coordinate_item.other_item1_id)
+    @other_item2 = Item.find_by(id: @coordinate_item.other_item2_id)
   end
 
   def edit

@@ -42,12 +42,12 @@
 	transform:		scale(1);
 }
 
+
 footer{
-  width: 100%;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  background: #33CCFF;
-  color: #fff;
-  text-align: center;
+ width: 100%;
+ background-color: #33CCFF;
+ color: #fff;
+ text-align: center;
+ position: sticky;
+ bottom: 0; 
 }

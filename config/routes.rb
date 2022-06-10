@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     get "/users/profile/:id/edit" => "users#edit", as: "edit_profile"
     patch "users/profile" => "users#update", as: "update_profile"
     get "/users/profile/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
-    patch "/users/withdrawal" => "users#withdrawal", as: "withdrawal"
+    get "/users/profile/favorites" => "users#favorites", as: "favorites"
     delete "/users" => "users#destroy", as: "user_destroy"
   
     resources :coordinates, only:[:index, :new, :show, :edit, :create, :update, :destroy] do
@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     
     resources :coordinate_items, only: [:new, :create, :edit, :update]
   
-    resources :items, only:[:index, :new, :show, :edit, :create, :update, :destroy]
+    resources :items, only:[:index, :new, :show,  :destroy]
   end
 
 
