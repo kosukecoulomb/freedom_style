@@ -2,7 +2,15 @@ class Coordinate < ApplicationRecord
   
   #アソシエーション
   belongs_to :user
-  has_one :coordinate_items
+  has_one :coordinate_item, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  
+  
+  #いいね機能
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
+  end
   
   
   #画像投稿

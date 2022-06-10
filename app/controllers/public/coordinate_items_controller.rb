@@ -13,9 +13,15 @@ class Public::CoordinateItemsController < ApplicationController
   
   def create
     @coordinate = Coordinate.order(created_at: :desc).find_by(user_id: current_user.id)
+    @user = current_user
+    @outer_items = Item.where(user_id: @user.id, category: 0)
+    @tops_items = Item.where(user_id: @user.id, category: 1)
+    @bottoms_items = Item.where(user_id: @user.id, category: 2)
+    @shoes_items = Item.where(user_id: @user.id, category: 3)
+    @other_items = Item.where(user_id: @user.id, category: 4)
     @coordinate_item = CoordinateItem.new(coordinate_item_params)
     if @coordinate_item.save
-      redirect_to coordinate_path(@coordinate)
+      redirect_to my_page_path
       flash[:notice] = "投稿に成功しました"
     else
       render :new

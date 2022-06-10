@@ -6,6 +6,15 @@
       <%= link_to "コレクション新規登録", new_item_path, class: "ml-3 btn btn-outline-success" %>
     </div>
   </div>
+  
+      <% if @coordinate_item.errors.any? %>
+        <%= @coordinate_item.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @coordinate_item.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
     
   <div class="row">  
     <div class="col-md-6">

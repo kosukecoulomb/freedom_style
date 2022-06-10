@@ -1,0 +1,13 @@
+<% if coordinate.favorited_by?(current_user) %>
+  <p>
+    <%= link_to coordinate_favorites_path(coordinate), method: :delete, remote: true do %>
+      ♥<%= coordinate.favorites.count %> いいね
+    <% end %>
+  </p>
+  <% else %>
+  <p>
+    <%= link_to coordinate_favorites_path(coordinate), method: :post, remote: true do %>
+      ♡<%= coordinate.favorites.count %> いいね
+    <% end %>
+  </p>
+<% end %>

@@ -23,7 +23,10 @@ class Public::CoordinatesController < ApplicationController
 
   def show
     @coordinate = Coordinate.find(params[:id])
+    @comment = Comment.new
     @user = @coordinate.user
+    @coordinate_item = CoordinateItem.find_by(coordinate_id: @coordinate.id)
+    #@items = @coordinate_item
   end
 
   def edit

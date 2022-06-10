@@ -10,16 +10,18 @@ class User < ApplicationRecord
       user.name = "guestuser"
     end
   end
-  
+
 
   #アソシエーション
   has_many :coordinates, dependent: :destroy
   has_many :items, dependent: :destroy
-  
+  has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+
 
   #画像投稿
   has_one_attached :profile_image
-  
+
 
   def get_profile_image(width, height)
     unless profile_image.attached?
@@ -28,8 +30,8 @@ class User < ApplicationRecord
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
-  
-  
+
+
   #バリデーション
   validates :name, presence: true, length:{in: 2..20}
   validates :email, presence: true, uniqueness: true
