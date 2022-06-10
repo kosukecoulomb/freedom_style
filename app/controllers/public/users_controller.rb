@@ -13,9 +13,9 @@ class Public::UsersController < ApplicationController
       @similar_coordinates = user.coordinates.all.limit(6).order(created_at: :desc)
     end
 
-    #いいねしたアイテム最新４つ表示
+    #いいねしたアイテム表示
     favorites = Favorite.where(user_id: current_user.id).pluck(:coordinate_id)
-    @favorite_coordinates = Coordinate.limit(6).order(created_at: :desc).find(favorites)
+    #@favorite_coordinates = Coordinate.limit(6).order(created_at: :desc).find(favorites)
   end
   
   

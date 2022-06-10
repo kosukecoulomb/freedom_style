@@ -12,7 +12,7 @@ class Public::ItemsController < ApplicationController
       redirect_to items_path
       flash[:notice] = "投稿に成功しました"
     else
-      render new
+      render :new
     end
   end
 
@@ -23,6 +23,24 @@ class Public::ItemsController < ApplicationController
     @bottoms_items = Item.where(user_id: @user.id, category: 2)
     @shoes_items = Item.where(user_id: @user.id, category: 3)
     @other_items = Item.where(user_id: @user.id, category: 4)
+  end
+  
+  def show
+    @item = Item.find(params[:id])
+  end
+  
+  def edit
+    @item = Item.find(params[:id])
+  end
+  
+  def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+      flash[:notice] = "編集に成功しました"
+    else
+      render :edit
+    end
   end
   
   def destroy

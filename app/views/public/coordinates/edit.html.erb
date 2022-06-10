@@ -27,7 +27,36 @@
               <% end %>
             </div>
             
-            <div class="col-md-5">
+             <h5 class="ml-3">★使用したコレクションを一緒に登録★</h5>
+              <table class="table">
+                <tr>
+                  <th>アウター</th>
+                  <td><%= f.select :outer_id, @outer_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                </tr>
+                <tr>
+                  <th>トップス</th>
+                  <td><%= f.select :tops_id, @tops_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                </tr>
+                <tr>
+                  <th>ボトムス</th>
+                  <td><%= f.select :bottoms_id, @bottoms_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                </tr>
+                <tr>
+                  <th>靴</th>
+                  <td><%= f.select :shoes_id, @shoes_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                </tr>
+                <tr>
+                  <th>その他1</th>
+                  <td><%= f.select :other1_id, @other_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                </tr>
+                <tr>
+                  <th>その他2</th>
+                  <td><%= f.select :other2_id, @other_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="col-md-6">
               <div class="card-body justify-content-center">
                 <%= f.hidden_field :user_id, :value => current_user.id %>
                 <h4>タイトル</h4>
@@ -46,6 +75,7 @@
                     <td><%= f.select :temperature, Coordinate.temperatures.keys.map{|k| [I18n.t("enums.coordinate.temperature.#{k}"), k]}, { include_blank: '選択してください'} %></td>
                   </tr>
                 </table>
+                
                 <h5>説明</h5>
                 <%= f.text_area :body, size: "35x15" %>
                 <%= f.submit "編集を保存" , class: "btn btn-outline-success" %>

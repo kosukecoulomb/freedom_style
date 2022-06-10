@@ -2,7 +2,7 @@ class Coordinate < ApplicationRecord
   
   #アソシエーション
   belongs_to :user
-  has_one :coordinate_item, dependent: :destroy
+  has_many :items
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   

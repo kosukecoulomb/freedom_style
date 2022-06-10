@@ -9,12 +9,17 @@ class Public::CoordinatesController < ApplicationController
   def new
     @user = current_user
     @coordinate = Coordinate.new
+    @outer_items = Item.where(user_id: @user.id, category: 0)
+    @tops_items = Item.where(user_id: @user.id, category: 1)
+    @bottoms_items = Item.where(user_id: @user.id, category: 2)
+    @shoes_items = Item.where(user_id: @user.id, category: 3)
+    @other_items = Item.where(user_id: @user.id, category: 4)
   end
 
   def create
     @coordinate = Coordinate.new(coordinate_params)
     if @coordinate.save
-      redirect_to new_coordinate_item_path
+      redirect_to coordinate_path(@coordinate)
       flash[:notice] = "投稿に成功しました"
     else
       render :new
@@ -24,16 +29,13 @@ class Public::CoordinatesController < ApplicationController
   def show
     @coordinate = Coordinate.find(params[:id])
     @comment = Comment.new
-    
-    #コーディネートに紐付けられたアイテムの
     @user = @coordinate.user
-    @coordinate_item = CoordinateItem.find_by(coordinate_id: @coordinate.id)
-    @outer_item = Item.find_by(id: @coordinate_item.outer_item_id)
-    @tops_item = Item.find_by(id: @coordinate_item.tops_item_id)
-    @bottoms_item = Item.find_by(id: @coordinate_item.bottoms_item_id)
-    @shoes_item = Item.find_by(id: @coordinate_item.shoes_item_id)
-    @other_item1 = Item.find_by(id: @coordinate_item.other_item1_id)
-    @other_item2 = Item.find_by(id: @coordinate_item.other_item2_id)
+    @outer_item = Item.find_by(id: @coordinate.outer_id)
+    @tops_item = Item.find_by(id: @coordinate.tops_id)
+    @bottoms_item = Item.find_by(id: @coordinate.bottoms_id)
+    @shoes_item = Item.find_by(id: @coordinate.shoes_id)
+    @other1_item = Item.find_by(id: @coordinate.other1_id)
+    @other2_item = Item.find_by(id: @coordinate.other2_id)
   end
 
   def edit
@@ -65,7 +67,7 @@ class Public::CoordinatesController < ApplicationController
   private
 
   def coordinate_params
-    params.require(:coordinate).permit(:coordinate_image, :user_id, :coordinate_item_id, :title, :body, :dress_code, :season, :temperature, :total_price)
+    params.require(:coordinate).permit(:coordinate_image, :user_id, :title, :body, :dress_code, :season, :temperature, :outer_id, :tops_id, :bottoms_id, :shoes_id, :other1_id, :other2_id)
   end
 
   def ensure_current_user

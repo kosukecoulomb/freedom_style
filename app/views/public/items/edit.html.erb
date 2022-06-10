@@ -12,7 +12,7 @@
       <% end %>
 
       <h2>コレクションを追加</h2>
-      <%= form_with model: @item do |f| %>
+      <%= form_with model: @item, url:items_path, method: :post do |f| %>
 
       <div class="row no-padding card-wrapper mx-auto">
         <div class="card shadow-lg" style="width: 60rem;">
@@ -20,14 +20,13 @@
 
             <div class="col-md-6">
               <%= f.label :item_image do %>
-                <%= image_tag('non-item.jpg', class: 'item') %>
+                <%= image_tag @item.item_image, class: 'avatar' %>
                 <%= f.file_field :item_image, accept: "image/*", class: 'uploader', style: 'display:none' %>
               <% end %>
             </div>
 
             <div class="col-md-6">
               <div class="card-body justify-content-center">
-                <%= f.hidden_field :user_id, :value => current_user.id %>
                 <table class="table table no-borderless">
                   <tr>
                     <th>カテゴリー:</th>
@@ -55,6 +54,7 @@
                   </tr>
                 </table>
                 <%= f.submit "保存する" , class: "btn btn-outline-success col-md-offset-6" %>
+                <%= link_to "アイテムを削除", item_path(@item), method: :delete, class: "btn btn-outline-danger" %>
               </div>
             </div>
 

@@ -80,7 +80,12 @@ ActiveRecord::Schema.define(version: 2022_06_09_120326) do
     t.integer "dress_code", null: false
     t.integer "season", null: false
     t.integer "temperature", null: false
-    t.integer "total_price"
+    t.integer "outer_id"
+    t.integer "tops_id"
+    t.integer "bottoms_id"
+    t.integer "shoes_id"
+    t.integer "other1_id"
+    t.integer "other2_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

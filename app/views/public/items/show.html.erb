@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+      <h2><%= @item.item_name %></h2>
+
+      <div class="row no-padding card-wrapper mx-auto">
+        <div class="card shadow-lg" style="width: 60rem;">
+          <div class='row g-0'>
+            
+            <div class="col-md-7">
+              <%= image_tag @item.item_image, class: "card-img-top" %>
+            </div>
+            
+            <div class="col-md-5">
+              <div class="card-body justify-content-center">
+                <h5 class="pb-2">アイテム情報</h5>
+                <table class="table table no-borderless">
+                  <tr>
+                    <th>ブランド:</th>
+                    <td><%= @item.brand_name %></td>
+                  </tr>
+                  <tr>
+                    <th>サイズ: </th>
+                    <td><%= @item.size %></td>
+                  </tr>
+                  <tr>
+                    <th>サイズ: </th>
+                    <td><%= @item.color %></td>
+                  </tr>
+                  <tr>
+                    <th>価格: </th>
+                    <td>¥<%= @item.price %></td>
+                  </tr>
+                </table>
+                <% if @item.user_id == current_user.id %>
+                  <%= link_to "アイテム情報を編集", edit_item_path(@item) %>
+                <% end %>
+              </div>
+            </div>
+            
+            
+          </div>
+  
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

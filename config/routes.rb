@@ -39,9 +39,7 @@ Rails.application.routes.draw do
       resource :favorites, only: [:create, :destroy]
     end
     
-    resources :coordinate_items, only: [:new, :create, :edit, :update]
-  
-    resources :items, only:[:index, :new, :show,  :destroy]
+    resources :items, only:[:index, :new, :create, :show, :edit, :update, :destroy]
   end
 
 

@@ -1,4 +1,4 @@
-window.addEventListener('load', () => {
+window.addEventListener('turbolinks:load', () => {
     const uploader = document.querySelector('.uploader');
     uploader.addEventListener('change', (e) => {
       const file = uploader.files[0];
@@ -11,7 +11,7 @@ window.addEventListener('load', () => {
     });
 });
 
-window.addEventListener('load', () => {
+window.addEventListener('turbolinks:load', () => {
     const uploader = document.querySelector('.uploader');
     uploader.addEventListener('change', (e) => {
       const file = uploader.files[0];
