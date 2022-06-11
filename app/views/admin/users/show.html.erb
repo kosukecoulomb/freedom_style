@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h4>ユーザー情報</h4>
+
+      <div class="col-md-4">
+        <%= image_tag @user.get_profile_image(60,80) %>
+        <%= link_to "ユーザー情報を編集", edit_admin_user_path(@user), class: "btn btn-info" %>
+      </div>
+
+      <div class="col-md-8">
+      <table class="table">
+        <tr>
+          <th>名前</th>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <th>性別</th>
+          <td><%= @user.gender_i18n %></td>
+        </tr>
+        <tr>
+          <th>世代</th>
+          <td><%= @user.generation_i18n %></td>
+        </tr>
+        <tr>
+          <th>身長</th>
+          <td><%= @user.tall %>cm</td>
+        </tr>
+        <tr>
+          <th>体型</th>
+          <td><%= @user.body_shape_i18n %></td>
+        </tr>
+        <tr>
+          <th>足サイズ</th>
+          <td><%= @user.foot_size_i18n %></td>
+        </tr>
+        </tr>
+        <tr>
+          <th>ステータス</th>
+          <td>
+            <% if @user.is_deleted == false %>
+              <P class="text-success">通常</P>
+            <% else %>
+              <P class="text-danger">利用停止</P>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

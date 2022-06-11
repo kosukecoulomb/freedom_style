@@ -1,13 +1,5 @@
 Rails.application.routes.draw do
   
-  namespace :public do
-    get 'coordinate_items/new'
-    get 'coordinate_items/edit'
-  end
-  namespace :public do
-    get 'items/new'
-    get 'items/index'
-  end
   #devise部分
   devise_for :admin, controllers: {
     sessions: "admin/sessions"
@@ -46,11 +38,10 @@ Rails.application.routes.draw do
   #管理者部分
   namespace :admin do
     resources :users, only:[:index,:show,:edit,:update]
-    resources :coordinates do
+    resources :coordinates, only:[:index, :show, :update, :destroy] do
       resources :comments, only: [:destroy]
     end
   end
-  get "/admin" => "admin/homes#top", as: "admin"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

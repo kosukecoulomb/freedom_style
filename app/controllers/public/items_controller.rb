@@ -36,7 +36,7 @@ class Public::ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
-      redirect_to item_path(@item)
+      redirect_to items_path
       flash[:notice] = "編集に成功しました"
     else
       render :edit
@@ -46,7 +46,7 @@ class Public::ItemsController < ApplicationController
   def destroy
     @item = Item.find(params[:id])
     @item.destroy
-    redirect_to my_page_path
+    redirect_to items_path
   end
 
   private

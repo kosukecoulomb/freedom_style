@@ -1,5 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!, except: [:show]
+   before_action :ensure_guest_user, only: [:edit]
 
   def my_page
     @user = current_user
@@ -14,8 +15,8 @@ class Public::UsersController < ApplicationController
     end
 
     #いいねしたアイテム表示
-    favorites = Favorite.where(user_id: current_user.id).pluck(:coordinate_id)
-    #@favorite_coordinates = Coordinate.limit(6).order(created_at: :desc).find(favorites)
+    favorites = Favorite.where(user_id: @user.id).pluck(:coordinate_id)
+    @favorite_coordinates = Coordinate.limit(6).order(created_at: :desc).find(favorites)
   end
   
   
@@ -59,5 +60,13 @@ class Public::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:profile_image, :name, :introduction, :gender, :generation, :tall, :body_shape, :foot_size)
   end
+  
+  #ゲストユーザー機能
+  def ensure_guest_user
+    @user = User.find(params[:id])
+    if @user.name == "guestuser"
+      redirect_to user_path(current_user) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
+    end
+  end  
 
 end

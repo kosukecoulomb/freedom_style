@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
   #アソシエーション
   belongs_to :user
-  belongs_to :coordinate
+  has_many :coordinates
   
   #画像投稿
   has_one_attached :item_image

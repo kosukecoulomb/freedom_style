@@ -4,10 +4,16 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  #ゲストログイン機能
   def self.guest
     find_or_create_by!(name: 'guestuser' ,email: 'guest@example.com') do |user|
       user.password = SecureRandom.urlsafe_base64
       user.name = "guestuser"
+      user.gender = 2
+      user.generation = 2
+      user.tall = 165
+      user.body_shape = 1
+      user.foot_size = 5
     end
   end
 
@@ -22,7 +28,6 @@ class User < ApplicationRecord
   #画像投稿
   has_one_attached :profile_image
 
-
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -35,7 +40,6 @@ class User < ApplicationRecord
   #バリデーション
   validates :name, presence: true, length:{in: 2..20}
   validates :email, presence: true, uniqueness: true
-  validates :introduction, presence: true, length:{in: 2..140}
   validates :gender, presence: true
   validates :generation, presence: true
   validates :tall, presence: true
