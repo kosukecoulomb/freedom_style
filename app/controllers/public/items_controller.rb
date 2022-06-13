@@ -1,7 +1,7 @@
 class Public::ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :ensure_current_user, only: [:edit, :update, :destroy]
-  
+
   def new
     @item = Item.new
   end
@@ -17,6 +17,10 @@ class Public::ItemsController < ApplicationController
   end
 
   def index
+    @items = Item.all
+  end
+
+  def collection
     @user = current_user
     @outer_items = Item.where(user_id: @user.id, category: 0)
     @tops_items = Item.where(user_id: @user.id, category: 1)
@@ -24,15 +28,15 @@ class Public::ItemsController < ApplicationController
     @shoes_items = Item.where(user_id: @user.id, category: 3)
     @other_items = Item.where(user_id: @user.id, category: 4)
   end
-  
+
   def show
     @item = Item.find(params[:id])
   end
-  
+
   def edit
     @item = Item.find(params[:id])
   end
-  
+
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
@@ -42,7 +46,7 @@ class Public::ItemsController < ApplicationController
       render :edit
     end
   end
-  
+
   def destroy
     @item = Item.find(params[:id])
     @item.destroy
@@ -54,7 +58,7 @@ class Public::ItemsController < ApplicationController
   def item_params
     params.require(:item).permit(:item_image, :user_id, :item_name, :brand_name, :category, :size, :color, :price)
   end
-  
+
   def ensure_current_user
     @item = Item.find(params[:id])
     if current_user.id != @item.user_id

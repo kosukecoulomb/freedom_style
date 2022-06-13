@@ -97,6 +97,7 @@
 
                 <h5 class="mt-5">投稿者情報</h5>
                 <table class="table mb-5">
+                  <%= image_tag @user.get_profile_image(80,100) %>
                   <%= link_to "プロフィールへ", user_path(@user.id) %>
                   <tr>
                     <th>名前:</th>
@@ -113,6 +114,10 @@
                   <tr>
                     <th>体型:</th>
                     <td><%= @user.body_shape_i18n %></td>
+                  </tr>
+                  <tr>
+                    <th>足の実寸:</th>
+                    <td><%= @user.foot_size %>cm</td>
                   </tr>
                 </table>
 

@@ -10,7 +10,7 @@
       <h4><%= @user.name %>さんの基本データ</h4>
       <%= image_tag @user.get_profile_image(80,100) %>
       <% if @user.name != "guestuser" %>
-        <%= link_to "登録情報を編集する", edit_profile_path(@user), class: "btn btn-outline-info" %>
+        <%= link_to "登録情報を編集", edit_profile_path(@user), class: "btn btn-outline-info" %>
       <% end %>
       <table class="table mb-5">
         <tr>
@@ -31,11 +31,8 @@
         </tr>
       </table>
       <h4>コレクション</h4>
-      <%= link_to "登録したアイテムの一覧を見る", items_path, class: "btn btn-outline-success" %>
-
-      <h4 class="mt-5">新しい投稿をする</h4>
-      <%= link_to "コーディネート", new_coordinate_path, class: "btn btn-outline-success" %>
-      <%= link_to "コレクション", new_item_path, class: "btn btn-outline-success" %>
+      <%= link_to "コレクションを見る", item_collection_path(@user), class: "btn btn-outline-success m-1" %>
+      <%= link_to "コレクションを追加", new_item_path, class: "btn btn-outline-info m-1" %>
     </div>
 
     <div class="col-md-9">
@@ -55,7 +52,8 @@
         <P>該当する投稿はありません</P>
       <% end %>
 
-      <h4 class="mt-5">あなたの投稿</h4>
+      <h4 class="mt-5">あなたの投稿<%= link_to "新規投稿", new_coordinate_path, class: "btn btn-outline-info m-1" %></h4>
+      
       <% if @coordinates.present? %>
         <%= render "layouts/coordinates", coordinates: @coordinates %>
       <% else %>

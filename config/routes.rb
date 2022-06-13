@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   #devise部分
   devise_for :admin, controllers: {
     sessions: "admin/sessions"
@@ -11,12 +11,12 @@ Rails.application.routes.draw do
   devise_scope :user do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
-  
+
   #ユーザー部分
   scope module: :public do
     root to: "homes#top"
     get "homes/about" => "homes#about", as: "about"
-  
+
     get "/users/my_page" => "users#my_page", as: "my_page"
     get "/users/:id" => "users#show", as: "user"
     # user/editのようにするとdeviseのルーティングとかぶってしまうためprofileを付け加えている。
@@ -25,16 +25,18 @@ Rails.application.routes.draw do
     get "/users/profile/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
     get "/users/profile/favorites" => "users#favorites", as: "favorites"
     delete "/users" => "users#destroy", as: "user_destroy"
-  
+
     resources :coordinates, only:[:index, :new, :show, :edit, :create, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
     end
-    
-    resources :items, only:[:index, :new, :create, :show, :edit, :update, :destroy]
-    
+
+    resources :items, only:[:index, :new, :create, :show, :edit, :update, :destroy] do
+      get "/collection/" => 'items#collection', as: "collection"
+    end
+
     resources :tags do
-      get 'coordinates', to: 'coordinates#search'
+      get '/coordinates' => 'coordinates#search'
     end
   end
 

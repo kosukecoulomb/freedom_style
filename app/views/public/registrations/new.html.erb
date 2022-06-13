@@ -48,7 +48,7 @@
 
     <div class="form-group row">
       <%= f.label :foot_size, "足の実寸(中間の大きい方を選択）", class: "col-md-3" %>
-      <%= f.select :foot_size, User.foot_sizes.keys.map{|k| [I18n.t("enums.user.foot_size.#{k}"), k]}, { include_blank: '選択してください'}, class: "col-md-2" %>
+      <%= f.text_field :foot_size, class: "col-md-2" %>cm
     </div>
 
     <div class="form-group row">

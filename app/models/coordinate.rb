@@ -16,7 +16,7 @@ class Coordinate < ApplicationRecord
   end
 
   #キーワード検索機能
-  def self.search(search) #self.はUser.を意味する
+  def self.search(search)
     if search
       where(['title LIKE ? OR body LIKE?', "%#{search}%", "%#{search}%"]) #検索とtitleまたはbodyの部分一致を表示。
     else
