@@ -23,7 +23,7 @@ class Public::CoordinatesController < ApplicationController
   end
 
   def create
-     #タグ検索用
+    #タグ検索用
     tag_list = params[:coordinate][:tag_name].split(nil)
 
     @coordinate = Coordinate.new(coordinate_params)
@@ -68,8 +68,13 @@ class Public::CoordinatesController < ApplicationController
   end
 
   def update
+    #タグ検索用
+    tag_list = params[:coordinate][:tag_name].split(nil)
+    
     @coordinate = Coordinate.find(params[:id])
+    
     if @coordinate.update(coordinate_params)
+      @coordinate.save_tag(tag_list) #タグ検索用
       redirect_to coordinate_path(@coordinate)
       flash[:notice] = "コーディネートの更新に成功しました"
     else

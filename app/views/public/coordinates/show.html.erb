@@ -20,7 +20,7 @@
                   <th>サイズ</th>
                 </tr>
 
-                <% if @outer_item != nil %>
+                <% if @outer_item.present? %>
                   <tr onclick='window.location="<%= '/items/' + @outer_item.id.to_s %>"' role="link" >
                     <td><%= image_tag @outer_item.get_item_image(80,100) %></td>
                     <td><%= @outer_item.brand_name %></td>
@@ -29,7 +29,7 @@
                   </tr>
                 <% end %>
 
-                <% if @tops_item != nil %>
+                <% if @tops_item.present? %>
                   <tr onclick='window.location="<%= '/items/' + @tops_item.id.to_s %>"' role="link" >
                     <td><%= image_tag @tops_item.get_item_image(80,100) %></td>
                     <td><%= @tops_item.brand_name %></td>
@@ -38,7 +38,7 @@
                   </tr>
                 <% end %>
 
-                <% if @bottoms_item != nil %>
+                <% if @bottoms_item.present? %>
                   <tr onclick='window.location="<%= '/items/' + @bottoms_item.id.to_s %>"' role="link" >
                     <td><%= image_tag @bottoms_item.get_item_image(80,100) %></td>
                     <td><%= @bottoms_item.brand_name %></td>
@@ -47,7 +47,7 @@
                   </tr>
                 <% end %>
 
-                <% if @shoes_item != nil %>
+                <% if @shoes_item.present? %>
                   <tr onclick='window.location="<%= '/items/' + @shoes_item.id.to_s %>"' role="link" >
                     <td><%= image_tag @shoes_item.get_item_image(80,100) %></td>
                     <td><%= @shoes_item.brand_name %></td>
@@ -56,7 +56,7 @@
                   </tr>
                 <% end %>
 
-                <% if @other1_item != nil %>
+                <% if @other1_item.present? %>
                   <tr onclick='window.location="<%= '/items/' + @other1_item.id.to_s %>"' role="link" >
                     <td><%= image_tag @other1_item.get_item_image(80,100) %></td>
                     <td><%= @other1_item.brand_name %></td>
@@ -65,7 +65,7 @@
                   </tr>
                 <% end %>
 
-                <% if @other2_item != nil %>
+                <% if @other2_item.present? %>
                   <tr onclick='window.location="<%= '/items/' + @other2_item.id.to_s %>"' role="link" >
                     <td><%= image_tag @other2_item.get_item_image(80,100) %></td>
                     <td><%= @other2_item.brand_name %></td>

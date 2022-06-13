@@ -17,15 +17,6 @@
           normal: "普通"
           fat: "ぽっちゃり"
           solid: "がっちり"
-        foot_size:
-          two: "22cm"
-          three: "23cm"
-          four: "24cm"
-          five: "25cm"
-          six: "26cm"
-          seven: "27cm"
-          eight: "28cm"
-          over_nine: "29cm以上"
       coordinate:
         dress_code:
           casual: "カジュアル"
