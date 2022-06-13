@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      
+
       <% if @coordinate.errors.any? %>
         <%= @coordinate.errors.count %>件のエラーが発生しました
         <ul>
@@ -10,6 +10,14 @@
           <% end %>
         </ul>
       <% end %>
+
+      <!--タグ検索機能-->
+      <h2>タグリスト</h2>
+      <% @tag_list.each do |list| %>
+        <%= link_to list.tag_name, tag_coordinates_path(tag_id: list.id) %>
+        <%= "(#{list.coordinates.count})" %>
+      <% end %>
+
 
       <h2>コーディネートを投稿</h2>
       <%= form_with model: @coordinate do |f| %>
@@ -23,7 +31,7 @@
                 <%= image_tag('non-choice.jpg', class: 'avatar') %>
                 <%= f.file_field :coordinate_image, accept: "image/*", class: 'uploader', style: 'display:none' %>
               <% end %>
-              
+
               <h5 class="ml-3">★使用したコレクションを一緒に登録★</h5>
               <table class="table">
                 <tr>
@@ -72,18 +80,25 @@
                     <td><%= f.select :temperature, Coordinate.temperatures.keys.map{|k| [I18n.t("enums.coordinate.temperature.#{k}"), k]}, { include_blank: '選択してください'} %></td>
                   </tr>
                 </table>
-                
+
                 <h5>説明</h5>
                 <%= f.text_area :body, size: "35x15" %>
-                
+
+                <h5>#タグ入力</h5>
+                <%= f.text_field :tag_name, placeholder: "#モード系 #かわいい" %>
+
                 <%= f.submit "投稿する" , class: "btn btn-outline-success col-md-offset-6" %>
               </div>
             </div>
-
           </div>
         </div>
       </div>
       <% end %>
+
+
+
+
+
     </div>
   </div>
 </div>

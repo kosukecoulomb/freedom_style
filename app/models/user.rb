@@ -35,6 +35,10 @@ class User < ApplicationRecord
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
+  
+  #タグ検索
+  has_many :tag_maps, dependent: :destroy
+  has_many :tags, through: :tag_maps #中間
 
 
   #バリデーション

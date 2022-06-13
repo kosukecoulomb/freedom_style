@@ -2,6 +2,15 @@
   <div class="row">
     <div class="col-md-12">
       <h2>みんなの投稿</h2>
+      
+        <!-- 検索機能 -->
+        <div class="text-center">
+          <%= form_tag(coordinates_path, :method => "get") do %>
+            <%= text_field_tag :search %> 
+            <%= submit_tag "コーディネート検索" ,:title => nil %> 
+          <% end %>
+        </div>
+
         <%= render "layouts/coordinates", coordinates: @coordinates %>
     </div>
   </div>

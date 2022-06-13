@@ -32,6 +32,10 @@ Rails.application.routes.draw do
     end
     
     resources :items, only:[:index, :new, :create, :show, :edit, :update, :destroy]
+    
+    resources :tags do
+      get 'coordinates', to: 'coordinates#search'
+    end
   end
 
 
