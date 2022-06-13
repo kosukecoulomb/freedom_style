@@ -1,2 +1,161 @@
-<h1>Admin::Coordinates#show</h1>
-<p>Find me in app/views/admin/coordinates/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+      <h2><%= @coordinate.title %></h2>
+
+      <div class="row no-padding card-wrapper mx-auto">
+        <div class="card shadow-lg" style="width: 60rem;">
+          <div class='row g-0'>
+
+            <div class="col-md-7">
+              <%= image_tag @coordinate.coordinate_image, class: "card-img-top" %>
+
+              <h5 class="mt-3 ml-3">使用アイテム</h5>
+              <table class="table table-borderless table-hover">
+                <tr>
+                  <th></th>
+                  <th>ブランド</th>
+                  <th>商品名</th>
+                  <th>サイズ</th>
+                </tr>
+
+                <% if @outer_item != nil %>
+                  <tr onclick='window.location="<%= '/items/' + @outer_item.id.to_s %>"' role="link" >
+                    <td><%= image_tag @outer_item.get_item_image(80,100) %></td>
+                    <td><%= @outer_item.brand_name %></td>
+                    <td><%= @outer_item.item_name %></td>
+                    <td><%= @outer_item.size %></td>
+                  </tr>
+                <% end %>
+
+                <% if @tops_item != nil %>
+                  <tr onclick='window.location="<%= '/items/' + @tops_item.id.to_s %>"' role="link" >
+                    <td><%= image_tag @tops_item.get_item_image(80,100) %></td>
+                    <td><%= @tops_item.brand_name %></td>
+                    <td><%= @tops_item.item_name %></td>
+                    <td><%= @tops_item.size %></td>
+                  </tr>
+                <% end %>
+
+                <% if @bottoms_item != nil %>
+                  <tr onclick='window.location="<%= '/items/' + @bottoms_item.id.to_s %>"' role="link" >
+                    <td><%= image_tag @bottoms_item.get_item_image(80,100) %></td>
+                    <td><%= @bottoms_item.brand_name %></td>
+                    <td><%= @bottoms_item.item_name %></td>
+                    <td><%= @bottoms_item.size %></td>
+                  </tr>
+                <% end %>
+
+                <% if @shoes_item != nil %>
+                  <tr onclick='window.location="<%= '/items/' + @shoes_item.id.to_s %>"' role="link" >
+                    <td><%= image_tag @shoes_item.get_item_image(80,100) %></td>
+                    <td><%= @shoes_item.brand_name %></td>
+                    <td><%= @shoes_item.item_name %></td>
+                    <td><%= @shoes_item.size %></td>
+                  </tr>
+                <% end %>
+
+                <% if @other1_item != nil %>
+                  <tr onclick='window.location="<%= '/items/' + @other1_item.id.to_s %>"' role="link" >
+                    <td><%= image_tag @other1_item.get_item_image(80,100) %></td>
+                    <td><%= @other1_item.brand_name %></td>
+                    <td><%= @other1_item.item_name %></td>
+                    <td><%= @other1_item.size %></td>
+                  </tr>
+                <% end %>
+
+                <% if @other2_item != nil %>
+                  <tr onclick='window.location="<%= '/items/' + @other2_item.id.to_s %>"' role="link" >
+                    <td><%= image_tag @other2_item.get_item_image(80,100) %></td>
+                    <td><%= @other2_item.brand_name %></td>
+                    <td><%= @other2_item.item_name %></td>
+                    <td><%= @other2_item.size %></td>
+                  </tr>
+                <% end %>
+              </table>
+            </div>
+
+            <div class="col-md-5">
+              <div class="card-body justify-content-center">
+                <h5 class="pb-2">コーディネート情報</h5>
+                <table class="table table no-borderless">
+                  <tr>
+                    <th>シーン:</th>
+                    <td><%= @coordinate.dress_code_i18n %></td>
+                  </tr>
+                  <tr>
+                    <th>季節: </th>
+                    <td><%= @coordinate.season_i18n %></td>
+                  </tr>
+                  <tr>
+                    <th>気温: </th>
+                    <td><%= @coordinate.temperature_i18n %></td>
+                  </tr>
+                </table>
+                <%= @coordinate.body %>
+
+                <h5 class="mt-5">投稿者情報</h5>
+                <table class="table mb-5">
+                  <%= link_to "プロフィールへ", user_path(@user.id) %>
+                  <tr>
+                    <th>名前:</th>
+                    <td><%= @user.name %></td>
+                  </tr>
+                  <tr>
+                    <th>年齢:</th>
+                    <td><%= @user.generation_i18n %></td>
+                  </tr>
+                  <tr>
+                    <th>身長:</th>
+                    <td><%= @user.tall %>cm</td>
+                  </tr>
+                  <tr>
+                    <th>体型:</th>
+                    <td><%= @user.body_shape_i18n %></td>
+                  </tr>
+                </table>
+
+                  <%= link_to "投稿を削除", admin_coordinate_path(@coordinate), method: :delete, class: "btn btn-outline-danger" %>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- 非同期通信 -->
+    <div class="col-md-12" id="coordinate_<%= @coordinate.id %>" >
+      <h4 class="mt-3">みんなの反応</h4>
+
+      <!-- いいね件数 -->
+      ♥<%= @coordinate.favorites.count %> いいね
+
+      <!-- コメント機能 -->
+      <div class="comments-count">
+        <p>コメント件数：<%= @coordinate.comments.count %></p>
+      </div>
+
+      <div class="coordinate_comments">
+        <% @coordinate.comments.each do |comment| %>
+          <table class="table">
+            <tr>
+              <td>
+                <%= link_to admin_user_path(comment.user) do %>
+                  <%= image_tag comment.user.get_profile_image(50,50) %>
+                <% end %>
+              </td>
+              <td><%= comment.comment %></td>
+              <td><%= link_to "削除", admin_coordinate_comment_path(comment.coordinate, comment), method: :delete, remote: true, class: "btn btn-outline-danger" %></td>
+            </tr>
+          </table>
+          <% end %>
+      </div>
+
+    </div>
+
+  </div>
+</div>

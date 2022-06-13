@@ -2,9 +2,9 @@
 <table class="table">
   <tr>
     <td>
-    <%= link_to user_path(comment.user) do %>
-      <%= image_tag comment.user.get_profile_image(50,50) %>
-    <% end %>
+      <%= link_to user_path(comment.user) do %>
+        <%= image_tag comment.user.get_profile_image(50,50) %>
+      <% end %>
     </td>
     <td><%= comment.comment %></td>
     <% if comment.user == current_user %>

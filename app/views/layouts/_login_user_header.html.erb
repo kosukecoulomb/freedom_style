@@ -1,27 +1,25 @@
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #33CCFF; height: 100px;">
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #33CCFF;">
     <div class="container">
       <a class="navbar-brand h1" href="/" style="font-family: cursive; font-size: 40px;"><span>Freedom Style</span></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+      
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <div style="margin-left: 100px; color: white">
-          Welocome! <%= current_user.name %> さん！
-        </div>
-        <ul class="navbar-nav ml-auto d-block">
+        <ul class="navbar-nav ml-auto">
           <li class="d-inline-block">
             <%= link_to my_page_path, class: 'nav-link text-light' do %>
-              MY PAGE
+              マイページ
             <% end %>
           </li>
           <li class="d-inline-block">
             <%=  link_to coordinates_path, class: 'nav-link text-light' do %>
-              MENU
+              みんなの投稿
             <% end %>
           </li>
           <li class="d-inline-block">
             <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
-              LOG OUT
+              ログアウト
             <% end %>
           </li>
         </ul>
