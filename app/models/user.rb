@@ -23,6 +23,22 @@ class User < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  
+  #フォロー機能
+  has_many :relationships, foreign_key: :following_id
+  has_many :followings, through: :relationships, source: :follower
+  
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: :follower_id
+  has_many :followers, through: :reverse_of_relationships, source: :following
+  
+  def is_followed_by?(user)
+    reverse_of_relationships.find_by(following_id: user.id).present?
+  end
+  
+  
+  #タグ検索
+  has_many :tag_maps, dependent: :destroy
+  has_many :tags, through: :tag_maps #中間
 
 
   #画像投稿
@@ -36,11 +52,7 @@ class User < ApplicationRecord
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
   
-  #タグ検索
-  has_many :tag_maps, dependent: :destroy
-  has_many :tags, through: :tag_maps #中間
-
-
+  
   #バリデーション
   validates :name, presence: true, length:{in: 2..20}
   validates :email, presence: true, uniqueness: true

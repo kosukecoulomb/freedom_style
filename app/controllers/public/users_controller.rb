@@ -1,6 +1,10 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-   before_action :ensure_guest_user, only: [:edit]
+  before_action :ensure_guest_user, only: [:edit]
+  
+  def index
+    @users = User.where.not(id: current_user.id)
+  end
 
   def my_page
     @user = current_user
@@ -53,6 +57,16 @@ class Public::UsersController < ApplicationController
     @user.destroy
     redirect_to root_path
     flash[:notice] = "アカウントを削除しました"
+  end
+  
+  def followings
+    user = User.find(params[:id])
+    @users = user.followings
+  end
+  
+  def follower
+    user = User.find(params[:id])
+    @users = user.followers
   end
 
   private

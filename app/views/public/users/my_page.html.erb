@@ -31,7 +31,7 @@
         </tr>
       </table>
       <h4>コレクション</h4>
-      <%= link_to "コレクションを見る", item_collection_path(@user), class: "btn btn-outline-success m-1" %>
+      <%= link_to "コレクションを見る", collection_item_path(@user), class: "btn btn-outline-success m-1" %>
       <%= link_to "コレクションを追加", new_item_path, class: "btn btn-outline-info m-1" %>
     </div>
 
@@ -53,7 +53,7 @@
       <% end %>
 
       <h4 class="mt-5">あなたの投稿<%= link_to "新規投稿", new_coordinate_path, class: "btn btn-outline-info m-1" %></h4>
-      
+
       <% if @coordinates.present? %>
         <%= render "layouts/coordinates", coordinates: @coordinates %>
       <% else %>

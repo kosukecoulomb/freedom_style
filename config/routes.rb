@@ -18,13 +18,17 @@ Rails.application.routes.draw do
     get "homes/about" => "homes#about", as: "about"
 
     get "/users/my_page" => "users#my_page", as: "my_page"
-    get "/users/:id" => "users#show", as: "user"
     # user/editのようにするとdeviseのルーティングとかぶってしまうためprofileを付け加えている。
     get "/users/profile/:id/edit" => "users#edit", as: "edit_profile"
     patch "users/profile" => "users#update", as: "update_profile"
     get "/users/profile/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
     get "/users/profile/favorites" => "users#favorites", as: "favorites"
     delete "/users" => "users#destroy", as: "user_destroy"
+    resources :users, only: [:index, :show] do
+      resource :relationships, only: [:create, :destroy]
+      get :followings, on: :member
+      get :followers, on: :member
+    end
 
     resources :coordinates, only:[:index, :new, :show, :edit, :create, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
@@ -32,7 +36,7 @@ Rails.application.routes.draw do
     end
 
     resources :items, only:[:index, :new, :create, :show, :edit, :update, :destroy] do
-      get "/collection/" => 'items#collection', as: "collection"
+      get "/collection/" => 'items#collection', on: :member, as: "collection"
     end
 
     resources :tags do

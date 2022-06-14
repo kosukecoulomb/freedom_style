@@ -21,7 +21,7 @@ class Public::ItemsController < ApplicationController
   end
 
   def collection
-    @user = current_user
+    @user = User.find(params[:id])
     @outer_items = Item.where(user_id: @user.id, category: 0)
     @tops_items = Item.where(user_id: @user.id, category: 1)
     @bottoms_items = Item.where(user_id: @user.id, category: 2)

@@ -12,6 +12,18 @@
 
             <div class="col-md-5">
               <div class="card-body justify-content-center">
+                
+                <% if @user != current_user %>
+                  <% if @user.is_followed_by?(current_user) %>
+                    <%= link_to "フォロー解除", user_relationships_path(@user), method: :delete, class: "btn btn-secondary" %>
+                  <% else %>
+                    <%= link_to "フォロー", user_relationships_path(@user), method: :post, class: "btn btn-dark" %>
+                  <% end %>
+                <% end %>
+                <%= link_to @user.followings.count, followings_user_path(@user) %>フォロー中
+                <%= link_to @user.followers.count, followers_user_path(@user) %>フォロワー
+                
+
                 <h5>自己紹介</h5>
                 <p class="card-text mb-5"><%= @user.introduction %></p>
                 <h5>基本データ</h5>
@@ -30,6 +42,7 @@
                   </tr>
                 </table>
                 <h5>コレクション</h5>
+                <%= link_to "コレクションを見る", collection_item_path(@user), class: "btn btn-outline-success m-1" %>
               </div>
             </div>
 
