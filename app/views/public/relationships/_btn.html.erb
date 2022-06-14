@@ -1,0 +1,5 @@
+<% if user.is_followed_by?(current_user) %>
+  <%= link_to "フォロー解除", user_relationships_path(user), method: :delete, remote: true, class: "btn btn-secondary mr-2" %>
+<% else %>
+  <%= link_to "フォロー", user_relationships_path(user), method: :post, remote: true, class: "btn btn-dark mr-2" %>
+<% end %>

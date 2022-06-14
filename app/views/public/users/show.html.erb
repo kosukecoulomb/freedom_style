@@ -12,19 +12,27 @@
 
             <div class="col-md-5">
               <div class="card-body justify-content-center">
-                
-                <% if @user != current_user %>
-                  <% if @user.is_followed_by?(current_user) %>
-                    <%= link_to "フォロー解除", user_relationships_path(@user), method: :delete, class: "btn btn-secondary" %>
-                  <% else %>
-                    <%= link_to "フォロー", user_relationships_path(@user), method: :post, class: "btn btn-dark" %>
-                  <% end %>
-                <% end %>
-                <%= link_to @user.followings.count, followings_user_path(@user) %>フォロー中
-                <%= link_to @user.followers.count, followers_user_path(@user) %>フォロワー
-                
 
-                <h5>自己紹介</h5>
+                <!-- フォロー機能非同期実装 -->
+                <div class="d-flex">
+                  <% if @user != current_user %>
+                    <div id="user_<%= @user.id %>">
+                      <%= render "public/relationships/btn", user: @user %>
+                    </div>
+                  <% end %>
+                
+                  <div id="info_followings_counts_<%= @user.id %>">
+                    <%= link_to @user.followings.count, followings_user_path(@user.id) %>
+                    フォロー中　
+                  </div>
+                
+                  <div id="info_followers_counts_<%= @user.id %>">
+                    <%= link_to @user.followers.count, followers_user_path(@user.id) %>
+                    フォロワー
+                  </div>
+                </div>
+
+                <h5 class="mt-4">自己紹介</h5>
                 <p class="card-text mb-5"><%= @user.introduction %></p>
                 <h5>基本データ</h5>
                 <table class="table mb-5">
