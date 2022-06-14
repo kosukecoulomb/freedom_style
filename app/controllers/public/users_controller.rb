@@ -1,7 +1,7 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :ensure_guest_user, only: [:edit]
-  
+
   def index
     @users = User.where.not(id: current_user.id)
   end
@@ -9,7 +9,7 @@ class Public::UsersController < ApplicationController
   def my_page
     @user = current_user
     @coordinates = Coordinate.where(user_id: @user.id)
-    
+
     more_short = current_user.tall.to_i - 4
     more_tall = current_user.tall.to_i + 5
     #ユーザー本人でない人の投稿で、ユーザーのジェンダーが同じ身長-4~+5cmの投稿を絞り込んで新着順に４件表示
@@ -21,9 +21,12 @@ class Public::UsersController < ApplicationController
     #いいねしたアイテム表示
     favorites = Favorite.where(user_id: @user.id).pluck(:coordinate_id)
     @favorite_coordinates = Coordinate.limit(6).order(created_at: :desc).find(favorites)
+
+    #フォローしているユーザーの投稿
+    @following_coordinates = Coordinate.limit(6).order(created_at: :desc).where(user_id: [*current_user.following_ids])
   end
-  
-  
+
+
   def favorites
     favorites = Favorite.where(user_id: current_user.id).pluck(:coordinate_id)
     @favorite_coordinates = Coordinate.order(created_at: :desc).find(favorites)
@@ -58,29 +61,30 @@ class Public::UsersController < ApplicationController
     redirect_to root_path
     flash[:notice] = "アカウントを削除しました"
   end
-  
+
+  #フォロー・フォロワーを表示
   def followings
     user = User.find(params[:id])
     @users = user.followings
   end
-  
-  def follower
+
+  def followers
     user = User.find(params[:id])
     @users = user.followers
   end
-
+  
   private
 
   def user_params
     params.require(:user).permit(:profile_image, :name, :introduction, :gender, :generation, :tall, :body_shape, :foot_size)
   end
-  
+
   #ゲストユーザー機能
   def ensure_guest_user
     @user = User.find(params[:id])
     if @user.name == "guestuser"
       redirect_to my_page_path(current_user) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
     end
-  end  
+  end
 
 end

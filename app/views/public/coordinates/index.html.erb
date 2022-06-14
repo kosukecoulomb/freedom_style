@@ -2,14 +2,23 @@
   <div class="row">
     <div class="col-md-12">
       <h2>みんなの投稿</h2>
-      
-      <!-- 検索機能 -->
+
+      <!-- 条件検索 -->
+      <%= form_with(scope: :search, url: coordinates_path, method: :get) do |f| %>
+        <%= f.select :dress_code, Coordinate.dress_codes.keys.map{|k| [I18n.t("enums.coordinate.dress_code.#{k}"), k]}, { include_blank: '選択してください'}, value: @search_params[:dress_code] %>
+        <%= f.select :season, Coordinate.seasons.keys.map{|k| [I18n.t("enums.coordinate.season.#{k}"), k]}, { include_blank: '選択してください'}, value: @search_params[:season] %>
+        <%= f.select :temperature, Coordinate.temperatures.keys.map{|k| [I18n.t("enums.coordinate.temperature.#{k}"), k]}, { include_blank: '選択してください'}, value: @search_params[:temperature] %>
+        <%= submit_tag '検索', class: "button" %>
+      <% end %>
+
+      <!-- 検索機能 
       <div class="text-center">
         <%= form_tag(coordinates_path, :method => "get") do %>
-          <%= text_field_tag :search %> 
-          <%= submit_tag "検索" ,:title => nil %> 
+          <%= text_field_tag :search %>
+          <%= submit_tag "検索" ,:title => nil %>
         <% end %>
       </div>
+      -->
 
       <%= render "layouts/coordinates", coordinates: @coordinates %>
     </div>

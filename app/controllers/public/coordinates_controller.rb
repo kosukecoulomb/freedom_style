@@ -4,7 +4,14 @@ class Public::CoordinatesController < ApplicationController
 
   def index
     #キーワード検索用
-    @coordinates = Coordinate.search(params[:search]).order(created_at: :desc)
+    #@coordinates = Coordinate.search(params[:search]).order(created_at: :desc)
+    @search_params = coordinate_search_params  #検索結果の画面で、フォームに検索した値を表示するために、paramsの値をビューで使えるようにする
+    @coordinates = Coordinate.search(@search_params)  #Reservationモデルのsearchを呼び出し、引数としてparamsを渡している。
+  end
+  
+  #フォロワーと自分のコーデ
+  def timeline
+    @coordinates = Coordinate.where(user_id: [current_user.id, *current_user.following_ids])
   end
 
   def new
@@ -94,6 +101,8 @@ class Public::CoordinatesController < ApplicationController
     @tag = Tag.find(params[:tag_id])  #クリックしたタグを取得
     @coordinates = @tag.coordinates.all           #クリックしたタグに紐付けられた投稿を全て表示
   end
+  
+  
 
   private
 
@@ -107,6 +116,12 @@ class Public::CoordinatesController < ApplicationController
       flash[:notice]="権限がありません"
       redirect_to coordinates_path
     end
+  end
+  
+  def coordinate_search_params
+    params.fetch(:search, {}).permit(:dress_code, :season, :temperature)
+    #fetch(:search, {})と記述することで、検索フォームに値がない場合はnilを返し、エラーが起こらなくなる
+    #ここでの:searchには、フォームから送られてくるparamsの値が入っている
   end
 
 end

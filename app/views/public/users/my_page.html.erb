@@ -12,6 +12,10 @@
       <% if @user.name != "guestuser" %>
         <%= link_to "登録情報を編集", edit_profile_path(@user), class: "btn btn-outline-info" %>
       <% end %>
+      <div class="d-flex">
+        <p><%= link_to @user.followings.count, followings_user_path(@user.id) %>フォロー中　</p>
+        <p><%= link_to @user.followers.count, followers_user_path(@user.id) %>フォロワー</p>
+      </div>
       <table class="table mb-5">
         <tr>
           <th>年齢</th>
@@ -42,16 +46,23 @@
       <% else %>
         <P>該当する投稿はありません</P>
       <% end %>
-      <%= link_to "みんなの投稿からコーデを探す", coordinates_path %>
 
-      <h4 class="mt-5">いいねした投稿</h4>
-      <% if @favorite_coordinates.present? %>
-        <%= render "layouts/coordinates", coordinates: @favorite_coordinates %>
-        <%= link_to "いいねした全アイテムを見る", favorites_path(@user) %>
+      <h4 class="mt-5">フォロワーの投稿</h4>
+      <% if @following_coordinates.present? %>
+        <%= render "layouts/coordinates", coordinates: @following_coordinates %>
+        <%= link_to "フォローしたユーザーの全コーディネートを見る", timeline_path %>
       <% else %>
         <P>該当する投稿はありません</P>
       <% end %>
 
+      <h4 class="mt-5">いいねした投稿</h4>
+      <% if @favorite_coordinates.present? %>
+        <%= render "layouts/coordinates", coordinates: @favorite_coordinates %>
+        <%= link_to "いいねした全コーディネートを見る", favorites_path(@user) %>
+      <% else %>
+        <P>該当する投稿はありません</P>
+      <% end %>
+      
       <h4 class="mt-5">あなたの投稿<%= link_to "新規投稿", new_coordinate_path, class: "btn btn-outline-info m-1" %></h4>
 
       <% if @coordinates.present? %>

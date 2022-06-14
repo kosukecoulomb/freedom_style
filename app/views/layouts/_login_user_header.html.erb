@@ -18,6 +18,11 @@
             <% end %>
           </li>
           <li class="d-inline-block">
+            <%=  link_to users_path, class: 'nav-link text-light' do %>
+              ユーザー一覧
+            <% end %>
+          </li>
+          <li class="d-inline-block">
             <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
               ログアウト
             <% end %>

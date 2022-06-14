@@ -30,7 +30,11 @@ Rails.application.routes.draw do
       get :followers, on: :member
     end
 
+    get "coordinates/timeline" => "coordinates#timeline", as: "timeline"
     resources :coordinates, only:[:index, :new, :show, :edit, :create, :update, :destroy] do
+      collection do
+        get :choise_search
+      end
       resources :comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
     end
