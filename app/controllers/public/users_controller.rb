@@ -3,7 +3,8 @@ class Public::UsersController < ApplicationController
   before_action :ensure_guest_user, only: [:edit]
 
   def index
-    @users = User.where.not(id: current_user.id)
+    @search_params = coordinate_search_params  #検索結果の画面で、フォームに検索した値を表示するために、paramsの値をビューで使えるようにする
+    @users = User.search(@search_params) 
   end
 
   def my_page
@@ -85,6 +86,12 @@ class Public::UsersController < ApplicationController
     if @user.name == "guestuser"
       redirect_to my_page_path(current_user) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
     end
+  end
+  
+  def user_search_params
+    params.fetch(:search, {}).permit(:gender, :generation, :tall, :body_shape, :name)
+    #fetch(:search, {})と記述することで、検索フォームに値がない場合はnilを返し、エラーが起こらなくなる
+    #ここでの:searchには、フォームから送られてくるparamsの値が入っている
   end
 
 end

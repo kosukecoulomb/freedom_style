@@ -1,9 +1,4 @@
 class Coordinate < ApplicationRecord
-  
-  #enum
-  enum dress_code: { casual:0, clean:1, formal:2,  }
-  enum season: { spring:0, summer:1, autumn:2, winter:3 }
-  enum temperature: { under_ten:0, eleven_fifteen:1, sixteen_twenty:2, twentyone_five:3, over_twentysix:4 }
 
   #アソシエーション
   belongs_to :user
@@ -27,12 +22,13 @@ class Coordinate < ApplicationRecord
     dress_code_choise(search_params[:dress_code])
     .season_choise(search_params[:season])
     .temperature_choise(search_params[:temperature])
+    .title_body_like(search_params[:title])
   end
 
   scope :dress_code_choise, -> (dress_code) {where(dress_code: dress_code) if dress_code.present?}
   scope :season_choise, -> (season) {where(season: season) if season.present?}
   scope :temperature_choise, -> (temperature) {where(temperature, temperature) if temperature.present?}
-
+  scope :title_body_like, -> (title) {where('title LIKE ? OR body LIKE?', "%#{title}%","%#{title}%") if title.present?}
 
   #キーワード検索機能
   #def self.search(search)
@@ -75,6 +71,9 @@ class Coordinate < ApplicationRecord
   validates :season, presence: true
   validates :temperature, presence: true
 
-  
+  #enum
+  enum dress_code: { casual:0, clean:1, formal:2 }
+  enum season: { spring:0, summer:1, autumn:2, winter:3 }
+  enum temperature: { under_ten:0, eleven_fifteen:1, sixteen_twenty:2, twentyone_five:3, over_twentysix:4 }
 
 end

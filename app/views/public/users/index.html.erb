@@ -3,6 +3,15 @@
     <div class="col-md-12">
       <h4>ユーザー一覧</h4>
       
+      <!-- 条件検索 -->
+      <%= form_with(scope: :search, url: coordinates_path, method: :get) do |f| %>
+        <%= f.select :dress_code, Coordinate.dress_codes.keys.map{|k| [I18n.t("enums.coordinate.dress_code.#{k}"), k]}, { include_blank: 'シーン'}, value: @search_params[:dress_code] %>
+        <%= f.select :season, Coordinate.seasons.keys.map{|k| [I18n.t("enums.coordinate.season.#{k}"), k]}, { include_blank: '季節'}, value: @search_params[:season] %>
+        <%= f.select :temperature, Coordinate.temperatures.keys.map{|k| [I18n.t("enums.coordinate.temperature.#{k}"), k]}, { include_blank: '気温'}, value: @search_params[:temperature] %>
+        <%= f.text_field :title, value: @search_params[:title] %>
+        <%= submit_tag '検索', class: "button" %>
+      <% end %>
+      
         <%= render "index", users: @users %>
 
     </div>
