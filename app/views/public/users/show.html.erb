@@ -7,7 +7,7 @@
           <div class='row g-0'>
 
             <div class="col-md-7">
-              <%= image_tag @user.profile_image, class: "card-img-top" %>
+              <%= image_tag @user.profile_image, class: "img-fluid card-img-top" %>
             </div>
 
             <div class="col-md-5">
@@ -58,7 +58,6 @@
         </div>
       </div>
       <div class="col-md-12">
-        <h2 class="mt-5"><%= @user.name %>の投稿</h2>
         <% if @coordinates.exists? %>
             <%= render "layouts/coordinates", coordinates: @coordinates %>
         <% else %>

@@ -4,7 +4,7 @@ class Public::UsersController < ApplicationController
 
   def index
     @search_params = user_search_params  #検索結果の画面で、フォームに検索した値を表示するために、paramsの値をビューで使えるようにする
-    @users = User.search(@search_params) 
+    @users = User.search(@search_params)
   end
 
   def my_page

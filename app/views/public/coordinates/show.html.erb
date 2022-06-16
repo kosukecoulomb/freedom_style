@@ -139,7 +139,7 @@
 
                 <% if user_signed_in? %>
                   <% if current_user.id == @coordinate.user_id %>
-                    <%= link_to "投稿を編集する", edit_coordinate_path(@coordinate), class: "btn btn-outline-primary" %>
+                    <%= link_to "投稿を編集する", edit_coordinate_path(@coordinate), class: "btn btn-outline-info" %>
                   <% end %>
                 <% end %>
               </div>

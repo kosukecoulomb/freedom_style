@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  */
+@import "skippr";
 
  .coordinate_image {
 	overflow:		hidden;
@@ -50,6 +51,26 @@
 	display: inline-block;
 }
 
+.image1 {
+  background-image: url(image1.jpg);
+}
+.image2 {
+  background-image: url(image2.jpg);
+}
+.image3 {
+  background-image: url(image3.jpg);
+}
+.image4 {
+  background-image: url(image4.jpg);
+}
+.image5 {
+  background-image: url(image5.jpg);
+}
+
+#container{
+  height: 500px;
+}
+
 footer{
  width: 100%;
  background-color: #33CCFF;
@@ -58,3 +79,4 @@ footer{
  position: sticky;
  bottom: 0; 
 }
+

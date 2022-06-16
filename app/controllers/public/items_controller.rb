@@ -17,7 +17,8 @@ class Public::ItemsController < ApplicationController
   end
 
   def index
-    @items = Item.all
+    @search_params = item_search_params  #検索結果の画面で、フォームに検索した値を表示するために、paramsの値をビューで使えるようにする
+    @items = Item.search(@search_params)
   end
 
   def collection
@@ -66,4 +67,9 @@ class Public::ItemsController < ApplicationController
       redirect_to items_path
     end
   end
+  
+  def item_search_params
+    params.fetch(:search, {}).permit(:category, :item_name)
+  end
+
 end

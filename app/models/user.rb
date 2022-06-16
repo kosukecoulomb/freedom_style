@@ -49,7 +49,7 @@ class User < ApplicationRecord
   scope :gender_choise, -> (gender) {where(gender: gender) if gender.present?}
   scope :generation_choise, -> (generation) {where(generation: generation) if generation.present?}
   scope :body_shape_choise, -> (body_shape) {where(body_shape: body_shape) if body_shape.present?}
-  scope :name_like, -> (name) {where('name LIKE?', "%#{name}%") if name.present?}
+  scope :name_like, -> (name) {where('name LIKE? OR introduction LIKE?', "%#{name}%","%#{name}%") if name.present?}
   
   
   #タグ検索

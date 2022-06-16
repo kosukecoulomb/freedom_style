@@ -1,6 +1,8 @@
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #33CCFF;">
     <div class="container">
-      <a class="navbar-brand h1" href="/" style="font-family: cursive; font-size: 40px;"><span>Freedom Style</span></a>
+      <div class="navbar-brand h1" style="font-family: cursive; font-size: 40px; ">
+        <%= link_to "Freedom Style", root_path, data: {"turbolinks" => false} %>
+      </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -8,7 +10,7 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
           <li class="d-inline-block">
-            <%= link_to about_path, class: 'nav-link text-light' do %>
+            <%= link_to about_path, class: 'nav-link text-light',data: {"turbolinks" => false} do %>
               ABOUT
             <% end %>
           </li>

@@ -11,7 +11,7 @@
             <div class="coordinate_image">
               <div class="card shadow-lg">
                 <%= link_to item_path(item) do %>
-                  <%= image_tag item.item_image, class: "card-img-top" %>
+                  <%= image_tag item.get_item_image(200,400), class: "card-img-top" %>
                   <div class="mask">
                     <div class="caption"><%= item.item_name %></div>
                 	</div>

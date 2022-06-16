@@ -10,6 +10,16 @@ class Item < ApplicationRecord
     item_image.variant(resize_to_limit: [width, height]).processed
   end
   
+  #条件検索機能
+  scope :search, -> (search_params) do
+    return if search_params.blank?
+
+    category_choise(search_params[:category])
+    .item_name_like(search_params[:item_name])
+  end
+  scope :category_choise, -> (category) {where(category: category) if category.present?}
+  scope :item_name_like, -> (item_name) {where('item_name LIKE ?', "%#{item_name}%") if item_name.present?}
+  
   #バリデーション
   validates :item_image, presence: true
   validates :category, presence: true

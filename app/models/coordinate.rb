@@ -30,14 +30,6 @@ class Coordinate < ApplicationRecord
   scope :temperature_choise, -> (temperature) {where(temperature: temperature) if temperature.present?}
   scope :title_body_like, -> (title) {where('title LIKE ? OR body LIKE?', "%#{title}%","%#{title}%") if title.present?}
 
-  #キーワード検索機能
-  #def self.search(search)
-    #if search
-      #where(['title LIKE ? OR body LIKE?', "%#{search}%", "%#{search}%"]) #検索とtitleまたはbodyの部分一致を表示。
-    #else
-      #all #全て表示させる
-    #end
-  #end
 
   #タグ検索用
   def save_tag(sent_tags)
