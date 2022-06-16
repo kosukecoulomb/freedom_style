@@ -35,9 +35,7 @@ class User < ApplicationRecord
     reverse_of_relationships.find_by(following_id: user.id).present?
   end
   
-  scope :more_short, -> {current_user.tall.to_i - 4}
-  scope :more_tall, -> {current_user.tall.to_i + 5}
-  
+
   #条件検索機能
   scope :search, -> (search_params) do
     return if search_params.blank?
