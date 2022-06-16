@@ -3,7 +3,7 @@ class Public::UsersController < ApplicationController
   before_action :ensure_guest_user, only: [:edit]
 
   def index
-    @search_params = coordinate_search_params  #検索結果の画面で、フォームに検索した値を表示するために、paramsの値をビューで使えるようにする
+    @search_params = user_search_params  #検索結果の画面で、フォームに検索した値を表示するために、paramsの値をビューで使えるようにする
     @users = User.search(@search_params) 
   end
 
@@ -89,9 +89,7 @@ class Public::UsersController < ApplicationController
   end
   
   def user_search_params
-    params.fetch(:search, {}).permit(:gender, :generation, :tall, :body_shape, :name)
-    #fetch(:search, {})と記述することで、検索フォームに値がない場合はnilを返し、エラーが起こらなくなる
-    #ここでの:searchには、フォームから送られてくるparamsの値が入っている
+    params.fetch(:search, {}).permit(:gender, :generation, :body_shape, :name)
   end
 
 end

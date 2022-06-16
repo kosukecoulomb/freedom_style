@@ -35,6 +35,8 @@ class User < ApplicationRecord
     reverse_of_relationships.find_by(following_id: user.id).present?
   end
   
+  scope :more_short, -> {current_user.tall.to_i - 4}
+  scope :more_tall, -> {current_user.tall.to_i + 5}
   
   #条件検索機能
   scope :search, -> (search_params) do
@@ -42,19 +44,15 @@ class User < ApplicationRecord
 
     gender_choise(search_params[:gender])
     .generation_choise(search_params[:generation])
-    .tall_like(search_params[:tall])
     .body_shape_choise(search_params[:body_shape])
     .name_like(search_params[:name])
   end
   
-  more_short = current_user.tall.to_i - 4
-  more_tall = current_user.tall.to_i + 5
-
   scope :gender_choise, -> (gender) {where(gender: gender) if gender.present?}
   scope :generation_choise, -> (generation) {where(generation: generation) if generation.present?}
-  scope :tall_like, -> (tall) {where(tall: more_short..more_tall) if tall.present?}
   scope :body_shape_choise, -> (body_shape) {where(body_shape: body_shape) if body_shape.present?}
-  scope :name_like, -> (title) {where('name LIKE ', "%#{name}%") if name.present?}
+  scope :name_like, -> (name) {where('name LIKE?', "%#{name}%") if name.present?}
+  
   
   #タグ検索
   has_many :tag_maps, dependent: :destroy
