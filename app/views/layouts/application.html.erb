@@ -7,18 +7,22 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   
   <body>
-    <% if user_signed_in? %>
-      <%= render 'layouts/login_user_header' %>
-    <% elsif admin_signed_in? %>
-      <%= render 'layouts/admin_header' %>
-    <% else %>
-      <%= render 'layouts/top_header' %>
-    <% end %>
-    <main style="flex: 1; background-color: #f5f5f5; padding-bottom: 50px; padding-top: 50px;">
+    <header>
+      <% if user_signed_in? %>
+        <%= render 'layouts/login_user_header' %>
+      <% elsif admin_signed_in? %>
+        <%= render 'layouts/admin_header' %>
+      <% else %>
+        <%= render 'layouts/top_header' %>
+      <% end %>
+    </header>
+    
+    <main style="margin-bottom: 50px; margin-top: 50px;">
       <div id="flash-success">
         <% if notice %>
         <p id="notice" class="text-secondary text-center"><%= notice %></p>
@@ -26,6 +30,9 @@
       </div>
       <%= yield %>
     </main>
-    <%= render 'layouts/footer' %>
+    
+    <footer>
+      <p>©Freedom Style.inc<br>produced by Kosuke Naito</p>
+    </footer>
   </body>
 </html>

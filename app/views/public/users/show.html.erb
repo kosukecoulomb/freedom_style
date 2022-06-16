@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2><%= @user.name %>さんのプロフィール</h2>
+      <div class="row no-padding card-wrapper">
+        <div class="card shadow-lg" style="width: 60rem;">
+          <div class='row g-0'>
+
+            <div class="col-md-7">
+              <%= image_tag @user.profile_image, class: "card-img-top" %>
+            </div>
+
+            <div class="col-md-5">
+              <div class="card-body justify-content-center">
+
+                <!-- フォロー機能非同期実装 -->
+                <div class="d-flex">
+                  <% if @user != current_user %>
+                    <div id="user_<%= @user.id %>">
+                      <%= render "public/relationships/btn", user: @user %>
+                    </div>
+                  <% end %>
+                
+                  <div id="info_followings_counts_<%= @user.id %>">
+                    <%= link_to @user.followings.count, followings_user_path(@user.id) %>
+                    フォロー中　
+                  </div>
+                
+                  <div id="info_followers_counts_<%= @user.id %>">
+                    <%= link_to @user.followers.count, followers_user_path(@user.id) %>
+                    フォロワー
+                  </div>
+                </div>
+
+                <h5 class="mt-4">自己紹介</h5>
+                <p class="card-text mb-5"><%= @user.introduction %></p>
+                <h5>基本データ</h5>
+                <table class="table mb-5">
+                  <tr>
+                    <th>年齢</th>
+                    <td><%= @user.generation_i18n %></td>
+                  </tr>
+                  <tr>
+                    <th>身長</th>
+                    <td><%= @user.tall %>cm</td>
+                  </tr>
+                  <tr>
+                    <th>体型</th>
+                    <td><%= @user.body_shape_i18n %></td>
+                  </tr>
+                </table>
+                <h5>コレクション</h5>
+                <%= link_to "コレクションを見る", collection_item_path(@user), class: "btn btn-outline-success m-1" %>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <h2 class="mt-5"><%= @user.name %>の投稿</h2>
+        <% if @coordinates.exists? %>
+            <%= render "layouts/coordinates", coordinates: @coordinates %>
+        <% else %>
+          <P><%= @user.name %>さんの投稿はありません</P>
+        <% end %>
+    </div>
+  </div>
+</div>

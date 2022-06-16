@@ -16,8 +16,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.integer :gender
       t.integer :generation
       t.integer :tall
-      t.integer :body_syape
-      t.integer :foot_size
+      t.integer :body_shape
+      t.string :foot_size
       t.boolean :is_deleted, null: false, default: false
 
       ## Rememberable

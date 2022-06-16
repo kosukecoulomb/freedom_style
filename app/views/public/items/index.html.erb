@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h5 class="mt-3">靴</h5>
+      <div class="row no-padding card-wrapper mx-auto">
+        <% @items.each do |item| %>
+          <div class="coordinate_image">
+            <div class="card shadow-lg">
+              <%= link_to item_path(item) do %>
+                <%= image_tag item.get_item_image(200,400), class: "card-img-top" %>
+                  <div class="mask">
+                    <div class="caption"><%= item.item_name %></div>
+                	</div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

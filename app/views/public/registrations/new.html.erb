@@ -1,26 +1,33 @@
-<div class='mt-5 container'>
-  <h2 class="m-5">Sign Up</h2>
+<div class='mt-2 container'>
+  <h2 class="mb-2">Sign Up</h2>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <div class="row">
     <%= render "public/shared/error_messages", resource: resource %>
+  </div>
+    
+    <div class="form-group row">
+      <%= f.label :profile_image, "プロフィール画像",class: "col-md-3" %><br />
+      <%= f.file_field :profile_image, accept: "image/*", class: "col-md-4" %>
+    </div>
 
     <div class="form-group row">
       <%= f.label :name, "お名前",class: "col-md-3" %><br />
-      <%= f.text_field :name, autocomplete: "email",class: "col-md-2" %>
+      <%= f.text_field :name,class: "col-md-4" %>
     </div>
 
     <div class="form-group row">
       <%= f.label :email, "メールアドレス",class: "col-md-3" %><br />
-      <%= f.email_field :email, autocomplete: "email",class: "col-md-2" %>
+      <%= f.email_field :email, autocomplete: "email",class: "col-md-4" %>
     </div>
 
     <div class="form-group row">
       <%= f.label :introduction, "自己紹介", class: "col-md-3" %>
-      <%= f.text_area :introduction, class: "col-md-2" %>
+      <%= f.text_area :introduction, class: "col-md-4", rows: 10 %>
     </div>
 
     <div class="form-group row">
-      <%= f.label :gender, "性別", class: "col-md-3" %>
+      <%= f.label :gender, "ジェンダー", class: "col-md-3" %>
       <%= f.select :gender, User.genders.keys.map{|k| [I18n.t("enums.user.gender.#{k}"), k]}, { include_blank: '選択してください'}, class: "col-md-2" %>
     </div>
 
@@ -31,7 +38,7 @@
 
     <div class="form-group row">
       <%= f.label :tall, "身長", class: "col-md-3" %>
-      <%= f.select :tall, User.talls.keys.map{|k| [I18n.t("enums.user.tall.#{k}"), k]}, { include_blank: '選択してください'}, class: "col-md-2" %>
+      <%= f.number_field :tall, in: 100..200, class: "col-md-2" %>cm
     </div>
 
     <div class="form-group row">
@@ -40,8 +47,8 @@
     </div>
 
     <div class="form-group row">
-      <%= f.label :foot_size, "足のサイズ", class: "col-md-3" %>
-      <%= f.select :foot_size, User.foot_sizes.keys.map{|k| [I18n.t("enums.user.foot_size.#{k}"), k]}, { include_blank: '選択してください'}, class: "col-md-2" %>
+      <%= f.label :foot_size, "足の実寸(中間の大きい方を選択）", class: "col-md-3" %>
+      <%= f.text_field :foot_size, class: "col-md-2" %>cm
     </div>
 
     <div class="form-group row">

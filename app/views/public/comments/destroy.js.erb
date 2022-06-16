@@ -1,0 +1,3 @@
+$("#coordinate_<%= @coordinate.id %> .comments-count").html("コメント数: <%= @coordinate.comments.count %>");
+$(".coordinate_comments").html("<%= j(render 'public/comments/index', coordinate: @coordinate) %>");
+$("#comment_comment").val("");

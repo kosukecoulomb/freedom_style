@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <%= form_with model: @user, url: {controller: 'admin/users', action: 'update' } do |f| %>
+        <%= f.radio_button :is_deleted, :false %>
+        <%= f.label :is_deleted, "利用可能", class: "text-success font-weight-bold" %>
+        <%= f.radio_button :is_deleted, :true %>
+        <%= f.label :is_deleted, "利用停止", class: "text-secondary" %>
+        <%= f.submit "保存する", class: "btn btn-danger" %>
+      <% end %>
+    </div>
+  </div>
+</div>

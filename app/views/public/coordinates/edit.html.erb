@@ -1,0 +1,96 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+      <% if @coordinate.errors.any? %>
+        <%= @coordinate.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @coordinate.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <h2>コーディネートを編集</h2>
+      <%= form_with model: @coordinate do |f| %>
+
+      <div class="row no-padding card-wrapper mx-auto">
+        <div class="card shadow-lg" style="width: 60rem;">
+          <div class='row g-0'>
+            <div class="col-md-6">
+
+            <div class="col-md-7">
+              ※画像をクリックして画像選択
+              <%= f.label :coordinate_image do %>
+                <%= image_tag @coordinate.coordinate_image, class: 'avatar' %>
+                <%= f.file_field :coordinate_image, accept: "image/*", class: 'uploader', style: 'display:none' %>
+              <% end %>
+            </div>
+            
+             <h5 class="ml-3">★使用したコレクションを一緒に登録★</h5>
+              <table class="table">
+                <tr>
+                  <th>アウター</th>
+                  <td><%= f.select :outer_id, @outer_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                </tr>
+                <tr>
+                  <th>トップス</th>
+                  <td><%= f.select :tops_id, @tops_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                </tr>
+                <tr>
+                  <th>ボトムス</th>
+                  <td><%= f.select :bottoms_id, @bottoms_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                </tr>
+                <tr>
+                  <th>靴</th>
+                  <td><%= f.select :shoes_id, @shoes_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                </tr>
+                <tr>
+                  <th>その他1</th>
+                  <td><%= f.select :other1_id, @other_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                </tr>
+                <tr>
+                  <th>その他2</th>
+                  <td><%= f.select :other2_id, @other_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card-body justify-content-center">
+                <%= f.hidden_field :user_id, :value => current_user.id %>
+                <h4>タイトル</h4>
+                <div class="pb-2"><%= f.text_field :title, :size => "35" %></div>
+                <table class="table table no-borderless">
+                  <tr>
+                    <th>シーン:</th>
+                    <td><%= f.select :dress_code, Coordinate.dress_codes.keys.map{|k| [I18n.t("enums.coordinate.dress_code.#{k}"), k]}, { include_blank: '選択してください'} %></td>
+                  </tr>
+                  <tr>
+                    <th>季節: </th>
+                    <td><%= f.select :season, Coordinate.seasons.keys.map{|k| [I18n.t("enums.coordinate.season.#{k}"), k]}, { include_blank: '選択してください'} %></td>
+                  </tr>
+                  <tr>
+                    <th>気温: </th>
+                    <td><%= f.select :temperature, Coordinate.temperatures.keys.map{|k| [I18n.t("enums.coordinate.temperature.#{k}"), k]}, { include_blank: '選択してください'} %></td>
+                  </tr>
+                </table>
+                
+                <h5>説明</h5>
+                <%= f.text_area :body, size: "35x15" %>
+                
+                <h5>#タグ入力</h5>
+                <%= f.text_field :tag_name, placeholder: "#モード系 #かわいい" %>
+                
+                <%= f.submit "編集を保存" , class: "btn btn-outline-success" %>
+                <%= link_to "投稿を削除", coordinate_path(@coordinate), method: :delete, class: "btn btn-outline-danger", data: { confirm: '本当に削除しますか？' } %>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

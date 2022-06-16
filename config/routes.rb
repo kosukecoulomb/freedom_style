@@ -1,23 +1,5 @@
 Rails.application.routes.draw do
 
-  #ユーザー部分
-  root to: "public/homes#top"
-  get "homes/about" => "public/homes#about", as: "about"
-
-  get "/users/my_page" => "public/users#show", as: "my_page"
-  get "/users/edit" => "public/users#edit", as: "edit_users"
-  patch "users" => "public/users#update"
-  get "/users/unsubscribe" => "public/users#unsubscribe", as: "unsubscribe"
-  patch "/users/withdrawal" => "public/users#withdrawal", as: "withdrawal"
-
-  resources :coordinates, only:[:index, :new, :show, :edit, :create, :update, :destroy], controller: "public/coordinates" do
-    resources :comments, only: [:create, :destroy]
-    resource :favorites, only: [:create, :destroy]
-  end
-
-  resources :items, only:[:index, :new, :show, :edit, :create, :update, :destroy], controller: "public/items"
-
-
   #devise部分
   devise_for :admin, controllers: {
     sessions: "admin/sessions"
@@ -30,15 +12,50 @@ Rails.application.routes.draw do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
 
+  #ユーザー部分
+  scope module: :public do
+    root to: "homes#top"
+    get "homes/about" => "homes#about", as: "about"
+
+    get "/users/my_page" => "users#my_page", as: "my_page"
+    # user/editのようにするとdeviseのルーティングとかぶってしまうためprofileを付け加えている。
+    get "/users/profile/:id/edit" => "users#edit", as: "edit_profile"
+    patch "users/profile" => "users#update", as: "update_profile"
+    get "/users/profile/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
+    get "/users/profile/favorites" => "users#favorites", as: "favorites"
+    delete "/users" => "users#destroy", as: "user_destroy"
+    resources :users, only: [:index, :show] do
+      resource :relationships, only: [:create, :destroy]
+      get :followings, on: :member
+      get :followers, on: :member
+    end
+
+    get "coordinates/timeline" => "coordinates#timeline", as: "timeline"
+    resources :coordinates, only:[:index, :new, :show, :edit, :create, :update, :destroy] do
+      collection do
+        get :choise_search
+      end
+      resources :comments, only: [:create, :destroy]
+      resource :favorites, only: [:create, :destroy]
+    end
+
+    resources :items, only:[:index, :new, :create, :show, :edit, :update, :destroy] do
+      get "/collection/" => 'items#collection', on: :member, as: "collection"
+    end
+
+    resources :tags do
+      get '/coordinates' => 'coordinates#search'
+    end
+  end
+
 
   #管理者部分
   namespace :admin do
     resources :users, only:[:index,:show,:edit,:update]
-    resources :coordinates do
+    resources :coordinates, only:[:index, :show, :update, :destroy] do
       resources :comments, only: [:destroy]
     end
   end
-  get "/admin" => "admin/homes#top", as: "admin"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -1,0 +1,64 @@
+<div class='mt-2 container'>
+  <h2 class="mb-2">プロフィール修正</h2>
+
+  <% if @user.errors.any? %>
+    <%= @user.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= form_with model: @user, url: update_profile_path do |f| %>
+    <div class="form-group row">
+      <%= f.label :profile_image, "プロフィール画像",class: "col-md-3" %><br />
+      <%= f.file_field :profile_image, accept: "image/*", class: "col-md-4" %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :name, "お名前",class: "col-md-3" %><br />
+      <%= f.text_field :name,class: "col-md-4" %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :email, "メールアドレス",class: "col-md-3" %><br />
+      <%= f.email_field :email, autocomplete: "email",class: "col-md-4" %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :introduction, "自己紹介", class: "col-md-3" %>
+      <%= f.text_area :introduction, class: "col-md-4", rows: 10 %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :gender, "性別", class: "col-md-3" %>
+      <%= f.select :gender, User.genders.keys.map{|k| [I18n.t("enums.user.gender.#{k}"), k]}, { include_blank: '選択してください'}, class: "col-md-2" %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :generation, "世代", class: "col-md-3" %>
+      <%= f.select :generation, User.generations.keys.map{|k| [I18n.t("enums.user.generation.#{k}"), k]}, { include_blank: '選択してください'}, class: "col-md-2" %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :tall, "身長", class: "col-md-3" %>
+      <%= f.number_field :tall, in: 100..200, class: "col-md-2" %>cm
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :body_shape, "体型", class: "col-md-3" %>
+      <%= f.select :body_shape, User.body_shapes.keys.map{|k| [I18n.t("enums.user.body_shape.#{k}"), k]}, { include_blank: '選択してください'}, class: "col-md-2" %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :foot_size, "足の実寸(中間は大きい方を選択）", class: "col-md-3" %>
+      <%= f.text_field :foot_size, class: "col-md-2" %>cm
+    </div>
+
+    <div class="actions m-2">
+      <%= f.submit "編集を保存" , class: "btn btn-outline-success col-md-offset-6" %>
+      <%= link_to "アカウントを削除", unsubscribe_path, class: "btn btn-outline-danger" %>
+    </div>
+  <% end %>
+</div>

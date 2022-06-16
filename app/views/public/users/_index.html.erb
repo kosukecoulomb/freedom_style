@@ -1,0 +1,8 @@
+<table class="table table-hover">
+  <% users.each do |user| %>
+  <tr onclick='window.location="<%= '/users/' + user.id.to_s %>"' role="link" >
+    <td><%= image_tag user.get_profile_image(60,80) %></td>
+    <td><%= user.name %></td>
+  </tr>
+  <% end %>
+</table>

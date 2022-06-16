@@ -1,0 +1,11 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12'>
+        <h1 class="text-center">本当に退会しますか？</h4>
+        <p class="text-center">アカウントを削除すると、登録情報やこれまでの投稿も削除されます。</br>
+        退会する場合は、「削除する」をクリックしてください。</p>
+        <p class="text-center"><%= link_to "削除しない", edit_profile_path(@user), class: "btn btn-outline-primary" %></p>
+        <p class="text-center"><%= link_to "削除する", user_destroy_path(@user), method: :delete, class: "btn btn-outline-danger" %></p>
+    </div>
+  </div>
+</div>

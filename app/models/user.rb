@@ -3,18 +3,89 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
+
+  #ゲストログイン機能
   def self.guest
     find_or_create_by!(name: 'guestuser' ,email: 'guest@example.com') do |user|
       user.password = SecureRandom.urlsafe_base64
       user.name = "guestuser"
+      user.gender = 2
+      user.generation = 2
+      user.tall = 165
+      user.body_shape = 1
+      user.foot_size = 25
     end
   end
 
-  enum gender: { man:0, woman:1, other:2, do_not_answer:3 }
+
+  #アソシエーション
+  has_many :coordinates, dependent: :destroy
+  has_many :items, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  
+  #フォロー機能
+  has_many :relationships, foreign_key: :following_id
+  has_many :followings, through: :relationships, source: :follower
+  
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: :follower_id
+  has_many :followers, through: :reverse_of_relationships, source: :following
+  
+  def is_followed_by?(user)
+    reverse_of_relationships.find_by(following_id: user.id).present?
+  end
+  
+  
+  #条件検索機能
+  scope :search, -> (search_params) do
+    return if search_params.blank?
+
+    gender_choise(search_params[:gender])
+    .generation_choise(search_params[:generation])
+    .tall_like(search_params[:tall])
+    .body_shape_choise(search_params[:body_shape])
+    .name_like(search_params[:name])
+  end
+  
+  more_short = current_user.tall.to_i - 4
+  more_tall = current_user.tall.to_i + 5
+
+  scope :gender_choise, -> (gender) {where(gender: gender) if gender.present?}
+  scope :generation_choise, -> (generation) {where(generation: generation) if generation.present?}
+  scope :tall_like, -> (tall) {where(tall: more_short..more_tall) if tall.present?}
+  scope :body_shape_choise, -> (body_shape) {where(body_shape: body_shape) if body_shape.present?}
+  scope :name_like, -> (title) {where('name LIKE ', "%#{name}%") if name.present?}
+  
+  #タグ検索
+  has_many :tag_maps, dependent: :destroy
+  has_many :tags, through: :tag_maps #中間
+
+
+  #画像投稿
+  has_one_attached :profile_image
+
+  def get_profile_image(width, height)
+    unless profile_image.attached?
+      file_path = Rails.root.join('app/assets/images/no_image.jpg')
+      profile_image.attach(io: File.open(file_path), filename: 'no_image.jpg', content_type: 'image/jpeg')
+    end
+    profile_image.variant(resize_to_limit: [width, height]).processed
+  end
+  
+  
+  #バリデーション
+  validates :name, presence: true, length:{in: 2..20}
+  validates :email, presence: true, uniqueness: true
+  validates :gender, presence: true
+  validates :generation, presence: true
+  validates :tall, presence: true
+  validates :body_shape,  presence: true
+  validates :foot_size,  presence: true
+
+
+  #enum
+  enum gender: { man:0, woman:1, genderless:2, other:3 }
   enum generation: { teens:0, twenties:1, thirties:2, forties:3, over_fifties:4 }
-  enum tall: { under_fifty:0, fifty:1, sixty:2, seventy:3, over_eighty:4 }
   enum body_shape: { slender:0, normal:1, fat:2, solid:3 }
-  enum foot_size: { two:0, three:1, four:2, five:3, six:4, seven:5, eight:6, over_nine:7 }
 
 end

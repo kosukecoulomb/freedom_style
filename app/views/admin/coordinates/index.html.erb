@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h4>投稿一覧</h4>
+      
+      <table class="table table-hover">
+        <tr>
+          <th>画像</th>
+          <th>タイトル</th>
+          <th>投稿者</th>
+        </tr>
+        <% @coordinates.each do |coordinate| %>
+        <tr onclick='window.location="<%= '/admin/coordinates/' + coordinate.id.to_s %>"' role="link" >
+          <td><%= image_tag coordinate.get_coordinate_image(60,80) %></td>
+          <td><%= coordinate.title %></td>
+          <td><%= coordinate.user.name %></td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

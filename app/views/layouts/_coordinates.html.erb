@@ -1,0 +1,15 @@
+<div class="row no-padding card-wrapper mx-auto">
+  <% coordinates.each do |coordinate| %>
+    <div class="coordinate_image">
+      <div class="card shadow-lg">
+        <%= link_to coordinate_path(coordinate) do %>
+          <%= image_tag coordinate.get_coordinate_image(200,400), class: "card-img-top" %>
+            <div class="mask">
+              <div class="caption"><%= coordinate.title %></div>
+          	</div>
+        <% end %>
+      </div>
+      <p>♥<%= coordinate.favorites.count %>　<i class="fas fa-comment"></i><%= coordinate.comments.count %></p>
+    </div>
+  <% end %>
+</div>
