@@ -27,7 +27,7 @@ class Coordinate < ApplicationRecord
 
   scope :dress_code_choise, -> (dress_code) {where(dress_code: dress_code) if dress_code.present?}
   scope :season_choise, -> (season) {where(season: season) if season.present?}
-  scope :temperature_choise, -> (temperature) {where(temperature, temperature) if temperature.present?}
+  scope :temperature_choise, -> (temperature) {where(temperature: temperature) if temperature.present?}
   scope :title_body_like, -> (title) {where('title LIKE ? OR body LIKE?', "%#{title}%","%#{title}%") if title.present?}
 
   #キーワード検索機能
