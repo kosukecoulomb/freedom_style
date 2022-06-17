@@ -6,7 +6,12 @@ class Public::CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.user_id = current_user.id
     @comment.coordinate_id = @coordinate.id
-    @comment.save
+    if @comment.save
+      #通知作成
+      @coordinate.create_notification_comment!(current_user, @comment.id)
+    else
+      render "public/coordinates/show"
+    end
   end
 
   def destroy

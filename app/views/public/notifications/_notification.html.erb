@@ -1,0 +1,21 @@
+  <%= link_to image_tag notification.visitor.profile_image,user_path(visitar), class: "icon_mini" %>
+  <P><%= notification.visitor.name %>さんが</P>
+
+  <% case notification.action %>
+    <% when "follow" then %>
+      <P>あなたをフォローしました</P>
+    <% when "favorite" then %>
+      <P><%= link_to "あなたの投稿", notification.coordinate %>にいいねしました</P>
+    <% when "comment" then %>
+      <% if notification.coordinate.user_id == visited.id %>
+        <%= link_to "あなたの投稿", notification.coordinate %>
+      <% else %>
+        <%= link_to coordinate_path(notification.coordinate) do %>
+          <%= image_tag notification.visitor.profile_image,user_path(visitar), class: "icon_mini" %>
+          <P><%= notification.coordinate.user.name %>さんの投稿にコメントしました</P>
+          <%= comment %>
+        <% end %>
+      <% end %>
+  <% end %>
+
+  <%= time_ago_in_words(notification.created_at).upcase %>

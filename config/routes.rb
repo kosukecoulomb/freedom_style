@@ -46,6 +46,8 @@ Rails.application.routes.draw do
     resources :tags do
       get '/coordinates' => 'coordinates#search'
     end
+    
+    resources :notifications, only: :index
   end
 
 
