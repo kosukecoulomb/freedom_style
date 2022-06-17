@@ -10,10 +10,10 @@
         <%= submit_tag '検索', class: "button" %>
       <% end %>
       
-      <div class="row no-padding card-wrapper mx-auto">
+      <div class="row card-group">
         <% @items.each do |item| %>
           <div class="coordinate_image">
-            <div class="card shadow-lg"  style="width: 10rem;">
+            <div class="card"  style="width: 10rem;">
               <%= link_to item_path(item) do %>
                 <%= image_tag item.get_item_image(200,400), class: "card-img-top" %>
                   <div class="mask">

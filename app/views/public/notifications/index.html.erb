@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <% if @notifications.exists? %>
         <% @notifications.each do |notification| %>
-          <%= #link_to image_tag notification.visitor.profile_image, user_path(visitor), class: "icon_mini" %>
+          <%= link_to image_tag notification.visitor.profile_image, user_path(visitor), class: "icon_mini" %>
           <P><%= notification.visitor.name %>さんが</P>
         
           <% case notification.action %>
@@ -13,9 +13,9 @@
               <P><%= link_to "あなたの投稿", notification.coordinate %>にいいねしました</P>
             <% when "comment" then %>
               <%= link_to coordinate_path(notification.coordinate) do %>
-                <%= #image_tag notification.visitor.profile_image,user_path(visitar), class: "icon_mini" %>
+                <%= image_tag notification.visitor.profile_image,user_path(visitar), class: "icon_mini" %>
                 <P><%= notification.coordinate.user.name %>さんの投稿にコメントしました</P>
-                <%= comment %>
+                <%= notification.comment %>
               <% end %>
           <% end %>
 

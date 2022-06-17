@@ -11,9 +11,9 @@
           <p class="card-text"><%= user.tall %>cm|<%= user.followers.count %>フォロワー</p>
         </div>
       </div>
-      <div class="card-body">
+      <div class="card-body mx-auto">
         <% user.coordinates.limit(3).order(created_at: :desc).each do |coordinate| %>
-          <%= image_tag coordinate.get_coordinate_image(150,300), class: "img-fluid" %>
+          <%= image_tag coordinate.get_coordinate_image(150,150), class: "img-fluid" %>
         <% end %>
       </div>
     </div>
