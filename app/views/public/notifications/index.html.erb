@@ -1,30 +1,29 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
+      <h4>通知</h4>
       <% if @notifications.exists? %>
         <% @notifications.each do |notification| %>
-          <%= link_to image_tag notification.visitor.profile_image, user_path(visitor), class: "icon_mini" %>
-          <P><%= notification.visitor.name %>さんが</P>
-        
-          <% case notification.action %>
-            <% when "follow" then %>
-              <P>あなたをフォローしました</P>
-            <% when "favorite" then %>
-              <P><%= link_to "あなたの投稿", notification.coordinate %>にいいねしました</P>
-            <% when "comment" then %>
-              <%= link_to coordinate_path(notification.coordinate) do %>
-                <%= image_tag notification.visitor.profile_image,user_path(visitar), class: "icon_mini" %>
-                <P><%= notification.coordinate.user.name %>さんの投稿にコメントしました</P>
-                <%= notification.comment %>
-              <% end %>
-          <% end %>
-
-        <%= time_ago_in_words(notification.created_at).upcase %>
+          <table class="table">
+            <tr>
+              <td>
+                <P><%= link_to image_tag(notification.visitor.get_profile_image(50,50)), user_path(notification.visitor) %>
+                <%= notification.visitor.name %>さんが
+                <% case notification.action %>
+                  <% when "follow" then %>
+                    あなたをフォローしました</P>
+                  <% when "favorite" then %>
+                    <%= link_to "あなたの投稿", notification.coordinate %>にいいねしました</P>
+                  <% when "comment" then %>
+                    <%= link_to "あなたの投稿", coordinate_path(notification.coordinate) %>にコメントしました</p>
+                <% end %>
+              </td>
+            </tr>
+          </table>
         <% end %>
-
-    <% else %>
+      <% else %>
         <P>通知はありません</P>
-    <% end %>
+      <% end %>
     </div>
   </div>
 </div>

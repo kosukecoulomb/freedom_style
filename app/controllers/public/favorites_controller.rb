@@ -7,9 +7,9 @@ class Public::FavoritesController < ApplicationController
     favorite.save
 
     #通知作成
-    coordinate.create_notification_favorite!(current_user)
-
+    @coordinate.create_notification_favorite!(current_user)
   end
+  
 
   def destroy
     @coordinate = Coordinate.find(params[:coordinate_id])

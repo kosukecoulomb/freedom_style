@@ -71,6 +71,7 @@ class User < ApplicationRecord
       notification.save if notification.valid?
     end
   end
+  
 
   #画像投稿
   has_one_attached :profile_image

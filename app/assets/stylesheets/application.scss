@@ -71,12 +71,21 @@
   height: 500px;
 }
 
+.top-container {
+  background-image: image-url('top.jpg');
+  background-size: cover;
+  background-position: top;
+}
+
 footer{
+ position: fixed;
+ bottom: 0;
  width: 100%;
  background-color: #33CCFF;
  color: #fff;
  text-align: center;
- position: sticky;
- bottom: 0; 
 }
 
+h1,h2,h3,h4,h5 {
+  font-family: "Kokoro";
+}

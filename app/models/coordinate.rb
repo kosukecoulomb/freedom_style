@@ -58,7 +58,7 @@ class Coordinate < ApplicationRecord
     # いいねされていない場合のみ、通知レコードを作成
     if temp.blank?
       notification = current_user.active_notifications.new(
-        post_id: id,
+        coordinate_id: id,
         visited_id: user_id,
         action: 'favorite'
       )
