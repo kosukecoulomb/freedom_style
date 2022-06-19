@@ -46,11 +46,11 @@ class Coordinate < ApplicationRecord
       self.tags << new_coordinate_tag
     end
   end
-  
-  
+
+
   #通知機能
   has_many :notifications, dependent: :destroy
-  
+
   #いいねの通知
   def create_notification_favorite!(current_user)
     # すでに「いいね」されているか検索
@@ -69,7 +69,7 @@ class Coordinate < ApplicationRecord
       notification.save if notification.valid?
     end
   end
-  
+
   #コメントの通知
   def create_notification_comment!(current_user, comment_id)
     # 自分以外にコメントしている人をすべて取得し、全員に通知を送る
@@ -95,9 +95,9 @@ class Coordinate < ApplicationRecord
     end
     notification.save if notification.valid?
   end
-  
-  
-  
+
+
+
 
   #画像投稿
   has_one_attached :coordinate_image
