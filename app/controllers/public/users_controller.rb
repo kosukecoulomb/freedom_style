@@ -73,7 +73,7 @@ class Public::UsersController < ApplicationController
     user = User.find(params[:id])
     @users = user.followers
   end
-  
+
   private
 
   def user_params
@@ -87,7 +87,7 @@ class Public::UsersController < ApplicationController
       redirect_to my_page_path(current_user) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
     end
   end
-  
+
   def user_search_params
     params.fetch(:search, {}).permit(:gender, :generation, :body_shape, :name)
   end

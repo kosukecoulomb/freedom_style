@@ -36,7 +36,7 @@ describe '投稿のテスト', type: :system do
 
   describe "投稿一覧のテスト" do
     before do
-      visit coordinate_path
+      visit coordinates_path
     end
     context '表示の確認' do
       it '投稿されたものが表示されているか' do
@@ -51,11 +51,8 @@ describe '投稿のテスト', type: :system do
       visit coordinate_path(coordinate)
     end
     context '表示の確認' do
-      it '削除リンクが存在しているか' do
-        expect(page).to have_link '削除'
-      end
       it '編集リンクが存在しているか' do
-        expect(page).to have_link '編集'
+        expect(page).to have_link '編集する'
       end
     end
     context 'リンクの遷移先の確認' do
@@ -85,16 +82,18 @@ describe '投稿のテスト', type: :system do
         expect(page).to have_filed 'coordinate[temperature]', with: coordinate.temperature
       end
       it '保存ボタンが表示される' do
-        expect(page).to have_button '保存'
+        expect(page).to have_button '編集を保存'
       end
     end
     context '更新処理に関するテスト' do
       it '更新後のリダイレクト先は正しいか' do
         fill_in 'coordinate[title]', with: Faker::Lorem.characters(number:5)
         fill_in 'coordinate[body]', with: Faker::Lorem.characters(number:20)
-        fill_in 'coordinate[dress_code]', with: coordinate.dress_code
-        fill_in 'coordinate[season]', with: coordinate.season
-        fill_in 'coordinate[temperature]', with: coordinate.temperature
+        select "カジュアル", from: "coordinate_dress_code"
+        select "春", from: "coordinate_season"
+        select "10度以下(寒い)", from: "coordinate_temperature"
+        
+        attach_file("coordinate_coordinate_image", "app/assets/images/non-item.jpg")
         click_button '保存'
         expect(page).to have_current_path coordinate_path(coordinate)
       end

@@ -7,20 +7,20 @@
       <%= form_with(scope: :search, url: items_path, method: :get) do |f| %>
         <%= f.select :category, Item.categories.keys.map{|k| [I18n.t("enums.item.category.#{k}"), k]}, { include_blank: 'カテゴリー'}, value: @search_params[:dress_code] %>
         <%= f.text_field :item_name, value: @search_params[:item_name] %>
-        <%= submit_tag '検索', class: "button" %>
+        <%= button_tag type: "submit", class: "btn btn-outline-dark" do %>
+          <i class="fas fa-search"></i>
+        <% end %>
       <% end %>
       
-      <div class="row card-group">
+      <div class="d-flex">
         <% @items.each do |item| %>
           <div class="coordinate_image">
-            <div class="card"  style="width: 10rem;">
-              <%= link_to item_path(item) do %>
-                <%= image_tag item.get_item_image(200,400), class: "card-img-top" %>
-                  <div class="mask">
-                    <div class="caption"><%= item.item_name %></div>
-                	</div>
-              <% end %>
-            </div>
+            <%= link_to item_path(item) do %>
+              <%= image_tag item.get_item_image(300,400), class: "img-fluid rounded-circle" %>
+                <div class="mask">
+                  <div class="caption"><%= item.item_name %></div>
+              	</div>
+            <% end %>
           </div>
         <% end %>
       </div>

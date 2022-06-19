@@ -9,7 +9,9 @@
         <%= f.select :gender, User.genders.keys.map{|k| [I18n.t("enums.user.gender.#{k}"), k]}, { include_blank: '好みの服装'}, value: @search_params[:gender] %>
         <%= f.select :body_shape, User.body_shapes.keys.map{|k| [I18n.t("enums.user.body_shape.#{k}"), k]}, { include_blank: '体型'}, value: @search_params[:body_shape] %>
         <%= f.text_field :name, value: @search_params[:name] %>
-        <%= submit_tag '検索', class: "button" %>
+        <%= button_tag type: "submit", class: "btn btn-outline-dark" do %>
+          <i class="fas fa-search"></i>
+        <% end %>
       <% end %>
       
         <%= render "index", users: @users %>

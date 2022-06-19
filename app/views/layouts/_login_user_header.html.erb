@@ -11,36 +11,36 @@
         <ul class="navbar-nav ml-auto">
           <li class="d-inline-block">
             <%= link_to my_page_path, class: 'nav-link text-light' do %>
-              マイページ
+              <i class="fas fa-user"></i>マイページ
             <% end %>
           </li>
           <li class="d-inline-block">
             <%= link_to notifications_path, class: 'nav-link text-light' do %>
               <% if unchecked_notifications.any? %>
-                <i class="fas fa-comment-medical"></i>!
+                <i class="fas fa-comment"></i>新着あり!
               <% else %>
-                <i class="fas fa-bell"></i>
+                <i class="fas fa-bell"></i>お知らせ
               <% end %>
             <% end %>
           </li>
           <li class="d-inline-block">
             <%=  link_to coordinates_path, class: 'nav-link text-light' do %>
-              みんなの投稿
+              <i class="fas fa-search"></i>みんなの投稿
             <% end %>
           </li>
           <li class="d-inline-block">
             <%=  link_to users_path, class: 'nav-link text-light' do %>
-              ユーザー一覧
+              <i class="fas fa-users"></i>ユーザー
             <% end %>
           </li>
           <li class="d-inline-block">
             <%=  link_to items_path, class: 'nav-link text-light' do %>
-              アイテム一覧
+              <i class="fas fa-tshirt"></i>アイテム
             <% end %>
           </li>
           <li class="d-inline-block">
             <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
-              ログアウト
+              <i class="fas fa-sign-out-alt"></i>ログアウト
             <% end %>
           </li>
         </ul>

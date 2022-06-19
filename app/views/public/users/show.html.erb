@@ -2,8 +2,7 @@
   <div class="row">
     <div class="col-md-12">
       <h2><%= @user.name %>さんのプロフィール</h2>
-      <div class="row no-padding card-wrapper">
-        <div class="card shadow-lg" style="width: 60rem;">
+        <div class="card shadow-lg mx-auto" style="width: 60rem;">
           <div class='row g-0'>
 
             <div class="col-md-7">
@@ -14,13 +13,12 @@
               <div class="card-body justify-content-center">
 
                 <!-- フォロー機能非同期実装 -->
+                <% if @user != current_user %>
+                  <div id="user_<%= @user.id %>">
+                    <%= render "public/relationships/btn", user: @user %>
+                  </div>
+                <% end %>
                 <div class="d-flex">
-                  <% if @user != current_user %>
-                    <div id="user_<%= @user.id %>">
-                      <%= render "public/relationships/btn", user: @user %>
-                    </div>
-                  <% end %>
-                
                   <div id="info_followings_counts_<%= @user.id %>">
                     <%= link_to @user.followings.count, followings_user_path(@user.id) %>
                     フォロー中　
@@ -56,7 +54,6 @@
 
           </div>
         </div>
-      </div>
       <div class="col-md-12">
         <% if @coordinates.exists? %>
             <%= render "layouts/coordinates", coordinates: @coordinates %>

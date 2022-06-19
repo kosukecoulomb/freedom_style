@@ -9,6 +9,7 @@ class Public::CoordinatesController < ApplicationController
     @coordinates = Coordinate.search(@search_params)  #Reservationモデルのsearchを呼び出し、引数としてparamsを渡している。
   end
   
+  
   #フォロワーと自分のコーデ
   def timeline
     @coordinates = Coordinate.where(user_id: [current_user.id, *current_user.following_ids])
@@ -28,6 +29,7 @@ class Public::CoordinatesController < ApplicationController
     @shoes_items = Item.where(user_id: @user.id, category: 3)
     @other_items = Item.where(user_id: @user.id, category: 4)
   end
+  
 
   def create
     #タグ検索用

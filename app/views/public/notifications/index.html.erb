@@ -7,7 +7,10 @@
           <table class="table">
             <tr>
               <td>
-                <P><%= link_to image_tag(notification.visitor.get_profile_image(50,50)), user_path(notification.visitor) %>
+                <P>
+                  <%= link_to user_path(notification.visitor) do %>
+                    <%= image_tag notification.visitor.get_profile_image(50,50), class: "rounded-circle" %>
+                  <% end %>
                 <%= notification.visitor.name %>さんが
                 <% case notification.action %>
                   <% when "follow" then %>

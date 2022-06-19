@@ -9,7 +9,9 @@
         <%= f.select :season, Coordinate.seasons.keys.map{|k| [I18n.t("enums.coordinate.season.#{k}"), k]}, { include_blank: '季節'}, value: @search_params[:season] %>
         <%= f.select :temperature, Coordinate.temperatures.keys.map{|k| [I18n.t("enums.coordinate.temperature.#{k}"), k]}, { include_blank: '気温'}, value: @search_params[:temperature] %>
         <%= f.text_field :title, value: @search_params[:title] %>
-        <%= submit_tag '検索', class: "button" %>
+        <%= button_tag type: "submit", class: "btn btn-outline-dark" do %>
+          <i class="fas fa-search"></i>
+        <% end %>
       <% end %>
 
       <%= render "layouts/coordinates", coordinates: @coordinates %>

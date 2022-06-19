@@ -26,7 +26,7 @@
                 <%= f.file_field :coordinate_image, accept: "image/*", class: 'uploader', style: 'display:none' %>
               <% end %>
             </div>
-            
+
              <h5 class="ml-3">★使用したコレクションを一緒に登録★</h5>
               <table class="table">
                 <tr>
@@ -75,13 +75,13 @@
                     <td><%= f.select :temperature, Coordinate.temperatures.keys.map{|k| [I18n.t("enums.coordinate.temperature.#{k}"), k]}, { include_blank: '選択してください'} %></td>
                   </tr>
                 </table>
-                
+
                 <h5>説明</h5>
                 <%= f.text_area :body, size: "35x15" %>
-                
+
                 <h5>#タグ入力</h5>
                 <%= f.text_field :tag_name, placeholder: "#モード系 #かわいい" %>
-                
+
                 <%= f.submit "編集を保存" , class: "btn btn-outline-success" %>
                 <%= link_to "投稿を削除", coordinate_path(@coordinate), method: :delete, class: "btn btn-outline-danger", data: { confirm: '本当に削除しますか？' } %>
               </div>

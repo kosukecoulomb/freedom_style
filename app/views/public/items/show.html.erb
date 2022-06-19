@@ -30,7 +30,7 @@
                   </tr>
                   <tr>
                     <th>価格: </th>
-                    <td>¥<%= @item.price %></td>
+                    <td>¥<%= @item.price.to_s(:delimited) %></td>
                   </tr>
                 </table>
                 <% if @item.user_id == current_user.id %>
