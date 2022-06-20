@@ -10,6 +10,11 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
           <li class="d-inline-block">
+            <%= link_to timeline_path, class: 'nav-link text-light' do %>
+              <i class="fab fa-discord"></i>タイムライン
+            <% end %>
+          </li>
+          <li class="d-inline-block">
             <%= link_to my_page_path, class: 'nav-link text-light' do %>
               <i class="fas fa-user"></i>マイページ
             <% end %>

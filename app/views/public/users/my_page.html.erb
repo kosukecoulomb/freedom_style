@@ -8,7 +8,7 @@
   <div class="row">
     <div class="col-md-3">
       <h4 class="mt-4"><%= @user.name %>さんの基本データ</h4>
-      <%= image_tag @user.get_profile_image(80,100), class: "rounded-circle" %>
+      <%= image_tag @user.get_profile_image(80,100), class: "rounded-circle img-thumbnail" %>
       <% if @user.name != "guestuser" %>
         <%= link_to "登録情報を編集", edit_profile_path(@user), class: "btn btn-outline-info" %>
       <% end %>
@@ -60,7 +60,7 @@
       <h4 class="mt-5">フォロワーの最新投稿</h4>
       <% if @following_coordinates.present? %>
         <%= render "layouts/coordinates", coordinates: @following_coordinates %>
-        <%= link_to "フォローしたユーザーの全コーディネートを見る", timeline_path %>
+        <%= link_to "タイムラインを見る", timeline_path %>
       <% else %>
         <P>--該当する投稿はありません--</P>
       <% end %>

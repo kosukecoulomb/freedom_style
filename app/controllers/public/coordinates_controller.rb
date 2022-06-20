@@ -7,11 +7,11 @@ class Public::CoordinatesController < ApplicationController
     @search_params = coordinate_search_params  #検索結果の画面で、フォームに検索した値を表示するために、paramsの値をビューで使えるようにする
     @coordinates = Coordinate.search(@search_params).order(created_at: :desc)  #searchを呼び出し、引数としてparamsを渡している。
   end
-  
-  
+
+
   #フォロワーと自分のコーデ
   def timeline
-    @coordinates = Coordinate.where(user_id: [current_user.id, *current_user.following_ids])
+    @coordinates = Coordinate.where(user_id: [current_user.id, *current_user.following_ids]).order(created_at: :desc)
   end
 
   def new
@@ -28,13 +28,24 @@ class Public::CoordinatesController < ApplicationController
     @shoes_items = Item.where(user_id: @user.id, category: 3)
     @other_items = Item.where(user_id: @user.id, category: 4)
   end
-  
+
 
   def create
     #タグ検索用
     tag_list = params[:coordinate][:tag_name].split(nil)
 
     @coordinate = Coordinate.new(coordinate_params)
+    @user = current_user
+
+    #タグ検索用
+    @tag_list = Tag.all
+
+    #登録アイテムと紐付けるための変数
+    @outer_items = Item.where(user_id: @user.id, category: 0)
+    @tops_items = Item.where(user_id: @user.id, category: 1)
+    @bottoms_items = Item.where(user_id: @user.id, category: 2)
+    @shoes_items = Item.where(user_id: @user.id, category: 3)
+    @other_items = Item.where(user_id: @user.id, category: 4)
 
     if @coordinate.save
       @coordinate.save_tag(tag_list) #タグ検索用
@@ -44,6 +55,7 @@ class Public::CoordinatesController < ApplicationController
       render :new
     end
   end
+
 
   def show
     @coordinate = Coordinate.find(params[:id])
@@ -61,9 +73,10 @@ class Public::CoordinatesController < ApplicationController
     @shoes_item = Item.find_by(id: @coordinate.shoes_id)
     @other1_item = Item.find_by(id: @coordinate.other1_id)
     @other2_item = Item.find_by(id: @coordinate.other2_id)
-    
+
    # @total_price = @outer_item.price.to_i + @tops_item.price.to_i + @bottoms_item.price.to_i + @shoes_item.price.to_i + @other1_item.price.to_i + @other2_item.price.to_i
   end
+
 
   def edit
     @user = current_user
@@ -77,12 +90,21 @@ class Public::CoordinatesController < ApplicationController
     @other_items = Item.where(user_id: @user.id, category: 4)
   end
 
+
   def update
     #タグ検索用
     tag_list = params[:coordinate][:tag_name].split(nil)
-    
+
     @coordinate = Coordinate.find(params[:id])
-    
+    @user = current_user
+
+    #new同様
+    @outer_items = Item.where(user_id: @user.id, category: 0)
+    @tops_items = Item.where(user_id: @user.id, category: 1)
+    @bottoms_items = Item.where(user_id: @user.id, category: 2)
+    @shoes_items = Item.where(user_id: @user.id, category: 3)
+    @other_items = Item.where(user_id: @user.id, category: 4)
+
     if @coordinate.update(coordinate_params)
       @coordinate.save_tag(tag_list) #タグ検索用
       redirect_to coordinate_path(@coordinate)
@@ -91,6 +113,7 @@ class Public::CoordinatesController < ApplicationController
       render :edit
     end
   end
+
 
   def destroy
     @coordinate = Coordinate.find(params[:id])
@@ -104,8 +127,8 @@ class Public::CoordinatesController < ApplicationController
     @tag = Tag.find(params[:tag_id])  #クリックしたタグを取得
     @coordinates = @tag.coordinates.all           #クリックしたタグに紐付けられた投稿を全て表示
   end
-  
-  
+
+
 
   private
 
@@ -120,7 +143,7 @@ class Public::CoordinatesController < ApplicationController
       redirect_to coordinates_path
     end
   end
-  
+
   def coordinate_search_params
     params.fetch(:search, {}).permit(:dress_code, :season, :temperature, :title, :gender, :generation, :body_shape)
     #fetch(:search, {})と記述することで、検索フォームに値がない場合はnilを返し、エラーが起こらなくなる

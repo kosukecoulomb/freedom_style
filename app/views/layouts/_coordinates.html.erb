@@ -2,7 +2,7 @@
   <% coordinates.each do |coordinate| %>
     <div class="coordinate_image mx-auto">
       <%= link_to coordinate_path(coordinate) do %>
-        <%= image_tag coordinate.get_coordinate_image(250,250), class: "image-fluid img-thumbnail" %>
+        <%= image_tag coordinate.get_coordinate_image(200,200), class: "image-fluid img-thumbnail" %>
           <div class="mask">
             <div class="caption"><%= coordinate.title %></div>
         	</div>

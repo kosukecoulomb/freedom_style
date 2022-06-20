@@ -13,10 +13,10 @@
 
       <!--タグ検索機能-->
       <h2>タグリスト</h2>
-      <% @tag_list.each do |list| %>
-        <%= link_to list.tag_name, tag_coordinates_path(tag_id: list.id) %>
-        <%= "(#{list.coordinates.count})" %>
-      <% end %>
+        <% @tag_list.each do |list| %>
+          <%= link_to list.tag_name, tag_coordinates_path(tag_id: list.id) %>
+          <%= "(#{list.coordinates.count})" %>
+        <% end %>
 
 
       <h2>コーディネートを投稿</h2>
