@@ -97,7 +97,7 @@
 
                 <h5 class="mt-5">投稿者情報</h5>
                 <table class="table mb-5">
-                  <%= link_to "プロフィールへ", user_path(@user.id) %>
+                  <%= link_to "ユーザー情報", admin_user_path(@user.id) %>
                   <tr>
                     <th>名前:</th>
                     <td><%= @user.name %></td>

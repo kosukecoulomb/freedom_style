@@ -35,6 +35,10 @@
                 <h5>基本データ</h5>
                 <table class="table mb-5">
                   <tr>
+                    <th>好みの服装</th>
+                    <td><%= @user.gender_i18n %></td>
+                  </tr>
+                  <tr>
                     <th>年齢</th>
                     <td><%= @user.generation_i18n %></td>
                   </tr>
@@ -55,10 +59,11 @@
           </div>
         </div>
       <div class="col-md-12">
+        <h4 class="mt-5"><%= @user.name %>さんの投稿</h4>
         <% if @coordinates.exists? %>
             <%= render "layouts/coordinates", coordinates: @coordinates %>
         <% else %>
-          <P><%= @user.name %>さんの投稿はありません</P>
+          <P>--<%= @user.name %>さんの投稿はありません--</P>
         <% end %>
     </div>
   </div>

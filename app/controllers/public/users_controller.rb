@@ -4,6 +4,8 @@ class Public::UsersController < ApplicationController
 
   def index
     @search_params = user_search_params  #検索結果の画面で、フォームに検索した値を表示するために、paramsの値をビューで使えるようにする
+    #投稿しているユーザーを投稿数の多い順に表示する
+    #@users = User.search(@search_params).where(id: Coordinate.group(:user_id).order('count(user_id) desc').pluck(:user_id))#
     @users = User.search(@search_params)
   end
 

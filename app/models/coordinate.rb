@@ -32,6 +32,7 @@ class Coordinate < ApplicationRecord
   scope :season_choise, -> (season) {where(season: season) if season.present?}
   scope :temperature_choise, -> (temperature) {where(temperature: temperature) if temperature.present?}
   scope :title_body_like, -> (title) {where('title LIKE ? OR body LIKE?', "%#{title}%","%#{title}%") if title.present?}
+  #関連するユーザーモデルからも検索できるように
   scope :gender_choise, -> (gender) {joins(:user).merge(User.where(gender: gender)) if gender.present?}
   scope :generation_choise, -> (generation) {joins(:user).merge(User.where(generation: generation)) if generation.present?}
   scope :body_shape_choise, -> (body_shape) {joins(:user).merge(User.where(body_shape: body_shape)) if body_shape.present?}

@@ -16,7 +16,7 @@
         <% @items.each do |item| %>
           <div class="coordinate_image">
             <%= link_to item_path(item) do %>
-              <%= image_tag item.get_item_image(300,400), class: "img-fluid rounded-circle" %>
+              <%= image_tag item.item_image, class: "img-fluid rounded-circle" %>
                 <div class="mask">
                   <div class="caption"><%= item.item_name %></div>
               	</div>

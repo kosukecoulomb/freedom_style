@@ -5,7 +5,8 @@
           man: "男性的"
           woman: "女性的"
           genderless: "ジェンダーレス"
-          other: "その他あるいは回答しない"
+          other: "その他"
+          no_answer: "回答しない"
         generation:
           teens: "10代"
           twenties: "20代"
