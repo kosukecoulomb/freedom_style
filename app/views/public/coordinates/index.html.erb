@@ -5,6 +5,9 @@
 
       <!-- 条件検索 -->
       <%= form_with(scope: :search, url: coordinates_path, method: :get) do |f| %>
+        <%= f.select :gender, User.genders.keys.map{|k| [I18n.t("enums.user.gender.#{k}"), k]}, { include_blank: '好みの服装'}, value: @search_params[:gender] %>
+        <%= f.select :generation, User.generations.keys.map{|k| [I18n.t("enums.user.generation.#{k}"), k]}, { include_blank: '世代'}, value: @search_params[:generation] %>
+        <%= f.select :body_shape, User.body_shapes.keys.map{|k| [I18n.t("enums.user.body_shape.#{k}"), k]}, { include_blank: '体型'}, value: @search_params[:body_shape] %>
         <%= f.select :dress_code, Coordinate.dress_codes.keys.map{|k| [I18n.t("enums.coordinate.dress_code.#{k}"), k]}, { include_blank: 'シーン'}, value: @search_params[:dress_code] %>
         <%= f.select :season, Coordinate.seasons.keys.map{|k| [I18n.t("enums.coordinate.season.#{k}"), k]}, { include_blank: '季節'}, value: @search_params[:season] %>
         <%= f.select :temperature, Coordinate.temperatures.keys.map{|k| [I18n.t("enums.coordinate.temperature.#{k}"), k]}, { include_blank: '気温'}, value: @search_params[:temperature] %>

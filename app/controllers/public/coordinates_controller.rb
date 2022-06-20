@@ -4,9 +4,8 @@ class Public::CoordinatesController < ApplicationController
 
   def index
     #キーワード検索用
-    #@coordinates = Coordinate.search(params[:search]).order(created_at: :desc)
     @search_params = coordinate_search_params  #検索結果の画面で、フォームに検索した値を表示するために、paramsの値をビューで使えるようにする
-    @coordinates = Coordinate.search(@search_params)  #Reservationモデルのsearchを呼び出し、引数としてparamsを渡している。
+    @coordinates = Coordinate.search(@search_params).order(created_at: :desc)  #searchを呼び出し、引数としてparamsを渡している。
   end
   
   
@@ -123,7 +122,7 @@ class Public::CoordinatesController < ApplicationController
   end
   
   def coordinate_search_params
-    params.fetch(:search, {}).permit(:dress_code, :season, :temperature, :title)
+    params.fetch(:search, {}).permit(:dress_code, :season, :temperature, :title, :gender, :generation, :body_shape)
     #fetch(:search, {})と記述することで、検索フォームに値がない場合はnilを返し、エラーが起こらなくなる
     #ここでの:searchには、フォームから送られてくるparamsの値が入っている
   end

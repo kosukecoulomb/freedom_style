@@ -23,13 +23,18 @@ class Coordinate < ApplicationRecord
     .season_choise(search_params[:season])
     .temperature_choise(search_params[:temperature])
     .title_body_like(search_params[:title])
+    .gender_choise(search_params[:gender])
+    .generation_choise(search_params[:generation])
+    .body_shape_choise(search_params[:body_shape])
   end
 
   scope :dress_code_choise, -> (dress_code) {where(dress_code: dress_code) if dress_code.present?}
   scope :season_choise, -> (season) {where(season: season) if season.present?}
   scope :temperature_choise, -> (temperature) {where(temperature: temperature) if temperature.present?}
   scope :title_body_like, -> (title) {where('title LIKE ? OR body LIKE?', "%#{title}%","%#{title}%") if title.present?}
-
+  scope :gender_choise, -> (gender) {joins(:user).merge(User.where(gender: gender)) if gender.present?}
+  scope :generation_choise, -> (generation) {joins(:user).merge(User.where(generation: generation)) if generation.present?}
+  scope :body_shape_choise, -> (body_shape) {joins(:user).merge(User.where(body_shape: body_shape)) if body_shape.present?}
 
   #タグ検索用
   def save_tag(sent_tags)
