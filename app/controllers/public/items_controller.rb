@@ -18,7 +18,7 @@ class Public::ItemsController < ApplicationController
 
   def index
     @search_params = item_search_params  #検索結果の画面で、フォームに検索した値を表示するために、paramsの値をビューで使えるようにする
-    @items = Item.search(@search_params)
+    @items = Item.search(@search_params).order(created_at: :desc)
   end
 
   def collection
@@ -32,6 +32,12 @@ class Public::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    #@itemを使った投稿を表示
+    @coordinates = Coordinate.where(outer_id: @item.id).or(Coordinate.where(tops_id: @item.id))
+                  .or(Coordinate.where(bottoms_id: @item.id))
+                  .or(Coordinate.where(shoes_id: @item.id))
+                  .or(Coordinate.where(other1_id: @item.id))
+                  .or(Coordinate.where(other2_id: @item.id))
   end
 
   def edit

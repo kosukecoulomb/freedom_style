@@ -50,9 +50,9 @@
     </div>
 
     <div class="col-md-9">
-      <h4 class="mt-4"><%= @user.name %>さんに似たユーザーの投稿</h4>
-      <% if @similar_coordinates.present? %>
-        <%= render "layouts/coordinates", coordinates: @similar_coordinates %>
+      <h4 class="mt-4">おすすめの投稿</h4>
+      <% if @recommendations.present? %>
+        <%= render "layouts/coordinates", coordinates: @recommendations %>
       <% else %>
         <P>--該当する投稿はありません--</P>
       <% end %>
@@ -65,7 +65,7 @@
         <P>--該当する投稿はありません--</P>
       <% end %>
 
-      <h4 class="mt-5">いいねした投稿</h4>
+      <h4 class="mt-5">いいねした最新投稿</h4>
       <% if @favorite_coordinates.present? %>
         <%= render "layouts/coordinates", coordinates: @favorite_coordinates %>
         <%= link_to "いいねした全コーディネートを見る", favorites_path(@user) %>

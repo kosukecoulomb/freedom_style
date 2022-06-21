@@ -21,9 +21,9 @@
                 <div class="d-flex">
                   <div id="info_followings_counts_<%= @user.id %>">
                     <%= link_to @user.followings.count, followings_user_path(@user.id) %>
-                    フォロー中　
+                    フォロー中
                   </div>
-                
+
                   <div id="info_followers_counts_<%= @user.id %>">
                     <%= link_to @user.followers.count, followers_user_path(@user.id) %>
                     フォロワー
@@ -53,6 +53,9 @@
                 </table>
                 <h5>コレクション</h5>
                 <%= link_to "コレクションを見る", collection_item_path(@user), class: "btn btn-outline-success m-1" %>
+                <% if @user.id == current_user.id && @user.name != "guestuser" %>
+                  <%= link_to "プロフィール編集", edit_profile_path(@user), class: "btn btn-outline-info m-1" %>
+                <% end %>
               </div>
             </div>
 

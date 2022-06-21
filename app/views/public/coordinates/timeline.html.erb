@@ -2,17 +2,17 @@
   <div class="row">
     <div class="col-md-12">
 
-      <% @coordinates.each do |coordinate| %> 
-        
+      <% @coordinates.each do |coordinate| %>
+
         <div class="row no-padding card-wrapper mx-auto">
           <div class="card shadow-lg" style="width: 60rem;">
             <div class='row g-0'>
               <div class="col-md-7">
-                <%= link_to coordinate_path(coordinate) do %>
+                <%= link_to coordinate_path(coordinate), :target => ["_blank"] do %>
                   <%= image_tag coordinate.coordinate_image, class: "card-img-top" %>
                 <% end %>
               </div>
-              
+
               <div class="col-md-5">
                 <div class="card-body justify-content-center">
                   <h2><%= coordinate.title %></h2>
@@ -37,15 +37,20 @@
                     </tr>
                   </table>
                   <%= coordinate.body %>
-  
-                  
+                  <div class="mt-5" id="coordinate_<%= coordinate.id %>" >
+                    <div class="favorite_btn">
+                      <%= render "public/favorites/favorite_btn", coordinate: coordinate %>
+                    </div>
+                  </div>
+
+
                 </div>
               </div>
             </div>
           </div>
         </div>
       <% end %>
-      
+
     </div>
   </div>
 </div>

@@ -73,8 +73,9 @@ class Public::CoordinatesController < ApplicationController
     @shoes_item = Item.find_by(id: @coordinate.shoes_id)
     @other1_item = Item.find_by(id: @coordinate.other1_id)
     @other2_item = Item.find_by(id: @coordinate.other2_id)
-
-   # @total_price = @outer_item.price.to_i + @tops_item.price.to_i + @bottoms_item.price.to_i + @shoes_item.price.to_i + @other1_item.price.to_i + @other2_item.price.to_i
+    
+    #似たようなコーデを表示
+    @similar_coordinates = Coordinate.where(dress_code: @coordinate.dress_code, season: @coordinate.season).limit(4).order(created_at: :desc).where.not(id: @coordinate.id)
   end
 
 

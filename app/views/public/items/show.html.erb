@@ -49,6 +49,13 @@
           </div>
         </div>
       </div>
+      
+      <h4 class="mt-4">このアイテムを使った投稿</h4>
+      <% if @coordinates.present? %>
+        <%= render "layouts/coordinates", coordinates: @coordinates %>
+      <% else %>
+        <P>--該当する投稿はありません--</P>
+      <% end %>
 
     </div>
   </div>
