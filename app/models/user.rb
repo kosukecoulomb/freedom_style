@@ -43,12 +43,16 @@ class User < ApplicationRecord
     gender_choise(search_params[:gender])
     .generation_choise(search_params[:generation])
     .body_shape_choise(search_params[:body_shape])
+    .tall_from_like(search_params[:tall_from])
+    .tall_to_like(search_params[:tall_to])
     .name_like(search_params[:name])
   end
 
   scope :gender_choise, -> (gender) {where(gender: gender) if gender.present?}
   scope :generation_choise, -> (generation) {where(generation: generation) if generation.present?}
   scope :body_shape_choise, -> (body_shape) {where(body_shape: body_shape) if body_shape.present?}
+  scope :tall_from_like, -> (tall_from) {where(" tall >= ?", tall_from) if tall_from.present?}
+  scope :tall_to_like, -> (tall_to) {where("tall <= ?", tall_to) if tall_to.present?}
   scope :name_like, -> (name) {where('name LIKE? OR introduction LIKE?', "%#{name}%","%#{name}%") if name.present?}
 
   #タグ検索

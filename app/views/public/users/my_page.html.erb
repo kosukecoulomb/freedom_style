@@ -7,7 +7,7 @@
 
   <div class="row">
     <div class="col-md-3">
-      <h4 class="mt-4"><%= @user.name %>さんの基本データ</h4>
+      <h4 class="mt-2"><%= @user.name %>さんの基本データ</h4>
       <%= image_tag @user.get_profile_image(80,100), class: "rounded-circle img-thumbnail" %>
       <% if @user.name != "guestuser" %>
         <%= link_to "登録情報を編集", edit_profile_path(@user), class: "btn btn-outline-info" %>
@@ -48,9 +48,10 @@
       <%= link_to "コレクションを見る", collection_item_path(@user), class: "btn btn-outline-success m-1" %>
       <%= link_to "コレクションを追加", new_item_path, class: "btn btn-outline-info m-1" %>
     </div>
+    
 
     <div class="col-md-9">
-      <h4 class="mt-4">おすすめの投稿</h4>
+      <h4 class="mt-2">おすすめの投稿</h4>
       <% if @recommendations.present? %>
         <%= render "layouts/coordinates", coordinates: @recommendations %>
       <% else %>
@@ -65,7 +66,7 @@
         <P>--該当する投稿はありません--</P>
       <% end %>
 
-      <h4 class="mt-5">いいねした最新投稿</h4>
+      <h4 class="mt-5">いいねした最新の投稿</h4>
       <% if @favorite_coordinates.present? %>
         <%= render "layouts/coordinates", coordinates: @favorite_coordinates %>
         <%= link_to "いいねした全コーディネートを見る", favorites_path(@user) %>

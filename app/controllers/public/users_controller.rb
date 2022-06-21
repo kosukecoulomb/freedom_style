@@ -8,16 +8,16 @@ class Public::UsersController < ApplicationController
     #@users = User.search(@search_params).where(id: Coordinate.group(:user_id).order('count(user_id) desc').pluck(:user_id))#
     @users = User.search(@search_params)
   end
+  
 
   def my_page
     @user = current_user
     @coordinates = Coordinate.where(user_id: @user.id)
-
     more_short = current_user.tall.to_i - 4
     more_tall = current_user.tall.to_i + 5
-    #ユーザー本人でない人の投稿で、ユーザーのジェンダーが同じ身長-4~+5cmの投稿を絞り込んで新着順に４件表示
-    @similar_talls = User.where(tall: more_short..more_tall, gender: current_user.gender).where.not(id: current_user.id)
-    @similar_talls.each do |user|
+    #ユーザー本人でない人の投稿で、ユーザーと好みの服装が同じ身長-4~+5cmの投稿を絞り込んで新着順に４件表示
+    similar_talls = User.where(tall: more_short..more_tall, gender: current_user.gender).where.not(id: current_user.id)
+    similar_talls.each do |user| #フォロワーは除いて表示
       @recommendations = user.coordinates.all.limit(4).order(created_at: :desc).where.not(user_id: [*current_user.following_ids])
     end
 
@@ -34,15 +34,18 @@ class Public::UsersController < ApplicationController
     favorites = Favorite.where(user_id: current_user.id).pluck(:coordinate_id)
     @favorite_coordinates = Coordinate.order(created_at: :desc).find(favorites)
   end
+  
 
   def show
     @user = User.find(params[:id])
     @coordinates = @user.coordinates.all
   end
+  
 
   def edit
     @user = current_user
   end
+  
 
   def update
     @user = current_user
@@ -53,10 +56,12 @@ class Public::UsersController < ApplicationController
       render :edit
     end
   end
+  
 
   def unsubscribe
     @user = current_user
   end
+
 
   def destroy
     @user = current_user
@@ -64,6 +69,7 @@ class Public::UsersController < ApplicationController
     redirect_to root_path
     flash[:notice] = "アカウントを削除しました"
   end
+
 
   #フォロー・フォロワーを表示
   def followings
@@ -76,11 +82,13 @@ class Public::UsersController < ApplicationController
     @users = user.followers
   end
 
+
   private
 
   def user_params
     params.require(:user).permit(:profile_image, :name, :introduction, :gender, :generation, :tall, :body_shape, :foot_size)
   end
+
 
   #ゲストユーザー機能
   def ensure_guest_user
@@ -90,8 +98,9 @@ class Public::UsersController < ApplicationController
     end
   end
 
+
   def user_search_params
-    params.fetch(:search, {}).permit(:gender, :generation, :body_shape, :name)
+    params.fetch(:search, {}).permit(:gender, :generation, :body_shape, :tall_from, :tall_to, :name)
   end
 
 end

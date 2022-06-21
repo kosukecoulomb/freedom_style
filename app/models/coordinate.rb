@@ -26,6 +26,8 @@ class Coordinate < ApplicationRecord
     .gender_choise(search_params[:gender])
     .generation_choise(search_params[:generation])
     .body_shape_choise(search_params[:body_shape])
+    .tall_from_like(search_params[:tall_from])
+    .tall_to_like(search_params[:tall_to])
   end
 
   scope :dress_code_choise, -> (dress_code) {where(dress_code: dress_code) if dress_code.present?}
@@ -36,6 +38,9 @@ class Coordinate < ApplicationRecord
   scope :gender_choise, -> (gender) {joins(:user).merge(User.where(gender: gender)) if gender.present?}
   scope :generation_choise, -> (generation) {joins(:user).merge(User.where(generation: generation)) if generation.present?}
   scope :body_shape_choise, -> (body_shape) {joins(:user).merge(User.where(body_shape: body_shape)) if body_shape.present?}
+  scope :tall_from_like, -> (tall_from) {joins(:user).merge(User.where(" tall >= ?", tall_from)) if tall_from.present?}
+  scope :tall_to_like, -> (tall_to) {joins(:user).merge(User.where("tall < ?", tall_to)) if tall_to.present?}
+
 
   #タグ検索用
   def save_tag(sent_tags)
