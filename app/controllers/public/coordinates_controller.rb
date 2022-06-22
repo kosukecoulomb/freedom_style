@@ -120,6 +120,7 @@ class Public::CoordinatesController < ApplicationController
     @coordinate = Coordinate.find(params[:id])
     @coordinate.destroy
     redirect_to my_page_path
+    flash[:notice] = "コーディネートを削除しました"
   end
 
   #タグ検索結果ページ

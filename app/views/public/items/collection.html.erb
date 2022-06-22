@@ -5,103 +5,113 @@
       <%= link_to "コレクション新規登録", new_item_path, class: "ml-3 btn btn-outline-info" %>
       
       <h5 class="mt-3">アウター</h5>
-      <div class="row no-padding card-wrapper mx-auto">
-        <% if @outer_items.present? %>
-          <% @outer_items.each do |item| %>
-            <div class="coordinate_image">
-              <div class="card shadow-lg">
-                <%= link_to item_path(item) do %>
-                  <%= image_tag item.get_item_image(200,400), class: "card-img-top" %>
-                  <div class="mask">
-                    <div class="caption"><%= item.item_name %></div>
-                	</div>
-                <% end %>
+      <div class="d-flex flex-wrap">
+        <div class="row no-padding card-wrapper">
+          <% if @outer_items.present? %>
+            <% @outer_items.each do |item| %>
+              <div class="coordinate_image">
+                <div class="card shadow-lg">
+                  <%= link_to item_path(item) do %>
+                    <%= image_tag item.get_item_image(200,200), class: "card-img-top img-thumbnail" %>
+                    <div class="mask">
+                      <div class="caption"><%= item.item_name %></div>
+                  	</div>
+                  <% end %>
+                </div>
               </div>
-            </div>
+            <% end %>
+          <% else %>
+            <p>--登録したコレクションはありません-</p>
           <% end %>
-        <% else %>
-          <p>登録したコレクションはありません</p>
-        <% end %>
+        </div>
       </div>
       
       <h5 class="mt-3">トップス</h5>
-      <div class="row no-padding card-wrapper mx-auto">
-        <% if @tops_items.present? %>
-          <% @tops_items.each do |item| %>
-            <div class="coordinate_image">
-              <div class="card shadow-lg">
-                <%= link_to item_path(item) do %>
-                  <%= image_tag item.get_item_image(200,400), class: "card-img-top" %>
-                  <div class="mask">
-                    <div class="caption"><%= item.item_name %></div>
-                	</div>
-                <% end %>
+      <div class="d-flex flex-wrap">
+        <div class="row no-padding card-wrapper">
+          <% if @tops_items.present? %>
+            <% @tops_items.each do |item| %>
+              <div class="coordinate_image">
+                <div class="card shadow-lg">
+                  <%= link_to item_path(item) do %>
+                    <%= image_tag item.get_item_image(200,200), class: "card-img-top img-thumbnail" %>
+                    <div class="mask">
+                      <div class="caption"><%= item.item_name %></div>
+                  	</div>
+                  <% end %>
+                </div>
               </div>
-            </div>
+            <% end %>
+          <% else %>
+            <p>--登録したコレクションはありません-</p>
           <% end %>
-        <% else %>
-          <p>登録したコレクションはありません</p>
-        <% end %>
+        </div>
       </div>
       
       <h5 class="mt-3">ボトムス</h5>
-      <div class="row no-padding card-wrapper mx-auto">
-        <% if @bottoms_items.present? %>
-          <% @bottoms_items.each do |item| %>
-            <div class="coordinate_image">
-              <div class="card shadow-lg">
-                <%= link_to item_path(item) do %>
-                  <%= image_tag item.get_item_image(200,400), class: "card-img-top" %>
-                  <div class="mask">
-                    <div class="caption"><%= item.item_name %></div>
-                	</div>
-                <% end %>
+      <div class="d-flex flex-wrap">
+        <div class="row no-padding card-wrapper">
+          <% if @bottoms_items.present? %>
+            <% @bottoms_items.each do |item| %>
+              <div class="coordinate_image">
+                <div class="card shadow-lg">
+                  <%= link_to item_path(item) do %>
+                    <%= image_tag item.get_item_image(200,200), class: "card-img-top img-thumbnail" %>
+                    <div class="mask">
+                      <div class="caption"><%= item.item_name %></div>
+                  	</div>
+                  <% end %>
+                </div>
               </div>
-            </div>
+            <% end %>
+          <% else %>
+            <p>--登録したコレクションはありません-</p>
           <% end %>
-        <% else %>
-          <p>登録したコレクションはありません</p>
-        <% end %>
+        </div>
       </div>
       
       <h5 class="mt-3">靴</h5>
-      <div class="row no-padding card-wrapper mx-auto">
-        <% if @shoes_items.present? %>
-          <% @shoes_items.each do |item| %>
-            <div class="coordinate_image">
-              <div class="card shadow-lg">
-                <%= link_to item_path(item) do %>
-                  <%= image_tag item.get_item_image(200,400), class: "card-img-top" %>
-                  <div class="mask">
-                    <div class="caption"><%= item.item_name %></div>
-                	</div>
-                <% end %>
+      <div class="d-flex flex-wrap">
+        <div class="row no-padding card-wrapper">
+          <% if @shoes_items.present? %>
+            <% @shoes_items.each do |item| %>
+              <div class="coordinate_image">
+                <div class="card shadow-lg">
+                  <%= link_to item_path(item) do %>
+                    <%= image_tag item.get_item_image(200,200), class: "card-img-top img-thumbnail" %>
+                    <div class="mask">
+                      <div class="caption"><%= item.item_name %></div>
+                  	</div>
+                  <% end %>
+                </div>
               </div>
-            </div>
+            <% end %>
+          <% else %>
+            <p>--登録したコレクションはありません-</p>
           <% end %>
-        <% else %>
-          <p>登録したコレクションはありません</p>
-        <% end %>
+        </div>
       </div>
       
       <h5 class="mt-3">その他・アクセサリーなど</h5>
-      <div class="row no-padding card-wrapper mx-auto">
-        <% if @other_items.present? %>
-          <% @other_items.each do |item| %>
-            <div class="coordinate_image">
-              <div class="card shadow-lg">
-                <%= link_to item_path(item) do %>
-                  <%= image_tag item.get_item_image(200,400), class: "card-img-top" %>
-                  <div class="mask">
-                    <div class="caption"><%= item.item_name %></div>
-                	</div>
-                <% end %>
+      <div class="d-flex flex-wrap">
+        <div class="row no-padding card-wrapper">
+          <% if @other_items.present? %>
+            <% @other_items.each do |item| %>
+              <div class="coordinate_image">
+                <div class="card shadow-lg">
+                  <%= link_to item_path(item) do %>
+                    <%= image_tag item.get_item_image(200,200), class: "card-img-top img-thumbnail" %>
+                    <div class="mask">
+                      <div class="caption"><%= item.item_name %></div>
+                  	</div>
+                  <% end %>
+                </div>
               </div>
-            </div>
+            <% end %>
+          <% else %>
+            <p>--登録したコレクションはありません--</p>
           <% end %>
-        <% else %>
-          <p>登録したコレクションはありません</p>
-        <% end %>
+        </div>
       </div>
       
     </div>

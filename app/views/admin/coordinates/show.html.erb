@@ -116,7 +116,7 @@
                   </tr>
                 </table>
 
-                  <%= link_to "投稿を削除", admin_coordinate_path(@coordinate), method: :delete, class: "btn btn-outline-danger" %>
+                  <%= link_to "投稿を削除", admin_coordinate_path(@coordinate), method: :delete, class: "btn btn-outline-danger", data: { confirm: '本当に削除しますか？' %>
               </div>
             </div>
 
@@ -149,7 +149,7 @@
                 <% end %>
               </td>
               <td><%= comment.comment %></td>
-              <td><%= link_to "削除", admin_coordinate_comment_path(comment.coordinate, comment), method: :delete, remote: true, class: "btn btn-outline-danger" %></td>
+              <td><%= link_to "削除", admin_coordinate_comment_path(comment.coordinate, comment), method: :delete, remote: true, class: "btn btn-outline-danger", data: { confirm: '本当に削除しますか？' %></td>
             </tr>
           </table>
           <% end %>

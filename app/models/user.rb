@@ -55,11 +55,7 @@ class User < ApplicationRecord
   scope :tall_to_like, -> (tall_to) {where("tall <= ?", tall_to) if tall_to.present?}
   scope :name_like, -> (name) {where('name LIKE? OR introduction LIKE?', "%#{name}%","%#{name}%") if name.present?}
 
-  #タグ検索
-  has_many :tag_maps, dependent: :destroy
-  has_many :tags, through: :tag_maps
   
-
   #通知機能
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy

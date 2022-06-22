@@ -2,11 +2,12 @@
   <div class="row">
     <div class="col-md-12">
       <h2><%= @user.name %>さんのプロフィール</h2>
+      <div class="row no-padding card-wrapper mx-auto">
         <div class="card shadow-lg mx-auto" style="width: 60rem;">
           <div class='row g-0'>
 
             <div class="col-md-7">
-              <%= image_tag @user.profile_image, class: "img-fluid card-img-top" %>
+              <%= image_tag @user.profile_image, class: "card-img-top" %>
             </div>
 
             <div class="col-md-5">
@@ -21,7 +22,7 @@
                 <div class="d-flex">
                   <div id="info_followings_counts_<%= @user.id %>">
                     <%= link_to @user.followings.count, followings_user_path(@user.id) %>
-                    フォロー中
+                    フォロー中　｜　
                   </div>
 
                   <div id="info_followers_counts_<%= @user.id %>">
@@ -58,6 +59,7 @@
                 <% end %>
               </div>
             </div>
+          </div>
 
           </div>
         </div>

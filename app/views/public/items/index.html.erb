@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <div class="d-flex">
+      <div class="d-flex flex-wrap">
         <h3 class="m-1">アイテム一覧</h3>
         <% if user_signed_in? %>
           <%= link_to "アイテム新規登録", new_item_path, class: "btn btn-outline-info" %>
@@ -21,7 +21,7 @@
 
       <div class="d-flex">
         <% @items.each do |item| %>
-          <div class="coordinate_image">
+          <div class="coordinate_image mx-auto">
             <%= link_to item_path(item) do %>
               <%= image_tag item.item_image, class: "img-fluid rounded-circle" %>
                 <div class="mask">

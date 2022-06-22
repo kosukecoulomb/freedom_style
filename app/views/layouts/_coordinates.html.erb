@@ -1,6 +1,6 @@
 <div class="d-flex flex-wrap">
   <% coordinates.each do |coordinate| %>
-    <div class="coordinate_image mx-auto">
+    <div class="coordinate_image">
       <%= link_to coordinate_path(coordinate), :target => ["_blank"] do %>
         <%= image_tag coordinate.get_coordinate_image(220,220), class: "image-fluid img-thumbnail" %>
           <div class="mask">

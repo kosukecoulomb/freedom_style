@@ -23,8 +23,7 @@ Rails.application.routes.draw do
     patch "users/profile" => "users#update", as: "update_profile"
     get "/users/profile/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
     get "/users/profile/favorites" => "users#favorites", as: "favorites"
-    delete "/users" => "users#destroy", as: "user_destroy"
-    resources :users, only: [:index, :show] do
+    resources :users, only: [:index, :show, :destroy] do
       resource :relationships, only: [:create, :destroy]
       get :followings, on: :member
       get :followers, on: :member

@@ -8,7 +8,7 @@ class Public::UsersController < ApplicationController
     #@users = User.search(@search_params).where(id: Coordinate.group(:user_id).order('count(user_id) desc').pluck(:user_id))#
     @users = User.search(@search_params)
   end
-  
+
 
   def my_page
     @user = current_user
@@ -27,8 +27,9 @@ class Public::UsersController < ApplicationController
 
     #フォローしているユーザーの投稿
     @following_coordinates = Coordinate.limit(4).order(created_at: :desc).where(user_id: [*current_user.following_ids])
-  
-     @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
+
+    #トレンドタグの表示
+    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
   end
 
 
@@ -36,18 +37,18 @@ class Public::UsersController < ApplicationController
     favorites = Favorite.where(user_id: current_user.id).pluck(:coordinate_id)
     @favorite_coordinates = Coordinate.order(created_at: :desc).find(favorites)
   end
-  
+
 
   def show
     @user = User.find(params[:id])
     @coordinates = @user.coordinates.all
   end
-  
+
 
   def edit
     @user = current_user
   end
-  
+
 
   def update
     @user = current_user
@@ -58,7 +59,7 @@ class Public::UsersController < ApplicationController
       render :edit
     end
   end
-  
+
 
   def unsubscribe
     @user = current_user
