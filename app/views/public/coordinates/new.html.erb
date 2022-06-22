@@ -13,9 +13,9 @@
 
       <!--タグ検索機能-->
       <h2>タグリスト</h2>
-        <% @tag_list.each do |list| %>
-          <%= link_to list.tag_name, tag_coordinates_path(tag_id: list.id) %>
-          <%= "(#{list.coordinates.count})" %>
+        <% @tag_list.each do |tag| %>
+          <%= link_to tag.tag_name, tag_coordinates_path(tag_id: tag.id) %>
+          <%= "(#{tag.coordinates.count})" %>
         <% end %>
 
 

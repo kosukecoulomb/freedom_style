@@ -48,10 +48,26 @@
       <%= link_to "コレクションを見る", collection_item_path(@user), class: "btn btn-outline-success m-1" %>
       <%= link_to "コレクションを追加", new_item_path, class: "btn btn-outline-info m-1" %>
     </div>
-    
+
 
     <div class="col-md-9">
-      <h4 class="mt-2">おすすめの投稿</h4>
+      <h4 class="mt-2">トレンドのタグ</h4>
+      <div class="d-flex flex-wrap">
+        <% @tag_list.each do |tag| %>
+          <div class="coordinate_image mx-auto">
+            <% tag.coordinates.limit(1).each do |coordinate| %>
+              <%= link_to tag_coordinates_path(tag_id: tag.id) do %>
+                <%= image_tag coordinate.get_coordinate_image(220,220), class: "image-fluid img-thumbnail" %>
+                <div class="mask">
+                  <div class="caption"><%= tag.tag_name %></div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <h4 class="mt-5">おすすめの投稿</h4>
       <% if @recommendations.present? %>
         <%= render "layouts/coordinates", coordinates: @recommendations %>
       <% else %>

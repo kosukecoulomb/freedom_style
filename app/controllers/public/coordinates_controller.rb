@@ -19,7 +19,7 @@ class Public::CoordinatesController < ApplicationController
     @coordinate = Coordinate.new
 
     #タグ検索用
-    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
+    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
 
     #登録アイテムと紐付けるための変数
     @outer_items = Item.where(user_id: @user.id, category: 0)
@@ -38,7 +38,7 @@ class Public::CoordinatesController < ApplicationController
     @user = current_user
 
     #タグ検索用
-    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
+     @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
 
     #登録アイテムと紐付けるための変数
     @outer_items = Item.where(user_id: @user.id, category: 0)
