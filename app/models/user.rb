@@ -23,6 +23,9 @@ class User < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :user_rooms, dependent: :destroy
+  has_many :chats, dependent: :destroy
+
 
   #フォロー機能
   has_many :relationships, foreign_key: :following_id

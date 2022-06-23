@@ -57,6 +57,9 @@
                 <% if @user.id == current_user.id && @user.name != "guestuser" %>
                   <%= link_to "プロフィール編集", edit_profile_path(@user), class: "btn btn-outline-info m-1" %>
                 <% end %>
+                <% if current_user != @user %>
+                  <%= link_to 'chatを始める', chat_path(@user.id), class: "btn btn-outline-warning" %>
+                <% end %>
               </div>
             </div>
           </div>
