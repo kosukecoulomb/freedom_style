@@ -19,6 +19,8 @@
                     <%= link_to "あなたの投稿", notification.coordinate %>にいいねしました</P>
                   <% when "comment" then %>
                     <%= link_to "あなたの投稿", coordinate_path(notification.coordinate) %>にコメントしました</p>
+                  <% when 'chat' then %>
+                    あなたに送った<%= link_to '未読のメッセージ', chat_path(notification.visitor) %>があります。
                 <% end %>
               </td>
             </tr>

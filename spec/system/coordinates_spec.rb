@@ -92,7 +92,7 @@ describe '投稿のテスト', type: :system do
         select "カジュアル", from: "coordinate_dress_code"
         select "春", from: "coordinate_season"
         select "10度以下(寒い)", from: "coordinate_temperature"
-        
+
         attach_file("coordinate_coordinate_image", "app/assets/images/non-item.jpg")
         click_button '保存'
         expect(page).to have_current_path coordinate_path(coordinate)
