@@ -145,19 +145,12 @@
                     <%= f.submit "コメント", class: "btn btn-outline-success" %>
                   <% end %>
                 </div>
-                
-                
-                <P>------------------------------------</P>
-   current_user <%= current_user.id %><br>user_id<%= @coordinate.user_id %>
-                
                 <% if user_signed_in? %>
                   <% if current_user.id == @coordinate.user_id %>
                     <%= link_to "編集する", edit_coordinate_path(@coordinate), class: "btn btn-outline-info" %>
                   <% end %>
                 <% end %>
                 
-                
-                <P>------------------------------------</P>
               </div>
             </div>
 

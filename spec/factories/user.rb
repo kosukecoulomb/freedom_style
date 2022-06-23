@@ -9,6 +9,6 @@ FactoryBot.define do
     tall              { 165 }
     body_shape        { 1 }
     foot_size         { 25 }
-    
+
   end
 end
