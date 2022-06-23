@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <%= link_to user_path(@user.id) do %>
+        <%= image_tag @user.get_profile_image(80,100), class: "rounded-circle img-thumbnail" %>
+      <% end %>
+      <%= @user.name %>さんとのチャット
+
+        <table class="table table-borderless">
+          <% @chats.each do |chat| %>
+            <% if chat.user_id == current_user.id %>
+              <tr>
+                <td width="80"><%= image_tag chat.user.get_profile_image(50,50), class: "rounded-circle img-thumbnail" %><%= chat.user.name %></td>
+                <td width="150"><%= chat.message %></td>
+                <td width="150"></td>
+                <td width="80"></td>
+              </tr>
+            <% else %>
+              <tr>
+                <td></td>
+                <td></td>
+                <td><%= chat.message %></td>
+                <td><%= image_tag chat.user.get_profile_image(50,50), class: "rounded-circle img-thumbnail" %><%= chat.user.name %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+
+      <%= form_with model: @chat, method: :post do |f| %>
+        <%= f.text_field :message %>
+        <%= f.hidden_field :room_id %>
+        <%= f.submit "送信", class: "btn btn-sm btn-outline-success chat-btn" %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -45,8 +45,20 @@ Rails.application.routes.draw do
     resources :tags do
       get '/coordinates' => 'coordinates#search'
     end
-    
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+
     resources :notifications, only: :index
+
+    get 'chat/:id' => 'chats#show', as: 'chat'
+    resources :chats, only: [:create]
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
   end
 
 
