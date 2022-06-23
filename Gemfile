@@ -67,3 +67,4 @@ end
 
 gem 'dotenv-rails'
 gem 'httpclient'
+gem 'rails-i18n'

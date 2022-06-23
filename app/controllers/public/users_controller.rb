@@ -16,8 +16,8 @@ class Public::UsersController < ApplicationController
     more_short = current_user.tall.to_i - 4
     more_tall = current_user.tall.to_i + 5
     #ユーザー本人でない人の投稿で、ユーザーと好みの服装が同じ身長-4~+5cmの投稿を絞り込んで新着順に４件表示
-    similar_talls = User.where(tall: more_short..more_tall, gender: current_user.gender).where.not(id: current_user.id)
-    similar_talls.each do |user| #フォロワーは除いて表示
+    similar_users = User.where(tall: more_short..more_tall, gender: current_user.gender).where.not(id: current_user.id)
+    similar_users.each do |user| #フォロワーは除いて表示
       @recommendations = user.coordinates.all.limit(4).order(created_at: :desc).where.not(user_id: [*current_user.following_ids])
     end
 

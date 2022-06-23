@@ -68,7 +68,7 @@
                 <div class="pb-2"><%= f.text_field :title, :size => "35" %></div>
                 <table class="table table no-borderless">
                   <tr>
-                    <th>シーン:</th>
+                    <th>コンセプト:</th>
                     <td><%= f.select :dress_code, Coordinate.dress_codes.keys.map{|k| [I18n.t("enums.coordinate.dress_code.#{k}"), k]}, { include_blank: '選択してください'} %></td>
                   </tr>
                   <tr>
@@ -85,7 +85,7 @@
                 <%= f.text_area :body, size: "35x15" %>
 
                 <h5>#タグ入力</h5>
-                <%= f.text_field :tag_name, placeholder: "#モード系 #かわいい" %>
+                <%= f.text_field :tag_name, :size => "40", placeholder: "※複数タグを付ける場合は間に半角スペース" %>
 
                 <%= f.submit "投稿する" , class: "btn btn-outline-success col-md-offset-6" %>
               </div>

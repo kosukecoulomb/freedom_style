@@ -41,3 +41,29 @@
           bottoms: "ボトムス"
           shoes: "靴"
           others: "その他"
+    activerecord:
+      attributes:
+        user:
+          name: "名前"
+          gender: "好みの服装"
+          generation: "世代"
+          body_shape: "体型"
+          tall: "身長"
+          foot_size: "足の実寸"
+        coordinate:
+          title: "タイトル"
+          body: "説明"
+          dress_code: "コンセプト"
+          season: "季節"
+          temperature: "気温"
+          coordinate_image: "写真"
+        item:
+          item_name: "アイテム名"
+          brand_name: "ブランド名"
+          category: "カテゴリー"
+          size: "サイズ"
+          color: "色"
+          price: "価格"
+          item_image: "写真"
+          
+        

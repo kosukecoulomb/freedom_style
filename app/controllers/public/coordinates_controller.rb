@@ -12,6 +12,10 @@ class Public::CoordinatesController < ApplicationController
   #フォロワーと自分のコーデ
   def timeline
     @coordinates = Coordinate.where(user_id: [current_user.id, *current_user.following_ids]).order(created_at: :desc)
+    more_short = current_user.tall.to_i - 4
+    more_tall = current_user.tall.to_i + 5
+    @similar_users = User.where(tall: more_short..more_tall, gender: current_user.gender).where.not(id: current_user.id)
+    @users = User.all.limit(10).where.not(id: current_user.id)
   end
 
   def new

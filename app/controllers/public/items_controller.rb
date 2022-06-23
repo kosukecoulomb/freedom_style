@@ -75,7 +75,7 @@ class Public::ItemsController < ApplicationController
   end
   
   def item_search_params
-    params.fetch(:search, {}).permit(:category, :item_name)
+    params.fetch(:search, {}).permit(:category, :item_name, :price_from ,:price_to)
   end
 
 end
