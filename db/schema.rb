@@ -52,6 +52,14 @@ ActiveRecord::Schema.define(version: 2022_06_17_013556) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "chats", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "room_id"
+    t.text "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "comments", force: :cascade do |t|
     t.integer "coordinate_id", null: false
     t.integer "user_id", null: false
@@ -131,6 +139,11 @@ ActiveRecord::Schema.define(version: 2022_06_17_013556) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "tag_maps", force: :cascade do |t|
     t.integer "coordinate_id", null: false
     t.integer "tag_id", null: false
@@ -142,6 +155,13 @@ ActiveRecord::Schema.define(version: 2022_06_17_013556) do
 
   create_table "tags", force: :cascade do |t|
     t.string "tag_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "user_rooms", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "room_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -23,7 +23,7 @@
               ※画像をクリックして画像選択
               <%= f.label :coordinate_image do %>
                 <%= image_tag @coordinate.coordinate_image, class: 'avatar' %>
-                <%= f.file_field :coordinate_image, accept: "image/*", class: 'uploader', style: 'display:none' %>
+                <%= f.file_field :coordinate_image, accept: "image/*", class: 'uploader' %>
               <% end %>
             </div>
 

@@ -36,6 +36,7 @@ describe '投稿のテスト', type: :system do
 
   describe "投稿一覧のテスト" do
     before do
+      sign_in user
       visit coordinates_path
     end
     context '表示の確認' do
@@ -48,6 +49,7 @@ describe '投稿のテスト', type: :system do
 
   describe "詳細画面のテスト" do
     before do
+      sign_in User.first
       visit coordinate_path(coordinate)
     end
     context '表示の確認' do
@@ -57,8 +59,7 @@ describe '投稿のテスト', type: :system do
     end
     context 'リンクの遷移先の確認' do
       it '編集の遷移先は編集画面か' do
-        edit_link = find_all('a')[3]
-        edit_link.click
+        click_on "編集する"
         expect(current_path).to eq('/coordinates/' + coordinate.id.to_s + '/edit')
       end
     end
@@ -71,15 +72,16 @@ describe '投稿のテスト', type: :system do
 
   describe '編集画面のテスト' do
     before do
+      sign_in User.first
       visit edit_coordinate_path(coordinate)
     end
     context '表示の確認' do
       it '編集前のタイトルと本文がフォームに表示(セット)されている' do
         expect(page).to have_field 'coordinate[title]', with: coordinate.title
         expect(page).to have_field 'coordinate[body]', with: coordinate.body
-        expect(page).to have_filed 'coordinate[dress_code]', with: coordinate.dress_code
-        expect(page).to have_filed 'coordinate[season]', with: coordinate.season
-        expect(page).to have_filed 'coordinate[temperature]', with: coordinate.temperature
+        expect(page).to have_select 'coordinate[dress_code]', selected: coordinate.dress_code_i18n
+        expect(page).to have_select 'coordinate[season]', selected: coordinate.season_i18n
+        expect(page).to have_select 'coordinate[temperature]', selected: coordinate.temperature_i18n
       end
       it '保存ボタンが表示される' do
         expect(page).to have_button '編集を保存'
@@ -92,7 +94,7 @@ describe '投稿のテスト', type: :system do
         select "カジュアル", from: "coordinate_dress_code"
         select "春", from: "coordinate_season"
         select "10度以下(寒い)", from: "coordinate_temperature"
-        
+
         attach_file("coordinate_coordinate_image", "app/assets/images/non-item.jpg")
         click_button '保存'
         expect(page).to have_current_path coordinate_path(coordinate)
