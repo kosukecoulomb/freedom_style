@@ -86,6 +86,9 @@ class Public::CoordinatesController < ApplicationController
   def edit
     @user = current_user
     @coordinate = Coordinate.find(params[:id])
+    
+    #タグ検索用
+     @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
 
     #new同様
     @outer_items = Item.where(user_id: @user.id, category: 0)
@@ -102,6 +105,9 @@ class Public::CoordinatesController < ApplicationController
 
     @coordinate = Coordinate.find(params[:id])
     @user = current_user
+    
+    #タグ検索用
+    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
 
     #new同様
     @outer_items = Item.where(user_id: @user.id, category: 0)

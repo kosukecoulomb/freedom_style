@@ -12,7 +12,7 @@
       <div class="m-3 text-center">
         <%= form_with(scope: :search, url: items_path, method: :get) do |f| %>
           <div class="form-check m-1">
-            <%= f.select :category, Item.categories.keys.map{|k| [I18n.t("enums.item.category.#{k}"), k]}, { include_blank: 'カテゴリー'}, value: @search_params[:dress_code] %>　
+            <%= f.select :category, Item.categories.keys.map{|k| [I18n.t("enums.item.category.#{k}"), k]}, { include_blank: 'カテゴリー'}, value: @search_params[:dress_code] %>
             価格：<%= f.number_field :price_from, class: "form-check-inline" %>円以上〜
             <%= f.number_field :price_to, class: "form-check-inline" %>円以下
           </div>
@@ -25,7 +25,7 @@
 
       <div class="d-flex flex-wrap">
         <% @items.each do |item| %>
-          <div class="coordinate_image mx-auto">
+          <div class="coordinate_image">
             <%= link_to item_path(item) do %>
               <%= image_tag item.get_item_image(200,200), class: "img-fluid rounded-circle" %>
                 <div class="mask">

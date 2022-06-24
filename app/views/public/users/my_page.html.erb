@@ -8,7 +8,7 @@
   <div class="row">
     <div class="col-md-3">
       <h4 class="mt-2"><%= @user.name %>さんの基本データ</h4>
-      <%= image_tag @user.get_profile_image(80,100), class: "rounded-circle img-thumbnail" %>
+      <%= image_tag @user.get_profile_image(80,100), class: "rounded-circle" %>
       <% if @user.name != "guestuser" %>
         <%= link_to "登録情報を編集", edit_profile_path(@user), class: "btn btn-outline-info" %>
       <% end %>
