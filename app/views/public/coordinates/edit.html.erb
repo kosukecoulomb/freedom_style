@@ -18,7 +18,7 @@
           <%= "(#{tag.coordinates.count})" %>
         <% end %>
 
-      <h2 class="">コーディネートを編集</h2>
+      <h2 class="mt-3">コーディネートを編集</h2>
       <%= form_with model: @coordinate do |f| %>
 
       <div class="row no-padding card-wrapper mx-auto">
@@ -87,10 +87,10 @@
                 <%= f.text_area :body, size: "35x15" %>
 
                 <h5>#タグ入力</h5>
-                <%= f.text_field :tag_name, placeholder: "#モード系 #かわいい" %><%= f.text_field :tag_name, :size => "40", placeholder: "※複数タグを付ける場合は間に半角スペース" %>
+                <%= f.text_field :tag_name, :size => "40", placeholder: "※複数タグを付ける場合は間に半角スペース" %>
 
-                <%= f.submit "編集を保存" , class: "btn btn-outline-success" %>
-                <%= link_to "投稿を削除", coordinate_path(@coordinate), method: :delete, class: "btn btn-outline-danger", data: { confirm: '本当に削除しますか？' } %>
+                <%= f.submit "編集を保存" , class: "btn btn-outline-success m-1" %>
+                <%= link_to "投稿を削除", coordinate_path(@coordinate), method: :delete, class: "btn btn-outline-danger m-1", data: { confirm: '本当に削除しますか？' } %>
               </div>
             </div>
 
