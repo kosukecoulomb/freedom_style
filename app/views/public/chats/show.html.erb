@@ -1,36 +1,38 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <%= link_to user_path(@user.id) do %>
-        <%= image_tag @user.get_profile_image(80,100), class: "rounded-circle img-thumbnail" %>
-      <% end %>
-      <%= @user.name %>さんとのチャット
+      <div class="text-center">
+        <%= link_to user_path(@user.id) do %>
+          <%= image_tag @user.get_profile_image(80,100), class: "rounded-circle" %>
+        <% end %>
+        <%= @user.name %>さんとのチャット
+      </div>
 
         <table class="table table-borderless">
           <% @chats.each do |chat| %>
             <% if chat.user_id == current_user.id %>
               <tr>
-                <td width="80"><%= image_tag chat.user.get_profile_image(50,50), class: "rounded-circle img-thumbnail" %><%= chat.user.name %></td>
-                <td width="150"><%= chat.message %></td>
-                <td width="150"></td>
-                <td width="80"></td>
+                <td class="col-md-5 float-left"><p class="chat-left text-center"><%= chat.message %></p></td>
+                <td class="col-md-5"></td>
+                <td class="col-md-2"></td>
               </tr>
             <% else %>
               <tr>
-                <td width="80"></td>
-                <td width="150"></td>
-                <td width="150"><%= chat.message %></td>
-                <td width="80"><%= image_tag chat.user.get_profile_image(50,50), class: "rounded-circle img-thumbnail" %><%= chat.user.name %></td>
+                <td></td>
+                <td class="float-right"><p class="chat-right text-center"><%= chat.message %></p></td>
+                <td><%= image_tag chat.user.get_profile_image(50,50), class: "float-left rounded-circle" %><%= chat.user.name %></td>
               </tr>
             <% end %>
           <% end %>
         </table>
-
-      <%= form_with model: @chat, method: :post do |f| %>
-        <%= f.text_field :message %>
-        <%= f.hidden_field :room_id %>
-        <%= f.submit "送信", class: "btn btn-sm btn-outline-success chat-btn" %>
-      <% end %>
+      
+        <div class="pull-right">
+          <%= form_with model: @chat, method: :post, class: "d-flex" do |f| %>
+            <%= f.text_area :message, size: "40x2" %>
+            <%= f.hidden_field :room_id %>
+            <%= f.submit "送信", class: "btn btn-sm btn-outline-info" %>
+          <% end %>
+        </div>
     </div>
   </div>
 </div>

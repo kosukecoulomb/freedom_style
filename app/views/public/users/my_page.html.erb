@@ -57,7 +57,7 @@
           <div class="coordinate_image">
             <% tag.coordinates.limit(1).each do |coordinate| %>
               <%= link_to tag_coordinates_path(tag_id: tag.id) do %>
-                <%= image_tag coordinate.get_coordinate_image(220,220), class: "image-fluid img-thumbnail" %>
+                <%= image_tag coordinate.get_coordinate_image(220,220), class: "image-fluid" %>
                 <div class="mask">
                   <div class="caption"><%= tag.tag_name %></div>
                 </div>

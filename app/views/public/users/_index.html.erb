@@ -5,7 +5,7 @@
       <div class="card-header" style="height: 8rem;">
         <div class="d-flex">
           <%= link_to user_path(user) do %>
-            <%= image_tag user.get_profile_image(70,70), class: "img-fluid img-thumbnail rounded-circle mr-2" %>
+            <%= image_tag user.get_profile_image(70,70), class: "img-fluid rounded-circle mr-2" %>
           <% end %>
           <h5 class="card-title my-3 mr-5"><%= user.name %></h5>
           <% if user != current_user %>

@@ -22,7 +22,7 @@
                 <div class="d-flex">
                   <div id="info_followings_counts_<%= @user.id %>">
                     <%= link_to @user.followings.count, followings_user_path(@user.id) %>
-                    フォロー中　｜　
+                    フォロー中　｜
                   </div>
 
                   <div id="info_followers_counts_<%= @user.id %>">
@@ -57,7 +57,7 @@
                 <% if @user.id == current_user.id && @user.name != "guestuser" %>
                   <%= link_to "プロフィール編集", edit_profile_path(@user), class: "btn btn-outline-info m-1" %>
                 <% end %>
-                <% if current_user != @user %>
+                <% if current_user != @user && current_user.is_followed_by?(@user) %>
                   <%= link_to 'chatを始める', chat_path(@user.id), class: "btn btn-outline-warning" %>
                 <% end %>
               </div>
