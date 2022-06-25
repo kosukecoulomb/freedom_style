@@ -2,7 +2,8 @@ class Admin::UsersController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @users = User.all
+    @search_params = user_search_params
+    @users = User.search(@search_params)
   end
 
   def show
@@ -23,9 +24,15 @@ class Admin::UsersController < ApplicationController
       render :edit
     end
   end
+  
+  private
 
   def user_params
     params.require(:user).permit(:is_deleted)
+  end
+  
+  def user_search_params
+    params.fetch(:search, {}).permit(:name)
   end
 
 end

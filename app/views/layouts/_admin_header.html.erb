@@ -17,6 +17,10 @@
             <% end %>
           </li>
           <li>
+            <%= link_to admin_items_path, class: 'nav-link text-light' do %>
+              アイテム一覧
+            <% end %>
+          <li>
             <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light' do %>
               ログアウト
             <% end %>

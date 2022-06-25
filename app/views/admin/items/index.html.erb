@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h4>アイテム一覧</h4>
+      
+      <div class="m-3 text-center">
+        <%= form_with(scope: :search, url: admin_items_path, method: :get) do |f| %>
+          <%= f.text_field :item_name, value: @search_params[:item_name],size: "30", placeholder: "アイテム名・ブランド名・色など" %>
+          <%= button_tag type: "submit", class: "btn btn-outline-dark" do %>
+            <i class="fas fa-search"></i>
+          <% end %>
+        <% end %>
+      </div>
+      
+      <table class="table table-hover">
+        <tr>
+          <th>画像</th>
+          <th>タイトル</th>
+          <th>投稿者</th>
+        </tr>
+        <% @items.each do |item| %>
+        <tr onclick='window.location="<%= '/admin/items/' + item.id.to_s %>"' role="link" >
+          <td><%= image_tag item.get_item_image(60,80) %></td>
+          <td><%= item.item_name %></td>
+          <td><%= item.user.name %></td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

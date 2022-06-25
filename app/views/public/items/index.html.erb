@@ -12,14 +12,14 @@
       <div class="m-3 text-center">
         <%= form_with(scope: :search, url: items_path, method: :get) do |f| %>
           <div class="form-check m-1">
-            <%= f.select :category, Item.categories.keys.map{|k| [I18n.t("enums.item.category.#{k}"), k]}, { include_blank: 'カテゴリー'}, value: @search_params[:dress_code] %>
+                  <%= f.select :category, Item.categories.keys.map{|k| [I18n.t("enums.item.category.#{k}"), k]}, { include_blank: 'カテゴリー'}, value: @search_params[:dress_code] %>
             価格：<%= f.number_field :price_from, class: "form-check-inline" %>円以上〜
-            <%= f.number_field :price_to, class: "form-check-inline" %>円以下
+                  <%= f.number_field :price_to, class: "form-check-inline" %>円以下
           </div>
-          <%= f.text_field :item_name, value: @search_params[:item_name],size: "30", placeholder: "アイテム名・ブランド名・色など" %>
-            <%= button_tag type: "submit", class: "btn btn-outline-dark" do %>
-              <i class="fas fa-search"></i>
-            <% end %>
+                  <%= f.text_field :item_name, value: @search_params[:item_name],size: "30", placeholder: "アイテム名・ブランド名・色など" %>
+                  <%= button_tag type: "submit", class: "btn btn-outline-dark" do %>
+                    <i class="fas fa-search"></i>
+                  <% end %>
         <% end %>
       </div>
 

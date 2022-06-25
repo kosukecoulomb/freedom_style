@@ -17,7 +17,7 @@ class Public::ItemsController < ApplicationController
   end
 
   def index
-    @search_params = item_search_params  #検索結果の画面で、フォームに検索した値を表示するために、paramsの値をビューで使えるようにする
+    @search_params = item_search_params  
     @items = Item.search(@search_params).order(created_at: :desc)
   end
 

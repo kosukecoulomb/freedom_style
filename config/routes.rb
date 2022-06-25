@@ -56,9 +56,10 @@ Rails.application.routes.draw do
   #管理者部分
   namespace :admin do
     resources :users, only:[:index,:show,:edit,:update]
-    resources :coordinates, only:[:index, :show, :update, :destroy] do
+    resources :coordinates, only:[:index, :show, :destroy] do
       resources :comments, only: [:destroy]
     end
+    resources :items, only:[:index, :show, :destroy]
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

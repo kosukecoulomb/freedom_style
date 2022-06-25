@@ -3,9 +3,7 @@ class Public::UsersController < ApplicationController
   before_action :ensure_guest_user, only: [:edit]
 
   def index
-    @search_params = user_search_params  #検索結果の画面で、フォームに検索した値を表示するために、paramsの値をビューで使えるようにする
-    #投稿しているユーザーを投稿数の多い順に表示する
-    #@users = User.search(@search_params).where(id: Coordinate.group(:user_id).order('count(user_id) desc').pluck(:user_id))#
+    @search_params = user_search_params
     @users = User.search(@search_params)
   end
 
@@ -13,21 +11,18 @@ class Public::UsersController < ApplicationController
   def my_page
     @user = current_user
     @coordinates = Coordinate.where(user_id: @user.id)
+    #おすすめコーデの表示
     more_short = current_user.tall.to_i - 4
     more_tall = current_user.tall.to_i + 5
-    #ユーザー本人でない人の投稿で、ユーザーと好みの服装が同じ身長-4~+5cmの投稿を絞り込んで新着順に４件表示
     similar_users = User.where(tall: more_short..more_tall, gender: current_user.gender).where.not(id: current_user.id)
-    similar_users.each do |user| #フォロワーは除いて表示
+    similar_users.each do |user| 
       @recommendations = user.coordinates.all.limit(4).order(created_at: :desc).where.not(user_id: [*current_user.following_ids])
     end
-
-    #いいねしたアイテム表示
+    #いいねしたコーデ表示
     favorites = Favorite.where(user_id: @user.id).pluck(:coordinate_id)
     @favorite_coordinates = Coordinate.limit(4).order(created_at: :desc).find(favorites)
-
     #フォローしているユーザーの投稿
     @following_coordinates = Coordinate.limit(4).order(created_at: :desc).where(user_id: [*current_user.following_ids])
-
     #トレンドタグの表示
     @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
   end
