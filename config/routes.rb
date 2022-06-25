@@ -45,9 +45,9 @@ Rails.application.routes.draw do
     resources :tags do
       get '/coordinates' => 'coordinates#search'
     end
-    
+
     resources :notifications, only: :index
-    
+
     get 'chat/:id' => 'chats#show', as: 'chat'
     resources :chats, only: [:create]
   end
@@ -55,6 +55,7 @@ Rails.application.routes.draw do
 
   #管理者部分
   namespace :admin do
+    get '/' => 'homes#top', as: 'top'
     resources :users, only:[:index,:show,:edit,:update]
     resources :coordinates, only:[:index, :show, :destroy] do
       resources :comments, only: [:destroy]

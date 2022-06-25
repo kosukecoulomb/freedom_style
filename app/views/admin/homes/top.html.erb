@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">こちらは管理者用トップページです</h3>
+      <p class="text-center">ユーザーの利用停止設定や、投稿・アイテム・コメントの削除ができます</p>
+
+      <div class="btn-wrapper col-7 mx-auto m-3">
+        <div class="row m-2">
+          <%= link_to "コーディネート一覧", admin_coordinates_path, class: "btn btn-outline-secondary mx-auto" %>
+        </div>
+        <div class="row m-2">
+          <%= link_to "ユーザー一覧", admin_users_path, class: "btn btn-outline-secondary mx-auto" %>
+        </div>
+        <div class="row m-2">
+          <%= link_to "アイテム一覧", admin_items_path, class: "btn btn-outline-secondary mx-auto" %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
