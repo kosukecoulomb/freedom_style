@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     when User
       my_page_path
     when AdminUser
-      admin_users_path
+      admin_path
     end
   end
 
