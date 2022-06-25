@@ -3,30 +3,22 @@ class Chat < ApplicationRecord
   belongs_to :user
   belongs_to :room
   has_many :notifications, dependent: :destroy
-
+  
   #通知機能
-  def create_notification_chat!(current_user, chat_id, room_id, visited_id)
-    # チャットしている相手を取得し、通知を送る
-    temp_ids = Chat.select(:user_id).where(room_id: room_id).where.not(user_id: current_user.id).distinct
-    temp_ids.each do |temp_id|
-      save_notification_chat!(current_user, chat_id, temp_id['user_id'])
-    end
-     # もしチャットが空だったら、投稿者に通知を送る
-    save_notification_chat!(current_user, chat_id, visited_id) if temp_ids.blank?
-  end
-
-  def save_notification_chat!(current_user, chat_id, visited_id)
-    # チャットは複数回することが考えられるため、複数回通知する
+  def create_notification_chat(current_user)
+    visited_id = find_visited_user(current_user).id
+    
+    # 投稿者に通知を送る
     notification = current_user.active_notifications.new(
-      chat_id: chat_id,
+      chat_id: self.id,
       visited_id: visited_id,
       action: 'chat'
     )
-    # 自分のチャットの場合は、通知済みとする
-    if notification.visitor_id == notification.visited_id
-      notification.checked = true
-    end
-    notification.save if notification.valid?
+    notification.save
   end
-
+  
+  # チャットしている相手を取得する
+  def find_visited_user(current_user)
+    UserRoom.where(room_id: self.room_id).where.not(user_id: current_user.id).take.user
+  end
 end

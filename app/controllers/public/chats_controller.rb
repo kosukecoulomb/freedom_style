@@ -2,7 +2,8 @@ class Public::ChatsController < ApplicationController
   before_action :authenticate_user!
   
   def show
-    @user = User.find(params[:id])
+    chat = Chat.find(params[:id])
+    @user = chat.find_visited_user(current_user)
     unless current_user.is_followed_by?(@user)
       redirect_to user_path(@user)
       flash[:notice] = "ユーザーからフォローされていなければチャットはできません"
@@ -27,8 +28,8 @@ class Public::ChatsController < ApplicationController
   def create
     @chat = current_user.chats.new(chat_params)
     @chat.save
+    @chat.create_notification_chat(current_user)
     redirect_to request.referer
-    @chat.create_notification_chat!(current_user, @chat.id, @chat.room_id, @user)
   end
 
   private

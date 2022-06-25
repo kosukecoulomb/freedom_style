@@ -102,5 +102,4 @@ class User < ApplicationRecord
   enum gender: { man:0, woman:1, genderless:2, other:3, no_answer:4 }
   enum generation: { teens:0, twenties:1, thirties:2, forties:3, over_fifties:4 }
   enum body_shape: { slender:0, normal:1, fat:2, solid:3 }
-
 end
