@@ -15,9 +15,9 @@
           <% end %>
         </div>
         <div class="d-flex">
-          身長<%= user.tall %>cm　｜
+          身長<%= user.tall %>cm｜
           <div id="info_followers_counts_<%= user.id %>">
-            　<%= link_to user.followers.count, followers_user_path(user.id) %>フォロワー
+              <%= link_to user.followers.count, followers_user_path(user.id) %>フォロワー
           </div>
         </div>
       </div>
