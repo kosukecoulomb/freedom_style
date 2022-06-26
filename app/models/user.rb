@@ -33,9 +33,14 @@ class User < ApplicationRecord
 
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: :follower_id
   has_many :followers, through: :reverse_of_relationships, source: :following
-
+  
+  ##userにフォローされているか確認するメソッド
   def is_followed_by?(user)
     reverse_of_relationships.find_by(following_id: user.id).present?
+  end
+  ##userをフォローしているか確認するメソッド
+  def is_following?(user)
+    relationships.find_by(follower_id: user.id).present?
   end
 
 
@@ -64,7 +69,7 @@ class User < ApplicationRecord
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
   
   #フォロー機能の通知
-  def create_notification_follow!(current_user)
+  def create_notification_follow(current_user)
     temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",current_user.id, id, 'follow'])
     if temp.blank?
       notification = current_user.active_notifications.new(

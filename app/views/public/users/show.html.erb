@@ -52,13 +52,17 @@
                     <td><%= @user.body_shape_i18n %></td>
                   </tr>
                 </table>
+
                 <h5>コレクション</h5>
                 <%= link_to "コレクションを見る", collection_item_path(@user), class: "btn btn-outline-success m-1" %>
                 <% if @user.id == current_user.id && @user.name != "guestuser" %>
                   <%= link_to "プロフィール編集", edit_profile_path(@user), class: "btn btn-outline-info m-1" %>
                 <% end %>
-                <% if current_user != @user && current_user.is_followed_by?(@user) %>
-                  <%= link_to 'chatを始める', chat_path(@user.id), class: "btn btn-outline-warning" %>
+
+                <h5 class="mt-5">チャットをはじめる</h5>
+                <P>相互フォローしていれば直接チャットでやりとりできます</P>
+                <% if current_user != @user %>
+                  <%= link_to 'チャットルーム', chat_path(@user.id), class: "btn btn-outline-warning" %>
                 <% end %>
               </div>
             </div>

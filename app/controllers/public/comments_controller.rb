@@ -8,7 +8,7 @@ class Public::CommentsController < ApplicationController
     @comment.coordinate_id = @coordinate.id
     if @comment.save
       #通知作成
-      @coordinate.create_notification_comment!(current_user, @comment.id)
+      @coordinate.create_notification_comment(current_user, @comment.id)
     else
       render "public/coordinates/show"
     end
