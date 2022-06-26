@@ -24,7 +24,6 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :user_rooms, dependent: :destroy
-  has_many :chats, dependent: :destroy
 
 
   #フォロー機能
@@ -38,10 +37,7 @@ class User < ApplicationRecord
   def is_followed_by?(user)
     reverse_of_relationships.find_by(following_id: user.id).present?
   end
-  ##userをフォローしているか確認するメソッド
-  def is_following?(user)
-    relationships.find_by(follower_id: user.id).present?
-  end
+  
 
 
   #条件検索機能
