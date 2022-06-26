@@ -36,7 +36,8 @@ $(document).ready(function () {
   });
 });
 
-$('turbolinks:load',function() {
+document.addEventListener("turbolinks:load", function() {
+  $(function() {
   $('#back a').on('click',function(event){
     $('body, html').animate({
       scrollTop:$(document).height()
@@ -47,4 +48,5 @@ $('turbolinks:load',function() {
     event.preventDefault();
   });
 });
+})
 
