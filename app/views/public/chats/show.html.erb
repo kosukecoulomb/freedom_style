@@ -8,31 +8,17 @@
         <%= @user.name %>さんとのチャット
       </div>
 
-        <table class="table table-borderless">
-          <% @chats.each do |chat| %>
-            <% if chat.user_id == current_user.id %>
-              <tr>
-                <td class="col-md-5 float-left"><p class="chat-left text-center"><%= chat.message %></p></td>
-                <td class="col-md-5"></td>
-                <td class="col-md-2"></td>
-              </tr>
-            <% else %>
-              <tr>
-                <td></td>
-                <td class="float-right"><p class="chat-right text-center"><%= chat.message %></p></td>
-                <td><%= image_tag chat.user.get_profile_image(50,50), class: "float-left rounded-circle" %><%= chat.user.name %></td>
-              </tr>
-            <% end %>
-          <% end %>
-        </table>
-      
-        <div class="pull-right">
-          <%= form_with model: @chat, method: :post, class: "d-flex" do |f| %>
-            <%= f.text_area :message, size: "40x2" %>
-            <%= f.hidden_field :room_id %>
-            <%= f.submit "送信", class: "btn btn-sm btn-outline-info" %>
-          <% end %>
-        </div>
+      <div id="chatroom">
+        <%= render "public/chats/chatroom", chats: @chats %>
+      </div>
+
+      <div>
+        <%= form_with model: @chat, method: :post, class: "js-form d-flex", local: false do |f| %>
+          <%= f.text_area :message, size: "40x2" %>
+          <%= f.hidden_field :room_id %>
+          <%= f.submit "送信", class: "btn btn-sm btn-outline-info" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
