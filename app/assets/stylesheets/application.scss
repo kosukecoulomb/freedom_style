@@ -42,6 +42,19 @@
 	transform:		scale(1);
 }
 
+#header{
+  z-index: 9999;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.push {
+  height: 80px;/*フッターと同じ高さに指定*/
+}
+
+
 .navbar-brand{
 	background: linear-gradient(to right,#e60000,#f39800,#fff100,#009944,#0068b7,#1d2088,#920783);
 	-webkit-background-clip: text;
@@ -80,12 +93,21 @@
   color: #FF0461;
 }
 
-.push {
-  height: 50px;/*フッターと同じ高さに指定*/
-}
 
 h1,h2,h3,h4,h5,p {
   font-family: "Tsukushi B Round Gothic","筑紫B丸ゴシック";
+}
+
+#index-scroll{
+  z-index: 9999;
+  position: fixed;
+  top: 200px;
+}
+
+#chat-scroll{
+  z-index: 9999;
+  position: fixed;
+  top: 200px;
 }
 
 .chat-left {
@@ -144,15 +166,7 @@ h1,h2,h3,h4,h5,p {
   padding: 0;
 }
 
-#chat-scroll{
-  position: fixed;
-  top: 200px;
-}
 
-#chat-form{
-  position: fixed;
-  bottom: 50px;
-}
 
 footer{
  position: fixed;

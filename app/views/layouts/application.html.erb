@@ -13,7 +13,7 @@
   </head>
   
   <body>
-    <header>
+    <header id="header">
       <% if user_signed_in? %>
         <%= render 'layouts/login_user_header' %>
       <% elsif admin_signed_in? %>
@@ -22,6 +22,7 @@
         <%= render 'layouts/top_header' %>
       <% end %>
     </header>
+    <div class="push"></div>
     
     <main class="mt-4">
       <div id="flash-success">
