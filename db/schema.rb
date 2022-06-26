@@ -118,7 +118,6 @@ ActiveRecord::Schema.define(version: 2022_06_17_013556) do
     t.boolean "checked", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index "\"chat_id\"", name: "index_notifications_on_chat_id"
     t.index ["comment_id"], name: "index_notifications_on_comment_id"
     t.index ["coordinate_id"], name: "index_notifications_on_coordinate_id"
     t.index ["visited_id"], name: "index_notifications_on_visited_id"
