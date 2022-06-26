@@ -92,7 +92,6 @@ class Coordinate < ApplicationRecord
   end
 
   def save_notification_comment(current_user, comment_id, visited_id)
-    # コメントは複数回することが考えられるため、１つの投稿に複数回通知する
     notification = current_user.active_notifications.new(
       coordinate_id: self.id,
       comment_id: comment_id,
