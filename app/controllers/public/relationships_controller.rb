@@ -7,7 +7,7 @@ class Public::RelationshipsController < ApplicationController
     if following.save
     
      #通知作成
-     @user.create_notification_follow!(current_user)
+     @user.create_notification_follow(current_user)
     end
   end
 
