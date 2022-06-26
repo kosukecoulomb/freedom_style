@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     get "/users/profile/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
     get "/users/profile/favorites" => "users#favorites", as: "favorites"
     resources :users, only: [:index, :show, :destroy] do
+      resources :rooms, only:[:create, :show]
       resource :relationships, only: [:create, :destroy]
       get :followings, on: :member
       get :followers, on: :member
@@ -48,7 +49,6 @@ Rails.application.routes.draw do
 
     resources :notifications, only: :index
 
-    get 'chat/:id' => 'chats#show', as: 'chat'
     resources :chats, only: [:create]
   end
 

@@ -8,6 +8,7 @@ class Admin::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @room = Room.user_rooms.user_id.(user_id: @user, user_id: current_user)
     @coordinates = @user.coordinates.all
   end
 

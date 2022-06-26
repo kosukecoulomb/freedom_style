@@ -61,8 +61,10 @@
 
                 <h5 class="mt-5">チャットをはじめる</h5>
                 <P>相互フォローしていれば直接チャットでやりとりできます</P>
-                <% if current_user != @user %>
-                  <%= link_to 'チャットルーム', chat_path(@user.id), class: "btn btn-outline-warning" %>
+                <% if @room.present? %>
+                  <%= link_to 'チャットルーム', user_room_path(@room), class: "btn btn-outline-warning" %>
+                <% else %>
+                  <%= link_to 'チャットルーム作成', user_rooms_path(@user, @room), method: :post, class: "btn btn-outline-warning" %>
                 <% end %>
               </div>
             </div>

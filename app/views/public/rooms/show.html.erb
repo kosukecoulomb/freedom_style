@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center">
+        <%= link_to user_path(@user.id) do %>
+          <%= image_tag @user.get_profile_image(80,100), class: "rounded-circle" %>
+        <% end %>
+        <%= @user.name %>さんとのチャット
+      </div>
+      
+      <span id="back">
+        <a href="#">
+          <button class="btn btn-outline-secondary" id="chat-scroll">↓</button>
+        </a>
+      </span>
+
+      <div id="chatroom">
+        <%= render "public/chats/chatroom", chats: @chats %>
+      </div>
+
+      <div id="chat-form">
+        <%= form_with model: @chat, method: :post, class: "js-form d-flex", local: false do |f| %>
+          <%= f.text_area :message, size: "40x2" %>
+          <%= f.hidden_field :room_id %>
+          <%= f.submit "送信", class: "btn btn-sm btn-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
