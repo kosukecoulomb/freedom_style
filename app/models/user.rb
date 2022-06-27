@@ -9,9 +9,9 @@ class User < ApplicationRecord
     find_or_create_by!(name: 'guestuser' ,email: 'guest@example.com') do |user|
       user.password = SecureRandom.urlsafe_base64
       user.name = "guestuser"
-      user.gender = 2
+      user.gender = 1
       user.generation = 2
-      user.tall = 165
+      user.tall = 158
       user.body_shape = 1
       user.foot_size = 25
     end
@@ -31,12 +31,12 @@ class User < ApplicationRecord
 
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: :follower_id
   has_many :followers, through: :reverse_of_relationships, source: :following
-  
+
   ##userにフォローされているか確認するメソッド
   def is_followed_by?(user)
     reverse_of_relationships.find_by(following_id: user.id).present?
   end
-  
+
 
   #条件検索機能
   scope :search, -> (search_params) do
@@ -57,11 +57,11 @@ class User < ApplicationRecord
   scope :tall_to_like, -> (tall_to) {where("tall <= ?", tall_to) if tall_to.present?}
   scope :name_like, -> (name) {where('name LIKE? OR introduction LIKE?', "%#{name}%","%#{name}%") if name.present?}
 
-  
+
   #通知機能
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
-  
+
   #フォロー機能の通知
   def create_notification_follow(current_user)
     temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",current_user.id, id, 'follow'])
@@ -73,7 +73,7 @@ class User < ApplicationRecord
       notification.save if notification.valid?
     end
   end
-  
+
 
   #画像投稿
   has_one_attached :profile_image

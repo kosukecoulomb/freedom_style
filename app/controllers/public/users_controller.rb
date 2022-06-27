@@ -14,17 +14,15 @@ class Public::UsersController < ApplicationController
     #おすすめコーデの表示
     more_short = current_user.tall.to_i - 4
     more_tall = current_user.tall.to_i + 5
-    similar_users = User.where(tall: more_short..more_tall, gender: current_user.gender).where.not(id: current_user.id)
-    similar_users.each do |user| 
-      @recommendations = user.coordinates.all.limit(4).order(created_at: :desc).where.not(user_id: [*current_user.following_ids])
-    end
+    @recommendations = Coordinate.joins(:user).merge(User.where(tall: more_short..more_tall, gender: current_user.gender))
+                      .limit(3).order(created_at: :desc)
     #いいねしたコーデ表示
     favorites = Favorite.where(user_id: @user.id).pluck(:coordinate_id)
-    @favorite_coordinates = Coordinate.limit(4).order(created_at: :desc).find(favorites)
+    @favorite_coordinates = Coordinate.limit(3).order(created_at: :desc).find(favorites)
     #フォローしているユーザーの投稿
-    @following_coordinates = Coordinate.limit(4).order(created_at: :desc).where(user_id: [*current_user.following_ids])
+    @following_coordinates = Coordinate.limit(3).order(created_at: :desc).where(user_id: [*current_user.following_ids])
     #トレンドタグの表示
-    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
+    @tag_list = Tag.limit(3).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
   end
 
 

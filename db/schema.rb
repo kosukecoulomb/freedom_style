@@ -60,21 +60,8 @@ ActiveRecord::Schema.define(version: 2022_06_17_013556) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "coordinate_items", force: :cascade do |t|
-    t.integer "coordinate_id", null: false
-    t.integer "outer_item_id"
-    t.integer "tops_item_id"
-    t.integer "bottoms_item_id"
-    t.integer "shoes_item_id"
-    t.integer "other_item1_id"
-    t.integer "other_item2_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "coordinates", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "coordinate_item_id"
     t.string "title", null: false
     t.text "body", null: false
     t.integer "dress_code", null: false

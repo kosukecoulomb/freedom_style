@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <% if @coordinates.exists? %>
         <% @coordinates.each do |coordinate| %>
-  
+
           <div class="row no-padding card-wrapper mx-auto">
             <div class="card shadow-lg" style="width: 60rem;">
               <div class='row g-0'>
@@ -49,14 +49,14 @@
         <% end %>
       <% else %>
         <h4>気になるユーザーをフォローしましょう!</h4>
-        <% if @similar_users.exists? %>
+        <% if @similar_users.present? %>
           <h5>あなたにおすすめのユーザー</h5>
           <%= render "public/users/index", users: @similar_users %>
         <% else %>
           <%= render "public/users/index", users: @users %>
         <% end %>
         <%= link_to "さらにユーザーを探す", users_path, class: "btn btn-outline-success mt-3" %>
-      <% end %> 
+      <% end %>
     </div>
   </div>
 </div>

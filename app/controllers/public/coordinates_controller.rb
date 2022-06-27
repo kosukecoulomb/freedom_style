@@ -16,7 +16,7 @@ class Public::CoordinatesController < ApplicationController
     more_short = current_user.tall.to_i - 4
     more_tall = current_user.tall.to_i + 5
     @similar_users = User.where(tall: more_short..more_tall, gender: current_user.gender).where.not(id: current_user.id)
-    @users = User.all.limit(10).where.not(id: current_user.id)
+    @users = User.all.limit(4).where.not(id: current_user.id)
   end
   
 
@@ -24,7 +24,7 @@ class Public::CoordinatesController < ApplicationController
     @user = current_user
     @coordinate = Coordinate.new
     #タグ検索用
-    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
+    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
     #登録アイテムと紐付けるための変数
     @outer_items = Item.where(user_id: @user.id, category: 0)
     @tops_items = Item.where(user_id: @user.id, category: 1)
@@ -38,7 +38,7 @@ class Public::CoordinatesController < ApplicationController
     @coordinate = Coordinate.new(coordinate_params)
     @user = current_user
     #タグ検索用
-    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
+    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
     #登録アイテムと紐付けるための変数
     @outer_items = Item.where(user_id: @user.id, category: 0)
     @tops_items = Item.where(user_id: @user.id, category: 1)
@@ -72,7 +72,8 @@ class Public::CoordinatesController < ApplicationController
     @other1_item = Item.find_by(id: @coordinate.other1_id)
     @other2_item = Item.find_by(id: @coordinate.other2_id)
     #似たようなコーデを表示
-    @similar_coordinates = Coordinate.where(dress_code: @coordinate.dress_code, season: @coordinate.season).limit(4).order(created_at: :desc).where.not(id: @coordinate.id)
+    @similar_coordinates = Coordinate.where(dress_code: @coordinate.dress_code, season: @coordinate.season)
+                        .limit(4).order(created_at: :desc).where.not(id: @coordinate.id)
   end
 
 
@@ -80,7 +81,7 @@ class Public::CoordinatesController < ApplicationController
     @user = current_user
     @coordinate = Coordinate.find(params[:id])
     #タグ検索用
-     @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
+     @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
     #new同様
     @outer_items = Item.where(user_id: @user.id, category: 0)
     @tops_items = Item.where(user_id: @user.id, category: 1)
@@ -94,7 +95,7 @@ class Public::CoordinatesController < ApplicationController
     @coordinate = Coordinate.find(params[:id])
     @user = current_user
     #タグ検索用
-    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
+    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
     #new同様
     @outer_items = Item.where(user_id: @user.id, category: 0)
     @tops_items = Item.where(user_id: @user.id, category: 1)
