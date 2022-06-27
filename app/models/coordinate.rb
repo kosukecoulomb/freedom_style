@@ -8,6 +8,7 @@ class Coordinate < ApplicationRecord
   has_many :tag_maps, dependent: :destroy
   has_many :tags, through: :tag_maps
   accepts_nested_attributes_for :tags
+  has_many :notifications, dependent: :destroy
 
 
   #いいね機能
@@ -43,9 +44,6 @@ class Coordinate < ApplicationRecord
 
 
   #タグ検索用
-  has_many :tag_maps, dependent: :destroy
-  has_many :tags, through: :tag_maps
-
   def save_tag(sent_tags)
     current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
     old_tags = current_tags - sent_tags
@@ -63,8 +61,6 @@ class Coordinate < ApplicationRecord
 
 
   #通知機能
-  has_many :notifications, dependent: :destroy
-
   #いいねの通知
   def create_notification_favorite(current_user)
     # すでに「いいね」されているか検索
