@@ -18,7 +18,7 @@ class Public::CoordinatesController < ApplicationController
     @similar_users = User.where(tall: more_short..more_tall, gender: current_user.gender).where.not(id: current_user.id)
     @users = User.all.limit(4).where.not(id: current_user.id)
   end
-  
+
 
   def new
     @user = current_user
@@ -73,6 +73,7 @@ class Public::CoordinatesController < ApplicationController
     @other2_item = Item.find_by(id: @coordinate.other2_id)
     #似たようなコーデを表示
     @similar_coordinates = Coordinate.where(dress_code: @coordinate.dress_code, season: @coordinate.season)
+                          .joins(:user).merge(User.where(gender: @user.gender))
                         .limit(4).order(created_at: :desc).where.not(id: @coordinate.id)
   end
 
