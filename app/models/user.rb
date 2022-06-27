@@ -23,7 +23,6 @@ class User < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  has_many :user_rooms, dependent: :destroy
 
 
   #フォロー機能
@@ -38,7 +37,6 @@ class User < ApplicationRecord
     reverse_of_relationships.find_by(following_id: user.id).present?
   end
   
-
 
   #条件検索機能
   scope :search, -> (search_params) do

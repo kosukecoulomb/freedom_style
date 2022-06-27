@@ -7,10 +7,12 @@
       <% end %>
       <%= comment.user.name %>
     </td>
-    <td><%= comment.comment %></td>
+    <td class="col-md-8"><%= comment.comment %></td>
+    <td class="col-md-2">
     <% if comment.user == current_user %>
-      <td><%= link_to "削除", coordinate_comment_path(comment.coordinate, comment), method: :delete, remote: true, class: "btn btn-outline-danger" %></td>
+      <%= link_to "削除", coordinate_comment_path(comment.coordinate, comment), method: :delete, remote: true, class: "btn btn-outline-danger" %>
     <% end %>
+    </td>
   </tr>
 </table>
 <% end %>

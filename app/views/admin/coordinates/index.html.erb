@@ -19,9 +19,9 @@
         </tr>
         <% @coordinates.each do |coordinate| %>
         <tr onclick='window.location="<%= '/admin/coordinates/' + coordinate.id.to_s %>"' role="link" >
-          <td><%= image_tag coordinate.get_coordinate_image(60,80) %></td>
-          <td><%= coordinate.title %></td>
-          <td><%= coordinate.user.name %></td>
+          <td class="col-md-2"><%= image_tag coordinate.get_coordinate_image(60,80) %></td>
+          <td class="col-md-8"><%= coordinate.title %></td>
+          <td class="col-md-2"><%= coordinate.user.name %></td>
         </tr>
         <% end %>
       </table>

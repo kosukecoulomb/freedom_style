@@ -70,7 +70,7 @@
                 <div class="pb-2"><%= f.text_field :title, :size => "35" %></div>
                 <table class="table table no-borderless">
                   <tr>
-                    <th>シーン:</th>
+                    <th>コンセプト:</th>
                     <td><%= f.select :dress_code, Coordinate.dress_codes.keys.map{|k| [I18n.t("enums.coordinate.dress_code.#{k}"), k]}, { include_blank: '選択してください'} %></td>
                   </tr>
                   <tr>

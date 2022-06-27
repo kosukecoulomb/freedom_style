@@ -36,19 +36,6 @@ $(document).ready(function () {
   });
 });
 
-document.addEventListener("turbolinks:load", function() {
-  $(function() {
-  $('#back a').on('click',function(event){
-    $('body, html').animate({
-      scrollTop:$(document).height()
-    }, 800);
-    setTimeout(function() {
-      window.scroll(0,$(document).height());
-    },0);
-    event.preventDefault();
-  });
-});
-})
 
 document.addEventListener("turbolinks:load", function() {
   $(function() {

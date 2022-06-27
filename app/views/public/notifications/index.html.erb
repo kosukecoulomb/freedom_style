@@ -11,15 +11,15 @@
                   <%= link_to user_path(notification.visitor) do %>
                     <%= image_tag notification.visitor.get_profile_image(50,50), class: "rounded-circle" %>
                   <% end %>
-                <%= notification.visitor.name %>さんが
-                <% case notification.action %>
-                  <% when "follow" then %>
-                    あなたをフォローしました</P>
-                  <% when "favorite" then %>
-                    <%= link_to "あなたの投稿", notification.coordinate %>にいいねしました</P>
-                  <% when "comment" then %>
-                    <%= link_to "あなたの投稿", coordinate_path(notification.coordinate) %>にコメントしました</p>
-                <% end %>
+                  <%= notification.visitor.name %>さんが
+                  <% case notification.action %>
+                    <% when "follow" then %>
+                      あなたをフォローしました</P>
+                    <% when "favorite" then %>
+                      <%= link_to "あなたの投稿", notification.coordinate %>にいいねしました</P>
+                    <% when "comment" then %>
+                      <%= link_to "この投稿", coordinate_path(notification.coordinate) %>にコメントしました</p>
+                  <% end %>
               </td>
             </tr>
           </table>
