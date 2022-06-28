@@ -4,8 +4,8 @@
 
       <h2><%= @coordinate.title %></h2>
 
-      <div class="row no-padding card-wrapper mx-auto">
-        <div class="card shadow-lg" style="width: 60rem;">
+      <div class="row no-padding card-wrapper">
+        <div class="card shadow-lg  mx-auto" style="width: 60rem;">
           <div class='row g-0'>
 
             <div class="col-md-7">
@@ -130,7 +130,7 @@
                     <%= "(#{tag.coordinates.count})" %>
                   <% end %>
                 </div>
-                
+
                 <!-- いいね機能 -->
                 <div class="mt-5" id="coordinate_<%= @coordinate.id %>" >
                   <div class="favorite_btn">
@@ -150,7 +150,7 @@
                     <%= link_to "編集する", edit_coordinate_path(@coordinate), class: "btn btn-outline-info m-1" %>
                   <% end %>
                 <% end %>
-                
+
               </div>
             </div>
 

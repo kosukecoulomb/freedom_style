@@ -1,11 +1,18 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
+      
+      <div id="top">
+        <a href="#">
+          <button class="btn btn-outline-secondary" id="index-scroll">↑</button>
+        </a>
+      </div>
+      
       <% if @coordinates.exists? %>
         <% @coordinates.each do |coordinate| %>
 
-          <div class="row no-padding card-wrapper mx-auto">
-            <div class="card shadow-lg" style="width: 60rem;">
+          <div class="row no-padding card-wrapper">
+            <div class="card shadow-lg mx-auto" style="width: 50rem;">
               <div class='row g-0'>
                 <div class="col-md-7">
                   <%= link_to coordinate_path(coordinate), :target => ["_blank"] do %>
@@ -15,7 +22,7 @@
                 <div class="col-md-5">
                   <div class="card-body justify-content-center">
                     <h2><%= coordinate.title %></h2>
-                    <h5 class="mt-5">投稿者</h5>
+                    <h5 class="mt-3">投稿者</h5>
                       <%= link_to user_path(coordinate.user.id) do %>
                         <%= image_tag coordinate.user.get_profile_image(80,100), class: "rounded-circle" %>
                       <% end %>
