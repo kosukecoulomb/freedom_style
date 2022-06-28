@@ -42,13 +42,51 @@
 	transform:		scale(1);
 }
 
+
 #header{
   z-index: 9999;
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 9999;
+  background-color: #33CCFF;
 }
+
+/*　上に上がる動き　*/
+
+#header.UpMove{
+	animation: UpAnime 0.5s forwards;
+}
+
+@keyframes UpAnime{
+  from {
+    opacity: 1;
+	transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+	transform: translateY(-100px);
+  }
+}
+
+/*　下に下がる動き　*/
+
+#header.DownMove{
+	animation: DownAnime 0.5s forwards;
+}
+@keyframes DownAnime{
+  from {
+  	opacity: 0;
+	transform: translateY(-100px);
+  }
+  to {
+  	opacity: 1;
+	transform: translateY(0);
+  }
+}
+
+
 
 .push {
   height: 80px;/*フッターと同じ高さに指定*/
@@ -109,8 +147,7 @@ footer{
  position: fixed;
  bottom: 0;
  width: 100%;
- height: 50px;
+ height: 40px;
  background-color: #33CCFF;
  color: #fff;
- text-align: center;
 }
