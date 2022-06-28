@@ -2,14 +2,7 @@
   <div class="row">
     <div class="col-md-12">
 
-      <% if @item.errors.any? %>
-        <%= @item.errors.count %>件のエラーが発生しました
-        <ul>
-          <% @item.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      <% end %>
+      <%= render "layouts/error", resource: @item %>
 
       <h2>コレクションを追加</h2>
       <%= form_with model: @item do |f| %>

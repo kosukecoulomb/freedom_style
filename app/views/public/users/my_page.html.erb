@@ -16,28 +16,7 @@
         <p><%= link_to @user.followings.count, followings_user_path(@user.id) %>フォロー中　</p>
         <p><%= link_to @user.followers.count, followers_user_path(@user.id) %>フォロワー</p>
       </div>
-      <table class="table mb-5">
-        <tr>
-          <th>好みの服装</th>
-          <td><%= @user.gender_i18n %></td>
-        </tr>
-        <tr>
-          <th>年齢</th>
-          <td><%= @user.generation_i18n %></td>
-        </tr>
-        <tr>
-          <th>身長</th>
-          <td><%= @user.tall %>cm</td>
-        </tr>
-        <tr>
-          <th>体型</th>
-          <td><%= @user.body_shape_i18n %></td>
-        </tr>
-        <tr>
-          <th>足のサイズ</th>
-          <td><%= @user.foot_size %>cm</td>
-        </tr>
-      </table>
+      <%= render "public/users/user_info", user: @user %>
 
       <h4>コーディネート</h4>
       <%= link_to "コーデを探す", coordinates_path, class: "btn btn-outline-success m-1" %>
@@ -57,7 +36,7 @@
           <div class="coordinate_image">
             <% tag.coordinates.limit(1).order(created_at: :desc).each do |coordinate| %>
               <%= link_to tag_coordinates_path(tag_id: tag.id) do %>
-                <%= image_tag coordinate.get_coordinate_image(220,220), class: "image-fluid" %>
+                <%= image_tag coordinate.get_coordinate_image(300,300), class: "image-fluid" %>
                 <div class="mask">
                   <div class="caption"><%= tag.tag_name %></div>
                 </div>

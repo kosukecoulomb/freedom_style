@@ -2,14 +2,7 @@
   <div class="row">
     <div class="col-md-12">
 
-      <% if @coordinate.errors.any? %>
-        <%= @coordinate.errors.count %>件のエラーが発生しました
-        <ul>
-          <% @coordinate.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      <% end %>
+      <%= render "layouts/error", resource: @coordinate %>
       
       <!--タグ検索機能-->
       <h4>#タグリスト</h4>

@@ -2,7 +2,7 @@
   <% coordinates.each do |coordinate| %>
     <div class="coordinate_image">
       <%= link_to coordinate_path(coordinate), :target => ["_blank"] do %>
-        <%= image_tag coordinate.get_coordinate_image(220,220), class: "img-fluid img-thumbnail" %>
+        <%= image_tag coordinate.get_coordinate_image(300,300), class: "img-fluid img-thumbnail" %>
           <div class="mask">
             <div class="caption"><%= coordinate.title %></div>
         	</div>

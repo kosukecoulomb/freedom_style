@@ -34,24 +34,7 @@
                 <h5 class="mt-4">自己紹介</h5>
                 <p class="card-text mb-5"><%= @user.introduction %></p>
                 <h5>基本データ</h5>
-                <table class="table mb-5">
-                  <tr>
-                    <th>好みの服装</th>
-                    <td><%= @user.gender_i18n %></td>
-                  </tr>
-                  <tr>
-                    <th>年齢</th>
-                    <td><%= @user.generation_i18n %></td>
-                  </tr>
-                  <tr>
-                    <th>身長</th>
-                    <td><%= @user.tall %>cm</td>
-                  </tr>
-                  <tr>
-                    <th>体型</th>
-                    <td><%= @user.body_shape_i18n %></td>
-                  </tr>
-                </table>
+                <%= render "public/users/user_info", user: @user %>
 
                 <h5>コレクション</h5>
                 <%= link_to "コレクションを見る", collection_item_path(@user), class: "btn btn-outline-success m-1" %>
