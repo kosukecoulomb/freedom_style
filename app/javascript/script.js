@@ -1,5 +1,6 @@
 window.addEventListener('turbolinks:load', () => {
     const uploader = document.querySelector('.uploader');
+    if (!uploader){ return false;}
     uploader.addEventListener('change', (e) => {
       const file = uploader.files[0];
       const reader = new FileReader();

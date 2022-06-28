@@ -14,7 +14,7 @@ class Public::UsersController < ApplicationController
     #おすすめコーデの表示
     more_short = current_user.tall.to_i - 4
     more_tall = current_user.tall.to_i + 5
-    @recommendations = Coordinate.joins(:user).merge(User.where(tall: more_short..more_tall, gender: current_user.gender))
+    @recommendations = Coordinate.joins(:user).merge(User.where(tall: more_short..more_tall, gender: @user.gender))
                       .limit(3).order(created_at: :desc).where.not(user_id: @user.id)
     #いいねしたコーデ表示
     favorites = Favorite.where(user_id: @user.id).pluck(:coordinate_id)
