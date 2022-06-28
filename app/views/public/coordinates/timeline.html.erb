@@ -57,7 +57,7 @@
       <% else %>
         <h4>気になるユーザーをフォローしましょう!</h4>
         <% if @similar_users.present? %>
-          <h5>あなたにおすすめのユーザー</h5>
+          <h5 class="text-center">あなたにおすすめのユーザー</h5>
           <%= render "public/users/index", users: @similar_users %>
         <% else %>
           <%= render "public/users/index", users: @users %>
