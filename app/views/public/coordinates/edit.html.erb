@@ -75,8 +75,9 @@
                 <h5>説明</h5>
                 <%= f.text_area :body, size: "35x15" %>
 
-                <h5>#タグ入力</h5>
-                <%= f.text_field :tag_name, :size => "40", placeholder: "※複数タグを付ける場合は間に半角スペース" %>
+                <h5>タグ入力</h5>
+                <%= f.text_field :tag_name, :size => "40", placeholder: "#ワントーン #春" %>
+                <P>※複数タグを付ける場合は間に半角スペース</P>
 
                 <%= f.submit "編集を保存" , class: "btn btn-outline-success m-1" %>
                 <%= link_to "投稿を削除", coordinate_path(@coordinate), method: :delete, class: "btn btn-outline-danger m-1", data: { confirm: '本当に削除しますか？' } %>
