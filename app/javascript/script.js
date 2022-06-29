@@ -73,7 +73,6 @@ function ScrollAnime() {
     beforePos = scroll;//現在のスクロール値を比較用のbeforePosに格納
 }
 
-
 // 画面をスクロールをしたら動かしたい場合の記述
 $(window).scroll(function () {
 	ScrollAnime();//スクロール途中でヘッダーが消え、上にスクロールすると復活する関数を呼ぶ
@@ -84,11 +83,3 @@ $(window).on('load', function () {
 	ScrollAnime();//スクロール途中でヘッダーが消え、上にスクロールすると復活する関数を呼ぶ
 });
 
-//リンク先のidまでスムーススクロール
-    var headerH = $("#header").outerHeight(true);//headerの高さを取得    
-    $('#g-navi li a').click(function () {
-	var elmHash = $(this).attr('href'); 
-	var pos = $(elmHash).offset().top-headerH;//header分の高さを引いた高さまでスクロール
-	$('body,html').animate({scrollTop: pos}, 1000);
-	return false;
-});
