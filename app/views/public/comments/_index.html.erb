@@ -9,7 +9,7 @@
     </td>
     <td class="col-md-8"><%= comment.comment %></td>
     <td class="col-md-2">
-    <% if comment.user == current_user || comment.coordinate.user %>
+    <% if comment.user == current_user || comment.coordinate.user == current_user %>
       <%= link_to "削除", coordinate_comment_path(comment.coordinate, comment), method: :delete, remote: true, class: "btn btn-outline-danger" %>
     <% end %>
     </td>
