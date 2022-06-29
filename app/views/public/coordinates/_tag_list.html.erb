@@ -1,4 +1,4 @@
- <h4>タグリスト</h4>
+ <h5>タグリスト</h5>
   <% tag_list.each do |tag| %>
     <%= link_to tag.tag_name, tag_coordinates_path(tag_id: tag.id) %>
     (<%= tag.coordinates.count %>)

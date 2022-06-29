@@ -103,11 +103,7 @@
                  <%= render "public/users/user_info", user: @user %>
 
                 <div class="mt-2">
-                  <h5>#タグ</h5>
-                  <% @coordinate_tags.each do |tag| %>
-                    <%= link_to tag.tag_name, tag_coordinates_path(tag_id: tag.id) %>
-                    (<%= tag.coordinates.count %>)
-                  <% end %>
+                  <%= render "public/coordinates/tag_list", tag_list: @coordinate_tags %>
                 </div>
 
                 <!-- いいね機能 -->
