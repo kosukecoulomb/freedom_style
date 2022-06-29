@@ -5,10 +5,10 @@
       <h4>タグリスト</h4>
         <% @tag_list.each do |tag| %>
           <%= link_to tag.tag_name, tag_coordinates_path(tag_id: tag.id) %>
-          <%= "(#{tag.coordinates.count})" %>
+          (<%= tag.coordinates.count %>)
         <% end %>
 
-      <h3 class="mt-5">"<%= "#{@tag.tag_name}" %>"の投稿一覧</h3>
+      <h3 class="mt-5">"<%= @tag.tag_name %>"の投稿一覧</h3>
       <%= render "layouts/coordinates", coordinates: @tag.coordinates %>
       
     </div>
