@@ -106,7 +106,7 @@
                   <h5>#タグ</h5>
                   <% @coordinate_tags.each do |tag| %>
                     <%= link_to tag.tag_name, tag_coordinates_path(tag_id: tag.id) %>
-                    (<%= {tag.coordinates.count} %>)
+                    (<%= tag.coordinates.count %>)
                   <% end %>
                 </div>
 

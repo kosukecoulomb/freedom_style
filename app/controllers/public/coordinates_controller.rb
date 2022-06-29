@@ -12,6 +12,7 @@ class Public::CoordinatesController < ApplicationController
   #フォロワーと自分のコーデ
   def timeline
     @coordinates = Coordinate.includes(:user).where(user_id: [current_user.id, *current_user.following_ids]).order(created_at: :desc)
+    @following_coordinates = Coordinate.includes(:user).where(user_id: [*current_user.following_ids]).order(created_at: :desc)
     #フォロワーがなくタイムラインが空の場合は似たユーザー、さらになければ通常のユーザーを表示する
     more_short = current_user.tall.to_i - 4
     more_tall = current_user.tall.to_i + 5
@@ -124,7 +125,7 @@ class Public::CoordinatesController < ApplicationController
 
   #タグ検索結果ページ
   def tag_search
-    @tag_list = Tag.find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
+    @tag_list = Tag.limit(30).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
     @tag = Tag.find(params[:tag_id])
   end
 

@@ -9,8 +9,19 @@
       </div>
       
       <% if @coordinates.present? %>
+      
+        <% unless @following_coordinates.present? %>
+          <h4>気になるユーザーをフォローしましょう!</h4>
+          <% if @similar_users.present? %>
+            <h5 class="text-center">あなたにおすすめのユーザー</h5>
+            <%= render "public/users/index", users: @similar_users %>
+          <% else %>
+            <%= render "public/users/index", users: @users %>
+          <% end %>
+          <%= link_to "さらにユーザーを探す", users_path, class: "btn btn-outline-success m-3" %>
+        <% end %>
+        
         <% @coordinates.each do |coordinate| %>
-
           <div class="row no-padding card-wrapper">
             <div class="card shadow-lg mx-auto" style="width: 50rem;">
               <div class='row g-0'>
@@ -54,7 +65,9 @@
             </div>
           </div>
         <% end %>
+        
       <% else %>
+      
         <h4>気になるユーザーをフォローしましょう!</h4>
         <% if @similar_users.present? %>
           <h5 class="text-center">あなたにおすすめのユーザー</h5>
@@ -63,6 +76,7 @@
           <%= render "public/users/index", users: @users %>
         <% end %>
         <%= link_to "さらにユーザーを探す", users_path, class: "btn btn-outline-success mt-3" %>
+      
       <% end %>
     </div>
   </div>
