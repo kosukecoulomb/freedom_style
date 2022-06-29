@@ -8,7 +8,7 @@
         </a>
       </div>
       
-      <% if @coordinates.exists? %>
+      <% if @coordinates.present? %>
         <% @coordinates.each do |coordinate| %>
 
           <div class="row no-padding card-wrapper">

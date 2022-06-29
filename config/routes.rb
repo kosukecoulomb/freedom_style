@@ -43,7 +43,7 @@ Rails.application.routes.draw do
     end
 
     resources :tags do
-      get '/coordinates' => 'coordinates#search'
+      get '/coordinates' => 'coordinates#tag_search'
     end
 
     resources :notifications, only: :index

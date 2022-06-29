@@ -11,7 +11,7 @@ class Public::CoordinatesController < ApplicationController
 
   #フォロワーと自分のコーデ
   def timeline
-    @coordinates = Coordinate.where(user_id: [current_user.id, *current_user.following_ids]).order(created_at: :desc)
+    @coordinates = Coordinate.includes(:user).where(user_id: [current_user.id, *current_user.following_ids]).order(created_at: :desc)
     #フォロワーがなくタイムラインが空の場合は似たユーザー、さらになければ通常のユーザーを表示する
     more_short = current_user.tall.to_i - 4
     more_tall = current_user.tall.to_i + 5
@@ -72,9 +72,9 @@ class Public::CoordinatesController < ApplicationController
     @other1_item = Item.find_by(id: @coordinate.other1_id)
     @other2_item = Item.find_by(id: @coordinate.other2_id)
     #似たようなコーデを表示
-    @similar_coordinates = Coordinate.where(dress_code: @coordinate.dress_code, season: @coordinate.season)
+    @similar_coordinates = Coordinate.limit(4).where(dress_code: @coordinate.dress_code, season: @coordinate.season)
                           .joins(:user).merge(User.where(gender: @user.gender))
-                        .limit(4).order(created_at: :desc).where.not(id: @coordinate.id)
+                          .order(created_at: :desc).where.not(id: @coordinate.id)
   end
 
 
@@ -123,10 +123,9 @@ class Public::CoordinatesController < ApplicationController
   end
 
   #タグ検索結果ページ
-  def search
-    @tag_list = Tag.all
+  def tag_search
+    @tag_list = Tag.find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
     @tag = Tag.find(params[:tag_id])
-    @coordinates = @tag.coordinates.all
   end
 
 
