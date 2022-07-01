@@ -1,0 +1,32 @@
+<button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">
+  <i class="far fa-bell"></i>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reportModalLabel">管理者に通報する</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <% form_with model: @report, method: :post do |f| %>
+      <div class="modal-body">
+        通報内容
+        <%= f.hidden_field :coordinate_id => coordinate.id %>
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+        <%= f.select :report_class, Report.report_classes.keys.map{|k| [I18n.t("enums.report.report_class.#{k}"), k]}, { include_blank: '選択してください'} %>
+        <%= f.text_area :detail %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+        <button type="button" class="btn btn-primary">
+          <%= f.submit "通報する" %>
+        </button>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

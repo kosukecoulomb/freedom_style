@@ -9,6 +9,7 @@ class Coordinate < ApplicationRecord
   has_many :tags, through: :tag_maps
   accepts_nested_attributes_for :tags
   has_many :notifications, dependent: :destroy
+  has_many :reports, dependent: :destroy
 
 
   #いいね機能

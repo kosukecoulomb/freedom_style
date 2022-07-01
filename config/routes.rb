@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     end
 
     resources :notifications, only: :index
-
+    resources :reports, only: :create
   end
 
 
@@ -59,6 +59,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:destroy]
     end
     resources :items, only:[:index, :show, :destroy]
+    resources :reports, only: :index
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

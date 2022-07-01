@@ -3,7 +3,9 @@
     <div class="col-md-12">
 
       <h2><%= @coordinate.title %></h2>
-
+      
+      
+      
       <div class="row no-padding card-wrapper">
         <div class="card shadow-lg  mx-auto" style="width: 60rem;">
           <div class='row g-0'>
@@ -79,6 +81,7 @@
             <div class="col-md-5">
               <div class="card-body justify-content-center">
                 <h5 class="pb-2">コーディネート情報</h5>
+                
                 <table class="table table no-borderless">
                   <tr>
                     <th>コンセプト:</th>
@@ -132,6 +135,7 @@
           </div>
         </div>
       </div>
+      <%= render "public/reports/report", coordinate: @coordinate %>
 
     <!-- 非同期通信 -->
     <div class="col-md-12" id="coordinate_<%= @coordinate.id %>" >

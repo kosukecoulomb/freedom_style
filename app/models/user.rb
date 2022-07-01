@@ -25,6 +25,7 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
+  has_one :re
 
   #フォロー機能
   has_many :relationships, foreign_key: :following_id
