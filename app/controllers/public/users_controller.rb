@@ -22,7 +22,7 @@ class Public::UsersController < ApplicationController
     #フォローしているユーザーの投稿
     @following_coordinates = Coordinate.limit(4).order(created_at: :desc).where(user_id: [*current_user.following_ids])
     #トレンドタグの表示
-    @tag_list = Tag.limit(4).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
+    @tag_list = Tag.limit(3).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
   end
 
 
