@@ -32,7 +32,7 @@
     </div>
 
     <div class="form-group row">
-      <%= f.label :gender, "性別", class: "col-md-3" %>
+      <%= f.label :gender, "好みの服装", class: "col-md-3" %>
       <%= f.select :gender, User.genders.keys.map{|k| [I18n.t("enums.user.gender.#{k}"), k]}, { include_blank: '選択してください'}, class: "col-md-2" %>
     </div>
 
