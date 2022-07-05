@@ -119,11 +119,8 @@ ActiveRecord::Schema.define(version: 2022_07_01_072855) do
   end
 
   create_table "reports", force: :cascade do |t|
-    t.integer "comment_id"
-    t.integer "coordinate_id"
-    t.integer "user_id"
-    t.text "detail"
-    t.integer "report_class"
+    t.integer "reporting_id", null: false
+    t.integer "comment_id", null: false
     t.boolean "checked", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

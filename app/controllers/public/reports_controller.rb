@@ -1,7 +1,9 @@
 class Public::ReportsController < ApplicationController
+  before_action :authenticate_user!
   
   def create
     @report = Report.new(report_params)
+    @report.reporting_id = current_user.id
     @report.save
     flash[:notice] = "管理者に通報しました"
   end
@@ -9,6 +11,6 @@ class Public::ReportsController < ApplicationController
   private
   
   def report_params
-    params.require(:report).permit(:comment_id, :coordinate_id, :user_id, :detail, :report_class, :checked)
+    params.permit(:reporting_id, :comment_id, :checked)
   end
 end

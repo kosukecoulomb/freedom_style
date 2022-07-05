@@ -2,8 +2,7 @@ class Item < ApplicationRecord
   #アソシエーション
   belongs_to :user
   has_many :coordinates
-  has_many :reports, dependent: :destroy
-  
+
   
   #画像投稿
   has_one_attached :item_image

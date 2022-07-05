@@ -34,7 +34,9 @@ Rails.application.routes.draw do
       collection do
         get :choise_search
       end
-      resources :comments, only: [:create, :destroy]
+      resources :comments, only: [:create, :destroy] do
+        resource :reports, only: :create
+      end
       resource :favorites, only: [:create, :destroy]
     end
 
@@ -47,7 +49,6 @@ Rails.application.routes.draw do
     end
 
     resources :notifications, only: :index
-    resources :reports, only: :create
   end
 
 

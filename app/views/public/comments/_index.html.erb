@@ -13,6 +13,11 @@
       <%= link_to "削除", coordinate_comment_path(comment.coordinate, comment), method: :delete, remote: true, class: "btn btn-outline-danger" %>
     <% end %>
     </td>
+    <td>
+      <%= link_to coordinate_comment_reports_path(coordinate,comment), method: :post, data: { confirm: '本当に管理者に通報しますか？' } do %>
+        <i class="fas fa-times"></i>
+      <% end %>
+    </td>
   </tr>
 </table>
 <% end %>
