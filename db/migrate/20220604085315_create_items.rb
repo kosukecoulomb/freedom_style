@@ -8,7 +8,7 @@ class CreateItems < ActiveRecord::Migration[6.1]
       t.string :color, null: false
       t.integer :user_id, null: false
       t.integer :price, null: false
-      
+
       t.timestamps
     end
   end

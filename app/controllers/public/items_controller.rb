@@ -17,7 +17,7 @@ class Public::ItemsController < ApplicationController
   end
 
   def index
-    @search_params = item_search_params  
+    @search_params = item_search_params
     @items = Item.search(@search_params).order(created_at: :desc)
   end
 
@@ -32,12 +32,12 @@ class Public::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    #@itemを使った投稿を表示
-    @coordinates = Coordinate.where(outer_id: @item.id).or(Coordinate.where(tops_id: @item.id))
-                  .or(Coordinate.where(bottoms_id: @item.id))
-                  .or(Coordinate.where(shoes_id: @item.id))
-                  .or(Coordinate.where(other1_id: @item.id))
-                  .or(Coordinate.where(other2_id: @item.id))
+    # @itemを使った投稿を表示
+    @coordinates = Coordinate.where(outer_id: @item.id).or(Coordinate.where(tops_id: @item.id)).
+      or(Coordinate.where(bottoms_id: @item.id)).
+      or(Coordinate.where(shoes_id: @item.id)).
+      or(Coordinate.where(other1_id: @item.id)).
+      or(Coordinate.where(other2_id: @item.id))
   end
 
   def edit
@@ -69,13 +69,12 @@ class Public::ItemsController < ApplicationController
   def ensure_current_user
     @item = Item.find(params[:id])
     if current_user.id != @item.user_id
-      flash[:notice]="権限がありません"
+      flash[:notice] = "権限がありません"
       redirect_to items_path
     end
   end
-  
-  def item_search_params
-    params.fetch(:search, {}).permit(:category, :item_name, :price_from ,:price_to)
-  end
 
+  def item_search_params
+    params.fetch(:search, {}).permit(:category, :item_name, :price_from, :price_to)
+  end
 end

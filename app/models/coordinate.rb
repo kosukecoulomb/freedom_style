@@ -1,6 +1,5 @@
 class Coordinate < ApplicationRecord
-
-  #アソシエーション
+  # アソシエーション
   belongs_to :user
   has_many :items
   has_many :comments, dependent: :destroy
@@ -10,58 +9,55 @@ class Coordinate < ApplicationRecord
   accepts_nested_attributes_for :tags
   has_many :notifications, dependent: :destroy
 
-
-  #いいね機能
+  # いいね機能
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
 
-  #条件検索機能
+  # 条件検索機能
   scope :search, -> (search_params) do
     return if search_params.blank?
 
-    dress_code_choise(search_params[:dress_code])
-    .season_choise(search_params[:season])
-    .temperature_choise(search_params[:temperature])
-    .title_body_like(search_params[:title])
-    .gender_choise(search_params[:gender])
-    .generation_choise(search_params[:generation])
-    .body_shape_choise(search_params[:body_shape])
-    .tall_from_like(search_params[:tall_from])
-    .tall_to_like(search_params[:tall_to])
+    dress_code_choise(search_params[:dress_code]).
+      season_choise(search_params[:season]).
+      temperature_choise(search_params[:temperature]).
+      title_body_like(search_params[:title]).
+      gender_choise(search_params[:gender]).
+      generation_choise(search_params[:generation]).
+      body_shape_choise(search_params[:body_shape]).
+      tall_from_like(search_params[:tall_from]).
+      tall_to_like(search_params[:tall_to])
   end
 
-  scope :dress_code_choise, -> (dress_code) {where(dress_code: dress_code) if dress_code.present?}
-  scope :season_choise, -> (season) {where(season: season) if season.present?}
-  scope :temperature_choise, -> (temperature) {where(temperature: temperature) if temperature.present?}
-  scope :title_body_like, -> (title) {where('title LIKE ? OR body LIKE?', "%#{title}%","%#{title}%") if title.present?}
-  #アソシエーションするユーザーモデルからも検索できるように
-  scope :gender_choise, -> (gender) {joins(:user).merge(User.where(gender: gender)) if gender.present?}
-  scope :generation_choise, -> (generation) {joins(:user).merge(User.where(generation: generation)) if generation.present?}
-  scope :body_shape_choise, -> (body_shape) {joins(:user).merge(User.where(body_shape: body_shape)) if body_shape.present?}
-  scope :tall_from_like, -> (tall_from) {joins(:user).merge(User.where(" tall >= ?", tall_from)) if tall_from.present?}
-  scope :tall_to_like, -> (tall_to) {joins(:user).merge(User.where("tall < ?", tall_to)) if tall_to.present?}
+  scope :dress_code_choise, -> (dress_code) { where(dress_code: dress_code) if dress_code.present? }
+  scope :season_choise, -> (season) { where(season: season) if season.present? }
+  scope :temperature_choise, -> (temperature) { where(temperature: temperature) if temperature.present? }
+  scope :title_body_like, -> (title) { where('title LIKE ? OR body LIKE?', "%#{title}%", "%#{title}%") if title.present? }
+  # アソシエーションするユーザーモデルからも検索できるように
+  scope :gender_choise, -> (gender) { joins(:user).merge(User.where(gender: gender)) if gender.present? }
+  scope :generation_choise, -> (generation) { joins(:user).merge(User.where(generation: generation)) if generation.present? }
+  scope :body_shape_choise, -> (body_shape) { joins(:user).merge(User.where(body_shape: body_shape)) if body_shape.present? }
+  scope :tall_from_like, -> (tall_from) { joins(:user).merge(User.where(" tall >= ?", tall_from)) if tall_from.present? }
+  scope :tall_to_like, -> (tall_to) { joins(:user).merge(User.where("tall < ?", tall_to)) if tall_to.present? }
 
-
-  #タグ検索用
+  # タグ検索用
   def save_tag(sent_tags)
-    current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
+    current_tags = tags.pluck(:tag_name) unless tags.nil?
     old_tags = current_tags - sent_tags
     new_tags = sent_tags - current_tags
 
     old_tags.each do |old|
-      self.tags.delete Tag.find_by(tag_name: old)
+      tags.delete Tag.find_by(tag_name: old)
     end
 
     new_tags.each do |new|
       new_coordinate_tag = Tag.find_or_create_by(tag_name: new)
-      self.tags << new_coordinate_tag
+      tags << new_coordinate_tag
     end
   end
 
-
-  #通知機能
-  #いいねの通知
+  # 通知機能
+  # いいねの通知
   def create_notification_favorite(current_user)
     # すでに「いいね」されているか検索
     temp = Notification.where(["visitor_id = ? and visited_id = ? and coordinate_id = ? and action = ? ", current_user.id, user_id, id, 'favorite'])
@@ -76,7 +72,7 @@ class Coordinate < ApplicationRecord
     end
   end
 
-  #コメントの通知
+  # コメントの通知
   def create_notification_comment(current_user, comment_id)
     # 自分以外にコメントしている人をすべて取得し、全員に通知を送る
     temp_ids = Comment.select(:user_id).where(coordinate_id: id).where.not(user_id: current_user.id).distinct
@@ -89,7 +85,7 @@ class Coordinate < ApplicationRecord
 
   def save_notification_comment(current_user, comment_id, visited_id)
     notification = current_user.active_notifications.new(
-      coordinate_id: self.id,
+      coordinate_id: id,
       comment_id: comment_id,
       visited_id: visited_id,
       action: 'comment'
@@ -97,26 +93,24 @@ class Coordinate < ApplicationRecord
     notification.save
   end
 
-
-  #画像投稿
+  # 画像投稿
   has_one_attached :coordinate_image
 
   def get_coordinate_image(width, height)
     coordinate_image.variant(resize_to_limit: [width, height]).processed
   end
 
-  #バリデーション
-  validates :coordinate_image, presence:true
+  # バリデーション
+  validates :coordinate_image, presence: true
   validates :user_id, presence: true
-  validates :title, presence: true, length:{in: 2..20}
-  validates :body, presence: true, length:{in: 2..250}
+  validates :title, presence: true, length: { in: 2..20 }
+  validates :body, presence: true, length: { in: 2..250 }
   validates :dress_code, presence: true
   validates :season, presence: true
   validates :temperature, presence: true
 
-  #enum
-  enum dress_code: { casual:0, clean:1, formal:2 }
-  enum season: { spring:0, summer:1, autumn:2, winter:3 }
-  enum temperature: { under_ten:0, eleven_fifteen:1, sixteen_twenty:2, twentyone_five:3, over_twentysix:4 }
-
+  # enum
+  enum dress_code: { casual: 0, clean: 1, formal: 2 }
+  enum season: { spring: 0, summer: 1, autumn: 2, winter: 3 }
+  enum temperature: { under_ten: 0, eleven_fifteen: 1, sixteen_twenty: 2, twentyone_five: 3, over_twentysix: 4 }
 end

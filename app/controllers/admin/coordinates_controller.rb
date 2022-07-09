@@ -1,9 +1,9 @@
 class Admin::CoordinatesController < ApplicationController
   before_action :authenticate_admin!
-  
+
   def index
-    @search_params = coordinate_search_params  
-    @coordinates = Coordinate.search(@search_params).order(created_at: :desc) 
+    @search_params = coordinate_search_params
+    @coordinates = Coordinate.search(@search_params).order(created_at: :desc)
   end
 
   def show
@@ -16,18 +16,18 @@ class Admin::CoordinatesController < ApplicationController
     @other1_item = Item.find_by(id: @coordinate.other1_id)
     @other2_item = Item.find_by(id: @coordinate.other2_id)
   end
-  
+
   def destroy
     @coordinate = Coordinate.find(params[:id])
     @coordinate.destroy
     redirect_to admin_coordinates_path
     flash[:notice] = "投稿を削除しました"
   end
-  
+
   private
-  
+
   def coordinate_search_params
-    params.fetch(:search, {}).permit(:title,:user)
-    #fetch(:search, {})と記述することで、検索フォームに値がない場合はnilを返し、エラーが起こらなくなる
+    params.fetch(:search, {}).permit(:title, :user)
+    # fetch(:search, {})と記述することで、検索フォームに値がない場合はnilを返し、エラーが起こらなくなる
   end
 end

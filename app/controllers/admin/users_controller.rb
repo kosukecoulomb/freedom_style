@@ -19,20 +19,19 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to admin_user_path(@user)
-      flash[:notice]="ユーザーステータスを変更"
+      flash[:notice] = "ユーザーステータスを変更"
     else
       render :edit
     end
   end
-  
+
   private
 
   def user_params
     params.require(:user).permit(:is_deleted)
   end
-  
+
   def user_search_params
     params.fetch(:search, {}).permit(:name)
   end
-
 end

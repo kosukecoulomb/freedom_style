@@ -1,33 +1,35 @@
 class Item < ApplicationRecord
-  #アソシエーション
+  # アソシエーション
   belongs_to :user
   has_many :coordinates
 
-  
-  #画像投稿
+  # 画像投稿
   has_one_attached :item_image
 
   def get_item_image(width, height)
     item_image.variant(resize_to_limit: [width, height]).processed
   end
-  
-  
-  #条件検索機能
+
+  # 条件検索機能
   scope :search, -> (search_params) do
     return if search_params.blank?
 
-    category_choise(search_params[:category])
-    .item_name_like(search_params[:item_name])
-    .price_from_like(search_params[:price_from])
-    .price_to_like(search_params[:price_to])
+    category_choise(search_params[:category]).
+      item_name_like(search_params[:item_name]).
+      price_from_like(search_params[:price_from]).
+      price_to_like(search_params[:price_to])
   end
-  scope :category_choise, -> (category) {where(category: category) if category.present?}
-  scope :item_name_like, -> (item_name) {where('item_name LIKE ? OR brand_name LIKE? OR color LIKE?',
-  "%#{item_name}%", "%#{item_name}%", "%#{item_name}%") if item_name.present?}
-  scope :price_from_like, -> (price_from) {where("price >= ?", price_from) if price_from.present?}
-  scope :price_to_like, -> (price_to) {where("price < ?", price_to) if price_to.present?}
-  
-  #バリデーション
+  scope :category_choise, -> (category) { where(category: category) if category.present? }
+  scope :item_name_like, -> (item_name) {
+                           if item_name.present?
+                             where('item_name LIKE ? OR brand_name LIKE? OR color LIKE?',
+ "%#{item_name}%", "%#{item_name}%", "%#{item_name}%")
+                                                     end
+                         }
+  scope :price_from_like, -> (price_from) { where("price >= ?", price_from) if price_from.present? }
+  scope :price_to_like, -> (price_to) { where("price < ?", price_to) if price_to.present? }
+
+  # バリデーション
   validates :item_image, presence: true
   validates :category, presence: true
   validates :user_id, presence: true
@@ -36,7 +38,7 @@ class Item < ApplicationRecord
   validates :color, presence: true
   validates :price, presence: true
   validates :brand_name, presence: true
-  
-  #enum
-  enum category: { outer:0, tops:1, bottoms:2, shoes:3, others:4  }
+
+  # enum
+  enum category: { outer: 0, tops: 1, bottoms: 2, shoes: 3, others: 4 }
 end
