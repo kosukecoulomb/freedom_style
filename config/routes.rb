@@ -34,7 +34,9 @@ Rails.application.routes.draw do
       collection do
         get :choise_search
       end
-      resources :comments, only: [:create, :destroy]
+      resources :comments, only: [:create, :destroy] do
+        resource :reports, only: :create
+      end
       resource :favorites, only: [:create, :destroy]
     end
 
@@ -47,7 +49,6 @@ Rails.application.routes.draw do
     end
 
     resources :notifications, only: :index
-
   end
 
 
@@ -59,6 +60,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:destroy]
     end
     resources :items, only:[:index, :show, :destroy]
+    resources :reports, only: [:index, :update]
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

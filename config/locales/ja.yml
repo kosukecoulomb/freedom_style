@@ -41,6 +41,13 @@
           bottoms: "ボトムス"
           shoes: "靴"
           others: "その他"
+      report:
+        report_class:
+          hate: "ヘイト・暴力的発信"
+          sexual: "性的コンテンツ"
+          harassment: "いやがらせ・いじめ"
+          spam: "スパム"
+          infringement: "権利の侵害"
     activerecord:
       attributes:
         user:

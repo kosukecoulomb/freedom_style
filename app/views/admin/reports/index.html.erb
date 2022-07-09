@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h4>通報コメント一覧</h4>
+      <table class="table">
+        <tr>
+          <th class="col-md-2">コメントユーザー</th>
+          <th class="col-md-6">コメント内容</th>
+          <th class="col-md-2">通報者</th>
+          <th class="col-md-2"></th>
+        </tr>
+        <% @reports.each do |report| %>
+        <tr>
+          <td>
+            <%= link_to admin_user_path(report.comment.user) do %>
+              <%= image_tag report.comment.user.get_profile_image(60,80) %>
+              <%= report.comment.user.name %>
+            <% end %>
+          </td>
+          <td><%= report.comment.comment %></td>
+          <td><%= link_to report.reporting.name, admin_user_path(report.reporting) %></td>
+          <td><%= link_to "コメント削除", admin_coordinate_comment_path(report.comment.coordinate, report.comment), method: :delete, remote: true, class: "btn btn-outline-danger btn-sm", data: { confirm: '本当に削除しますか？'} %></td>
+        </tr>
+        <% end %>
+      </table>
+      
+    </div>
+  </div>
+</div>

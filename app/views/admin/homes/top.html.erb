@@ -4,7 +4,7 @@
       <h3 class="text-center">こちらは管理者用トップページです</h3>
       <p class="text-center">ユーザーの利用停止設定や、投稿・アイテム・コメントの削除ができます</p>
 
-      <div class="btn-wrapper col-7 mx-auto m-3">
+      <div class="btn-wrapper col-7 mx-auto m-3 d-flex">
         <div class="row m-2">
           <%= link_to "コーディネート一覧", admin_coordinates_path, class: "btn btn-outline-secondary mx-auto" %>
         </div>
@@ -14,8 +14,36 @@
         <div class="row m-2">
           <%= link_to "アイテム一覧", admin_items_path, class: "btn btn-outline-secondary mx-auto" %>
         </div>
+        <div class="row m-2">
+          <%= link_to "通報一覧", admin_reports_path, class: "btn btn-outline-secondary mx-auto" %>
+        </div>
       </div>
 
+      <h4>通報コメント一覧(未確認)</h4>
+      <table class="table">
+        <tr>
+          <th class="col-md-2">コメントユーザー</th>
+          <th class="col-md-4">コメント内容</th>
+          <th class="col-md-2">通報者</th>
+          <th class="col-md-2">ステータス</th>
+          <th class="col-md-2"></th>
+        </tr>
+        <% @reports.each do |report| %>
+        <tr>
+          <td>
+            <%= link_to admin_user_path(report.comment.user) do %>
+              <%= image_tag report.comment.user.get_profile_image(60,80) %>
+              <%= report.comment.user.name %>
+            <% end %>
+          </td>
+          <td><%= report.comment.comment %></td>
+          <td><%= link_to report.reporting.name, admin_user_path(report.reporting) %></td>
+          <td><%= link_to "確認済みにする", admin_report_path(report), method: :patch, class: "btn btn-sm btn-outline-info" %></td>
+          <td><%= link_to "コメント削除", admin_coordinate_comment_path(report.comment.coordinate, report.comment), method: :delete, remote: true, class: "btn btn-outline-danger btn-sm", data: { confirm: '本当に削除しますか？'} %></td>
+        </tr>
+        <% end %>
+      </table>
+      
     </div>
   </div>
 </div>

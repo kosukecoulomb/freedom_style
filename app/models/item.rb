@@ -2,6 +2,7 @@ class Item < ApplicationRecord
   #アソシエーション
   belongs_to :user
   has_many :coordinates
+
   
   #画像投稿
   has_one_attached :item_image
@@ -9,6 +10,7 @@ class Item < ApplicationRecord
   def get_item_image(width, height)
     item_image.variant(resize_to_limit: [width, height]).processed
   end
+  
   
   #条件検索機能
   scope :search, -> (search_params) do
