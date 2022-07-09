@@ -1,6 +1,6 @@
 class Public::ReportsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def create
     @report = Report.new(report_params)
     @report.reporting_id = current_user.id
@@ -9,7 +9,7 @@ class Public::ReportsController < ApplicationController
   end
   
   private
-  
+
   def report_params
     params.permit(:reporting_id, :comment_id, :checked)
   end
