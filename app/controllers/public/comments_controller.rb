@@ -7,7 +7,7 @@ class Public::CommentsController < ApplicationController
     @comment.user_id = current_user.id
     @comment.coordinate_id = @coordinate.id
     if @comment.save
-      #通知作成
+      # 通知作成
       @coordinate.create_notification_comment(current_user, @comment.id)
     else
       render "public/coordinates/show"
@@ -25,5 +25,4 @@ class Public::CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:comment)
   end
-
 end

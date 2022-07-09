@@ -7,7 +7,7 @@ class Public::ReportsController < ApplicationController
     @report.save
     flash[:notice] = "管理者に通報しました"
   end
-  
+
   private
 
   def report_params

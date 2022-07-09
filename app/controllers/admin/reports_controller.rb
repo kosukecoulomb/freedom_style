@@ -1,10 +1,10 @@
 class Admin::ReportsController < ApplicationController
   before_action :authenticate_admin!
-  
+
   def index
     @reports = Report.all
   end
-  
+
   def update
     @report = Report.find(params[:id])
     @report.update(checked: true)

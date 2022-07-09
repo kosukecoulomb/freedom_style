@@ -1,18 +1,17 @@
 Rails.application.routes.draw do
-
-  #devise部分
+  # devise部分
   devise_for :admin, controllers: {
-    sessions: "admin/sessions"
+    sessions: "admin/sessions",
   }
   devise_for :users, controllers: {
     registrations: "public/registrations",
-    sessions: 'public/sessions'
+    sessions: 'public/sessions',
   }
   devise_scope :user do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
 
-  #ユーザー部分
+  # ユーザー部分
   scope module: :public do
     root to: "homes#top"
     get "homes/about" => "homes#about", as: "about"
@@ -30,7 +29,7 @@ Rails.application.routes.draw do
     end
 
     get "coordinates/timeline" => "coordinates#timeline", as: "timeline"
-    resources :coordinates, only:[:index, :new, :show, :edit, :create, :update, :destroy] do
+    resources :coordinates, only: [:index, :new, :show, :edit, :create, :update, :destroy] do
       collection do
         get :choise_search
       end
@@ -40,7 +39,7 @@ Rails.application.routes.draw do
       resource :favorites, only: [:create, :destroy]
     end
 
-    resources :items, only:[:index, :new, :create, :show, :edit, :update, :destroy] do
+    resources :items, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
       get "/collection/" => 'items#collection', on: :member, as: "collection"
     end
 
@@ -51,15 +50,14 @@ Rails.application.routes.draw do
     resources :notifications, only: :index
   end
 
-
-  #管理者部分
+  # 管理者部分
   namespace :admin do
     get '/' => 'homes#top', as: 'top'
-    resources :users, only:[:index,:show,:edit,:update]
-    resources :coordinates, only:[:index, :show, :destroy] do
+    resources :users, only: [:index, :show, :edit, :update]
+    resources :coordinates, only: [:index, :show, :destroy] do
       resources :comments, only: [:destroy]
     end
-    resources :items, only:[:index, :show, :destroy]
+    resources :items, only: [:index, :show, :destroy]
     resources :reports, only: [:index, :update]
   end
 

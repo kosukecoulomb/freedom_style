@@ -7,41 +7,36 @@ class Public::UsersController < ApplicationController
     @users = User.search(@search_params)
   end
 
-
   def my_page
     @user = current_user
     @coordinates = Coordinate.where(user_id: @user.id)
-    #おすすめコーデの表示
+    # おすすめコーデの表示
     more_short = current_user.tall.to_i - 4
     more_tall = current_user.tall.to_i + 5
-    @recommendations = Coordinate.joins(:user).merge(User.where(tall: more_short..more_tall, gender: @user.gender))
-                      .limit(4).order(created_at: :desc).where.not(user_id: @user.id)
-    #いいねしたコーデ表示
+    @recommendations = Coordinate.joins(:user).merge(User.where(tall: more_short..more_tall, gender: @user.gender)).
+      limit(4).order(created_at: :desc).where.not(user_id: @user.id)
+    # いいねしたコーデ表示
     favorites = Favorite.where(user_id: @user.id).pluck(:coordinate_id)
     @favorite_coordinates = Coordinate.limit(4).order(created_at: :desc).find(favorites)
-    #フォローしているユーザーの投稿
+    # フォローしているユーザーの投稿
     @following_coordinates = Coordinate.limit(4).order(created_at: :desc).where(user_id: [*current_user.following_ids])
-    #トレンドタグの表示
+    # トレンドタグの表示
     @tag_list = Tag.limit(3).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
   end
-
 
   def favorites
     favorites = Favorite.where(user_id: current_user.id).pluck(:coordinate_id)
     @favorite_coordinates = Coordinate.order(created_at: :desc).find(favorites)
   end
 
-
   def show
     @user = User.find(params[:id])
     @coordinates = @user.coordinates.all
   end
 
-
   def edit
     @user = current_user
   end
-
 
   def update
     @user = current_user
@@ -53,11 +48,9 @@ class Public::UsersController < ApplicationController
     end
   end
 
-
   def unsubscribe
     @user = current_user
   end
-
 
   def destroy
     @user = current_user
@@ -66,8 +59,7 @@ class Public::UsersController < ApplicationController
     flash[:notice] = "アカウントを削除しました"
   end
 
-
-  #フォロー・フォロワーを表示
+  # フォロー・フォロワーを表示
   def followings
     user = User.find(params[:id])
     @users = user.followings
@@ -78,15 +70,13 @@ class Public::UsersController < ApplicationController
     @users = user.followers
   end
 
-
   private
 
   def user_params
     params.require(:user).permit(:profile_image, :name, :introduction, :gender, :generation, :tall, :body_shape, :foot_size)
   end
 
-
-  #ゲストユーザー機能
+  # ゲストユーザー機能
   def ensure_guest_user
     @user = User.find(params[:id])
     if @user.name == "guestuser"
@@ -95,9 +85,7 @@ class Public::UsersController < ApplicationController
     end
   end
 
-
   def user_search_params
     params.fetch(:search, {}).permit(:gender, :generation, :body_shape, :tall_from, :tall_to, :name)
   end
-
 end

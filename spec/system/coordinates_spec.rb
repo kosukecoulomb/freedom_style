@@ -3,14 +3,15 @@
 require 'rails_helper'
 
 describe '投稿のテスト', type: :system do
-    let!(:coordinate) { create(:coordinate) }
-    let!(:user) { create(:user) }
+  let!(:coordinate) { create(:coordinate) }
+  let!(:user) { create(:user) }
 
   describe "投稿画面(new_coordinate_path)のテスト" do
     before do
       sign_in user
       visit new_coordinate_path
     end
+
     context '表示の確認' do
       it 'new_coordinate_pathが"/coordinates/new"であるか' do
         expect(current_path).to eq('/coordinates/new')
@@ -19,10 +20,11 @@ describe '投稿のテスト', type: :system do
         expect(page).to have_button '投稿'
       end
     end
+
     context '投稿処理のテスト' do
       it '投稿後のリダイレクト先は正しいか' do
-        fill_in 'coordinate[title]', with: Faker::Lorem.characters(number:5)
-        fill_in 'coordinate[body]', with: Faker::Lorem.characters(number:20)
+        fill_in 'coordinate[title]', with: Faker::Lorem.characters(number: 5)
+        fill_in 'coordinate[body]', with: Faker::Lorem.characters(number: 20)
         select "カジュアル", from: "coordinate_dress_code"
         select "春", from: "coordinate_season"
         select "10度以下(寒い)", from: "coordinate_temperature"
@@ -39,6 +41,7 @@ describe '投稿のテスト', type: :system do
       sign_in user
       visit coordinates_path
     end
+
     context '表示の確認' do
       it '投稿されたものが表示されているか' do
         expect(page).to have_content coordinate.title
@@ -52,20 +55,23 @@ describe '投稿のテスト', type: :system do
       sign_in User.first
       visit coordinate_path(coordinate)
     end
+
     context '表示の確認' do
       it '編集リンクが存在しているか' do
         expect(page).to have_link '編集する'
       end
     end
+
     context 'リンクの遷移先の確認' do
       it '編集の遷移先は編集画面か' do
         click_on "編集する"
         expect(current_path).to eq('/coordinates/' + coordinate.id.to_s + '/edit')
       end
     end
+
     context 'coordinate削除のテスト' do
       it 'coordinateの削除' do
-        expect{ coordinate.destroy }.to change{ Coordinate.count }.by(-1)
+        expect { coordinate.destroy }.to change { Coordinate.count }.by(-1)
       end
     end
   end
@@ -75,6 +81,7 @@ describe '投稿のテスト', type: :system do
       sign_in User.first
       visit edit_coordinate_path(coordinate)
     end
+
     context '表示の確認' do
       it '編集前のタイトルと本文がフォームに表示(セット)されている' do
         expect(page).to have_field 'coordinate[title]', with: coordinate.title
@@ -87,10 +94,11 @@ describe '投稿のテスト', type: :system do
         expect(page).to have_button '編集を保存'
       end
     end
+
     context '更新処理に関するテスト' do
       it '更新後のリダイレクト先は正しいか' do
-        fill_in 'coordinate[title]', with: Faker::Lorem.characters(number:5)
-        fill_in 'coordinate[body]', with: Faker::Lorem.characters(number:20)
+        fill_in 'coordinate[title]', with: Faker::Lorem.characters(number: 5)
+        fill_in 'coordinate[body]', with: Faker::Lorem.characters(number: 20)
         select "カジュアル", from: "coordinate_dress_code"
         select "春", from: "coordinate_season"
         select "10度以下(寒い)", from: "coordinate_temperature"
