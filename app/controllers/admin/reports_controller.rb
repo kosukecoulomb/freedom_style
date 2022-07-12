@@ -9,6 +9,6 @@ class Admin::ReportsController < ApplicationController
     @report = Report.find(params[:id])
     @report.update(checked: true)
     flash[:notice] = "確認済みに更新しました"
-    redirect_to admin_top_path
+    redirect_to request.referer
   end
 end
