@@ -20,11 +20,8 @@ class Item < ApplicationRecord
       price_to_like(search_params[:price_to])
   end
   scope :category_choise, -> (category) { where(category: category) if category.present? }
-  scope :item_name_like, -> (item_name) {
-                           if item_name.present?
-                             where('item_name LIKE ? OR brand_name LIKE? OR color LIKE?',
- "%#{item_name}%", "%#{item_name}%", "%#{item_name}%")
-                                                     end
+  scope :item_name_like, -> (item_name) {where('item_name LIKE ? OR brand_name LIKE? OR color LIKE?',
+ "%#{item_name}%", "%#{item_name}%", "%#{item_name}%") if item_name.present?
                          }
   scope :price_from_like, -> (price_from) { where("price >= ?", price_from) if price_from.present? }
   scope :price_to_like, -> (price_to) { where("price < ?", price_to) if price_to.present? }

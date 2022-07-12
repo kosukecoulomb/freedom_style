@@ -5,8 +5,9 @@
       <table class="table">
         <tr>
           <th class="col-md-2">コメントユーザー</th>
-          <th class="col-md-6">コメント内容</th>
+          <th class="col-md-4">コメント内容</th>
           <th class="col-md-2">通報者</th>
+          <th class="col-md-2">ステータス</th>
           <th class="col-md-2"></th>
         </tr>
         <% @reports.each do |report| %>
@@ -19,11 +20,21 @@
           </td>
           <td><%= report.comment.comment %></td>
           <td><%= link_to report.reporting.name, admin_user_path(report.reporting) %></td>
-          <td><%= link_to "コメント削除", admin_coordinate_comment_path(report.comment.coordinate, report.comment), method: :delete, remote: true, class: "btn btn-outline-danger btn-sm", data: { confirm: '本当に削除しますか？'} %></td>
+          <td>
+            <% if report.checked == true %>
+              <p class="text-success">確認済み</p>
+            <% else %>
+              <p class="text-danger">未確認</p>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to "コメント削除", admin_coordinate_comment_path(report.comment.coordinate, report.comment), method: :delete, class: "btn btn-outline-danger btn-sm m-1", data: { confirm: '本当に削除しますか？'} %>
+            <%= link_to "確認済みにする", admin_report_path(report), method: :patch, class: "btn btn-sm btn-outline-info" %>
+          </td>
         </tr>
         <% end %>
       </table>
-      
+
     </div>
   </div>
 </div>
