@@ -29,7 +29,7 @@
           </td>
           <td>
             <%= link_to "コメント削除", admin_coordinate_comment_path(report.comment.coordinate, report.comment), method: :delete, class: "btn btn-outline-danger btn-sm m-1", data: { confirm: '本当に削除しますか？'} %>
-            <%= link_to "確認済みにする", admin_report_path(report), method: :patch, class: "btn btn-sm btn-outline-info" %>
+            <%= link_to "ステータス切り替え", admin_report_path(report), method: :patch, class: "btn btn-sm btn-outline-info m-1" %>
           </td>
         </tr>
         <% end %>
