@@ -12,7 +12,12 @@ class Admin::ReportsController < ApplicationController
     else
       @report.update(checked: false)
     end
-    flash[:notice] = "ステータスを更新しました"
-    redirect_to request.referer
+    @reports = Report.includes(:comment).all.order(created_at: :desc)
+  end
+  
+  def checked
+    @report = Report.find(params[:id])
+    @report.update(checked: true)
+    @reports = Report.includes(:comment).order(created_at: :desc).where(checked: false)
   end
 end
