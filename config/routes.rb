@@ -58,7 +58,9 @@ Rails.application.routes.draw do
       resources :comments, only: [:destroy]
     end
     resources :items, only: [:index, :show, :destroy]
-    resources :reports, only: [:index, :update]
+    resources :reports, only: [:index, :update] do
+      patch "checked" => "reports#checked", on: :member, as: "checked"
+    end
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
