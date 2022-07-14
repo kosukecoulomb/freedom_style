@@ -2,9 +2,10 @@
   <tr>
     <th class="col-md-2">コメントユーザー</th>
     <th class="col-md-4">コメント内容</th>
-    <th class="col-md-2">通報者</th>
-    <th class="col-md-2">ステータス</th>
-    <th class="col-md-2"></th>
+    <th class="col-md-1">通報者</th>
+    <th class="col-md-1">確認</th>
+    <th class="col-md-1"></th>
+    <th class="col-md-1"></th>
   </tr>
   <% reports.each do |report| %>
   <tr>
@@ -18,16 +19,23 @@
     <td><%= link_to report.reporting.name, admin_user_path(report.reporting) %></td>
     <td>
       <% if report.checked == true %>
-        <p class="text-success">確認済み</p>
+        <p class="text-success">
+          確認済
+          <%= link_to admin_report_path(report), method: :patch, remote: true do %>
+            <i class="fas fa-toggle-on"></i>
+          <% end %>
+        </p>
       <% else %>
-        <p class="text-danger">未確認</p>
+        <p class="text-danger">
+          未確認
+          <%= link_to admin_report_path(report), method: :patch, remote: true do %>
+            <i class="fas fa-toggle-off"></i>
+          <% end %>
+        </p>
       <% end %>
-      <%= link_to "ステータス切り替え", admin_report_path(report), method: :patch, remote: true, class: "btn btn-sm btn-outline-info" %>
     </td>
-    <td>
-      <%= link_to "該当ページ", admin_coordinate_path(report.comment.coordinate), class: "btn btn-outline-success btn-sm m-1" %>
-      <%= link_to "コメント削除", admin_coordinate_comment_path(report.comment.coordinate, report.comment), method: :delete, class: "btn btn-outline-danger btn-sm m-1", data: { confirm: '本当に削除しますか？'} %>
-    </td>
+    <td><%= link_to "ページ", admin_coordinate_path(report.comment.coordinate), class: "btn btn-outline-success btn-sm" %></td>
+    <td><%= link_to "コメント削除", admin_coordinate_comment_path(report.comment.coordinate, report.comment), method: :delete, class: "btn btn-outline-danger btn-sm", data: { confirm: '本当に削除しますか？'} %></td>
   </tr>
   <% end %>
 </table>
