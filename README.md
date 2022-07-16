@@ -75,8 +75,8 @@
 - フォロー機能の非同期通信(Ajax)
 - コメント機能の非同期通信(Ajax)
 - コメント通報ステータスの非同期通信(Ajax)
-- 画像アップロード・レビュー機能(ActiveStorage,javascript)
-- ヘッダーの自動隠し・一番上に戻る機能(javascript)
+- 画像アップロード・レビュー機能(ActiveStorage,jQuery)
+- ヘッダーの自動隠し・一番上に戻る機能(jQuery)
 
 ## 使用素材
 - 画像フリー素材(photoAC：https://www.photo-ac.com/）
