@@ -9,6 +9,7 @@ class Admin::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @coordinates = @user.coordinates.all
+    @items = @user.items.all
   end
 
   def edit

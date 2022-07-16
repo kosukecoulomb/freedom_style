@@ -3,12 +3,8 @@
     <div class="col-md-12">
       <h4>ユーザー情報</h4>
 
-      <div class="col-md-4">
-        <%= image_tag @user.get_profile_image(60,80) %>
-        <%= link_to "ユーザー情報を編集", edit_admin_user_path(@user), class: "btn btn-info" %>
-      </div>
-
-      <div class="col-md-8">
+      <%= image_tag @user.get_profile_image(60,80) %>
+      <%= link_to "ユーザー情報を編集", edit_admin_user_path(@user), class: "btn btn-info" %>
       <table class="table">
         <tr>
           <th>名前</th>
@@ -46,19 +42,37 @@
           </td>
         </tr>
       </table>
-      
-      <h4>投稿</h4>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <h4>コーディネート</h4>
       <table class="table table-hover">
         <tr>
           <th>画像</th>
           <th>タイトル</th>
-          <th>投稿者</th>
         </tr>
         <% @coordinates.each do |coordinate| %>
         <tr onclick='window.location="<%= '/admin/coordinates/' + coordinate.id.to_s %>"' role="link" >
           <td><%= image_tag coordinate.get_coordinate_image(60,80) %></td>
           <td><%= coordinate.title %></td>
-          <td><%= coordinate.user.name %></td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+      
+    <div class="col-md-6">
+      <h4>アイテム</h4>
+      <table class="table table-hover">
+        <tr>
+          <th>画像</th>
+          <th>アイテム名</th>
+        </tr>
+        <% @items.each do |item| %>
+        <tr onclick='window.location="<%= '/admin/items/' + item.id.to_s %>"' role="link" >
+          <td><%= image_tag item.get_item_image(60,80) %></td>
+          <td><%= item.item_name %></td>
         </tr>
         <% end %>
       </table>

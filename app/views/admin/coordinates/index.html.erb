@@ -3,6 +3,12 @@
     <div class="col-md-12">
       <h4>投稿一覧</h4>
       
+      <div id="top">
+        <a href="#">
+          <button class="btn btn-outline-secondary" id="index-scroll">↑</button>
+        </a>
+      </div>
+      
       <div class="m-3 text-center">
         <%= form_with(scope: :search, url: admin_coordinates_path, method: :get) do |f| %>
           <%= f.text_field :title, value: @search_params[:title],size: "30", placeholder: "キーワード" %>

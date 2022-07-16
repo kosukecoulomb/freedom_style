@@ -3,7 +3,13 @@
     <div class="col-md-12">
       <h4>通報コメント一覧</h4>
       
-      <div id="reports">
+      <div id="top">
+        <a href="#">
+          <button class="btn btn-outline-secondary" id="index-scroll">↑</button>
+        </a>
+      </div>
+      
+      <div class="mt-5"id="reports">
         <%= render "admin/reports/index", reports: @reports %>
       </div>
       
