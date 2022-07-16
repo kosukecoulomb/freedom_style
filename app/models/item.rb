@@ -15,13 +15,13 @@ class Item < ApplicationRecord
     return if search_params.blank?
 
     category_choise(search_params[:category]).
-      item_name_like(search_params[:item_name]).
+      word_like(search_params[:keyword]).
       price_from_like(search_params[:price_from]).
       price_to_like(search_params[:price_to])
   end
   scope :category_choise, -> (category) { where(category: category) if category.present? }
-  scope :item_name_like, -> (item_name) {where('item_name LIKE ? OR brand_name LIKE? OR color LIKE?',
- "%#{item_name}%", "%#{item_name}%", "%#{item_name}%") if item_name.present?
+  scope :word_like, -> (keyword) {where('item_name LIKE ? OR brand_name LIKE? OR color LIKE?',
+ "%#{keyword}%", "%#{keyword}%", "%#{keyword}%") if keyword.present?
                          }
   scope :price_from_like, -> (price_from) { where("price >= ?", price_from) if price_from.present? }
   scope :price_to_like, -> (price_to) { where("price < ?", price_to) if price_to.present? }

@@ -137,7 +137,7 @@ class Public::CoordinatesController < ApplicationController
   end
 
   def coordinate_search_params
-    params.fetch(:search, {}).permit(:dress_code, :season, :temperature, :title, :gender, :generation, :body_shape, :tall_from, :tall_to)
+    params.fetch(:search, {}).permit(:dress_code, :season, :temperature, :keyword, :gender, :generation, :body_shape, :tall_from, :tall_to)
     # fetch(:search, {})と記述することで、検索フォームに値がない場合はnilを返し、エラーが起こらなくなる
   end
 end

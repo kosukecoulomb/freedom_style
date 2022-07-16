@@ -21,7 +21,7 @@ class Coordinate < ApplicationRecord
     dress_code_choise(search_params[:dress_code]).
       season_choise(search_params[:season]).
       temperature_choise(search_params[:temperature]).
-      title_body_like(search_params[:title]).
+      word_like(search_params[:keyword]).
       gender_choise(search_params[:gender]).
       generation_choise(search_params[:generation]).
       body_shape_choise(search_params[:body_shape]).
@@ -32,7 +32,7 @@ class Coordinate < ApplicationRecord
   scope :dress_code_choise, -> (dress_code) { where(dress_code: dress_code) if dress_code.present? }
   scope :season_choise, -> (season) { where(season: season) if season.present? }
   scope :temperature_choise, -> (temperature) { where(temperature: temperature) if temperature.present? }
-  scope :title_body_like, -> (title) { where('title LIKE ? OR body LIKE?', "%#{title}%", "%#{title}%") if title.present? }
+  scope :word_like, -> (keyword) { where('title LIKE ? OR body LIKE?', "%#{keyword}%", "%#{keyword}%") if keyword.present? }
   # アソシエーションするユーザーモデルからも検索できるように
   scope :gender_choise, -> (gender) { joins(:user).merge(User.where(gender: gender)) if gender.present? }
   scope :generation_choise, -> (generation) { joins(:user).merge(User.where(generation: generation)) if generation.present? }

@@ -47,7 +47,7 @@ class User < ApplicationRecord
       body_shape_choise(search_params[:body_shape]).
       tall_from_like(search_params[:tall_from]).
       tall_to_like(search_params[:tall_to]).
-      name_like(search_params[:name])
+      word_like(search_params[:keyword])
   end
 
   scope :gender_choise, -> (gender) { where(gender: gender) if gender.present? }
@@ -55,7 +55,7 @@ class User < ApplicationRecord
   scope :body_shape_choise, -> (body_shape) { where(body_shape: body_shape) if body_shape.present? }
   scope :tall_from_like, -> (tall_from) { where(" tall >= ?", tall_from) if tall_from.present? }
   scope :tall_to_like, -> (tall_to) { where("tall <= ?", tall_to) if tall_to.present? }
-  scope :name_like, -> (name) { where('name LIKE? OR introduction LIKE?', "%#{name}%", "%#{name}%") if name.present? }
+  scope :word_like, -> (keyword) { where('name LIKE? OR introduction LIKE?', "%#{keyword}%", "%#{keyword}%") if keyword.present? }
 
   # 通知機能
   # フォロー機能の通知
