@@ -33,6 +33,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def user_search_params
-    params.fetch(:search, {}).permit(:name)
+    params.fetch(:search, {}).permit(:keyword)
   end
 end

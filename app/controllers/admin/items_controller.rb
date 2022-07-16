@@ -3,7 +3,7 @@ class Admin::ItemsController < ApplicationController
 
   def index
     @search_params = item_search_params
-    @items = Item.search(@search_params).order(created_at: :desc)
+    @items = Item.includes(:user).search(@search_params).order(created_at: :desc)
   end
 
   def show
@@ -21,6 +21,6 @@ class Admin::ItemsController < ApplicationController
   private
 
   def item_search_params
-    params.fetch(:search, {}).permit(:item_name)
+    params.fetch(:search, {}).permit(:keyword)
   end
 end

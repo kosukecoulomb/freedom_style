@@ -3,7 +3,7 @@ class Admin::CoordinatesController < ApplicationController
 
   def index
     @search_params = coordinate_search_params
-    @coordinates = Coordinate.search(@search_params).order(created_at: :desc)
+    @coordinates = Coordinate.includes(:user).search(@search_params).order(created_at: :desc)
   end
 
   def show
@@ -27,7 +27,6 @@ class Admin::CoordinatesController < ApplicationController
   private
 
   def coordinate_search_params
-    params.fetch(:search, {}).permit(:title, :user)
-    # fetch(:search, {})と記述することで、検索フォームに値がない場合はnilを返し、エラーが起こらなくなる
+    params.fetch(:search, {}).permit(:keyword)
   end
 end

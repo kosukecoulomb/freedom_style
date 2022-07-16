@@ -11,7 +11,7 @@
 
       <div class="m-3 text-center">
         <%= form_with(scope: :search, url: admin_users_path, method: :get) do |f| %>
-          <%= f.text_field :name, value: @search_params[:name],size: "30", placeholder: "ユーザー名など" %>
+          <%= f.text_field :keyword, value: @search_params[:keyword],size: "30", placeholder: "ユーザー名など" %>
           <%= button_tag type: "submit", class: "btn btn-outline-dark" do %>
             <i class="fas fa-search"></i>
           <% end %>
