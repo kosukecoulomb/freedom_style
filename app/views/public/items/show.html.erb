@@ -42,6 +42,7 @@
                   <%= link_to "コレクションを見る", collection_item_path(@item.user), class: "btn btn-outline-success m-1" %>
                   <% if @item.user_id == current_user.id %>
                     <%= link_to "アイテム情報を編集", edit_item_path(@item), class: "btn btn-outline-info m-1" %>
+                    <%= link_to "コーディネートの登録へ", new_coordinate_path, class: "btn btn-outline-primary m-1" %>
                   <% end %>
                 </div>
               </div>

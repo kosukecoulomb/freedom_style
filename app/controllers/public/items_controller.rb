@@ -9,7 +9,7 @@ class Public::ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
-      redirect_to items_path
+      redirect_to item_path(@item)
       flash[:notice] = "投稿に成功しました"
     else
       render :new

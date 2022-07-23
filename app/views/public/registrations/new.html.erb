@@ -7,8 +7,10 @@
   </div>
     
     <div class="form-group row">
-      <%= f.label :profile_image, "プロフィール画像",class: "col-md-3" %><br />
-      <%= f.file_field :profile_image, accept: "image/*", class: "col-md-4" %>
+      <%= f.label :profile_image do %>
+        <%= image_tag('non-profile.jpg', class: 'avatar') %>
+        <%= f.file_field :profile_image, accept: "image/*", class: 'uploader', style: 'display:none' %>
+      <% end %>
     </div>
 
     <div class="form-group row">
