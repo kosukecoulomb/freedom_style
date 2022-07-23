@@ -6,8 +6,8 @@ window.addEventListener('turbolinks:load', () => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        const coordinate_image = reader.result;
-        document.querySelector('.avatar').setAttribute('src', coordinate_image);
+        const image = reader.result;
+        document.querySelector('.avatar').setAttribute('src', image);
       }
     });
 });
