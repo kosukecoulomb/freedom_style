@@ -1,17 +1,22 @@
-window.addEventListener('turbolinks:load', () => {
-    const uploader = document.querySelector('.uploader');
-    if (!uploader){ return false;}
-    uploader.addEventListener('change', (e) => {
-      const file = uploader.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const image = reader.result;
-        document.querySelector('.avatar').setAttribute('src', image);
-      }
-    });
+//アップロード画像プレビュー
+document.addEventListener('turbolinks:load', function () {
+  const uploader = document.querySelector('.uploader');
+  if (!uploader){ return false;}
+  uploader.addEventListener('change', function (event) {
+    //画像の
+    const file = uploader.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      const image = reader.result;
+      //元の画像とuploadg画像を入れ替える
+      document.querySelector('.avatar').setAttribute('src', image);
+    }
+  });
 });
 
+
+//スキッパー
 $(document).ready(function () {
   $("#theTarget").skippr({
     // スライドショーの変化 ("fade" or "slide")
@@ -38,8 +43,8 @@ $(document).ready(function () {
 });
 
 
+//一番上に戻るボタン
 document.addEventListener("turbolinks:load", function() {
-  $(function() {
   $('#top a').on('click',function(event){
     $('body, html').animate({
       scrollTop:0
@@ -47,30 +52,26 @@ document.addEventListener("turbolinks:load", function() {
     event.preventDefault();
   });
 });
-})
 
 
 
-var beforePos = 0;//スクロールの値の比較用の設定
+//ヘッダーの自動隠し機能
+const beforePos = 0;//スクロールの値の比較用の設定
 
-//スクロール途中でヘッダーが消え、上にスクロールすると復活する設定を関数にまとめる
 function ScrollAnime() {
-    var elemTop = $('#contents').offset().top;//#area-2の位置まできたら
-	var scroll = $(window).scrollTop();
+  const elemTop = $('#contents').offset().top;
+	const scroll = $(window).scrollTop();
     //ヘッダーの出し入れをする
-    if(scroll == beforePos) {
-		//IE11対策で処理を入れない
-    }else if(elemTop > scroll || 0 > scroll - beforePos){
-		//ヘッダーが上から出現する
-		$('#header').removeClass('UpMove');	//#headerにUpMoveというクラス名を除き
-		$('#header').addClass('DownMove');//#headerにDownMoveのクラス名を追加
-    }else {
-		//ヘッダーが上に消える
-        $('#header').removeClass('DownMove');//#headerにDownMoveというクラス名を除き
-		$('#header').addClass('UpMove');//#headerにUpMoveのクラス名を追加
-    }
-    
-    beforePos = scroll;//現在のスクロール値を比較用のbeforePosに格納
+  if(elemTop > scroll || 0 > scroll - beforePos){
+	//ヘッダーが上から出現する
+	  $('#header').removeClass('UpMove');	
+	  $('#header').addClass('DownMove');
+  }else {
+	//ヘッダーが上に消える
+    $('#header').removeClass('DownMove');
+    $('#header').addClass('UpMove');
+  }
+  beforePos = scroll;//現在のスクロール値を比較用のbeforePosに格納
 }
 
 // 画面をスクロールをしたら動かしたい場合の記述
