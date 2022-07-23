@@ -3,7 +3,7 @@ document.addEventListener('turbolinks:load', function () {
   const uploader = document.querySelector('.uploader');
   if (!uploader){ return false;}
   uploader.addEventListener('change', function (event) {
-    //画像の
+    //画像の読み込み
     const file = uploader.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
