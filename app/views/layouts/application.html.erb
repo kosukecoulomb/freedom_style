@@ -7,11 +7,12 @@
     <%= csp_meta_tag %>
 
     <link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
+    <%= Gon::Base.render_data(need_tag: true) %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  
+
   <body>
     <header id="header">
       <% if user_signed_in? %>
@@ -23,7 +24,7 @@
       <% end %>
     </header>
     <div class="push"></div>
-    
+
     <main class="mt-4" id="contents">
       <div id="flash-success">
         <% if notice %>
@@ -32,7 +33,7 @@
       </div>
       <%= yield %>
     </main>
-    
+
     <div class="push"></div>
     <footer>
       <p class="text-center">©Freedom Style.inc　produced by Kosuke Naito</p>

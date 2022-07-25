@@ -9,8 +9,8 @@ document.addEventListener('turbolinks:load', function () {
     reader.readAsDataURL(file);
     reader.onload = function () {
       const image = reader.result;
-      //元の画像とuploadg画像を入れ替える
-      document.querySelector('.avatar').setAttribute('src', image);
+      //元の画像とupload画像を入れ替える
+      document.querySelector('.avatar').attr('src', image);
     }
   });
 });
@@ -56,7 +56,7 @@ document.addEventListener("turbolinks:load", function() {
 
 
 //ヘッダーの自動隠し機能
-const beforePos = 0;//スクロールの値の比較用の設定
+var beforePos = 0;//スクロールの値の比較用の設定
 
 function ScrollAnime() {
   const elemTop = $('#contents').offset().top;
@@ -64,7 +64,7 @@ function ScrollAnime() {
     //ヘッダーの出し入れをする
   if(elemTop > scroll || 0 > scroll - beforePos){
 	//ヘッダーが上から出現する
-	  $('#header').removeClass('UpMove');	
+	  $('#header').removeClass('UpMove');
 	  $('#header').addClass('DownMove');
   }else {
 	//ヘッダーが上に消える
@@ -84,3 +84,31 @@ $(window).on('load', function () {
 	ScrollAnime();//スクロール途中でヘッダーが消え、上にスクロールすると復活する関数を呼ぶ
 });
 
+
+const API_KEY = gon.weather_key;
+$(function () {
+  $('#btn').on('click', function() {
+    // 入力された都市名でWebAPIに天気情報をリクエスト
+    $.ajax({
+      url: "https://api.openweathermap.org/data/2.5/weather?q=" + $('#cityname').val() + "&units=metric&appid=" + API_KEY,
+      dataType : 'jsonp',
+    }).done(function (data){
+      //通信成功
+      // 位置
+      $('#place').text(data.name);
+      // 最高気温
+      $('#temp_max').text(data.main.temp_max);
+      // 最低気温
+      $('#temp_min').text(data.main.temp_min);
+      // 天気
+      $('#weather').text(data.weather[0].main);
+      // 天気アイコン
+      $('#img').attr("src","http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
+      $('#img').attr("alt",data.weather[0].main);
+    }).fail(function (data) {
+      //通信失敗
+      alert('通信に失敗しました。');
+      
+    });
+  });
+});
