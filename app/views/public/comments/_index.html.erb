@@ -1,19 +1,22 @@
 <% coordinate.comments.each do |comment| %>
-<table class="table">
+<table class="table table-sm table-borderless">
   <tr>
-    <td class="col-2">
+    <td>
       <%= link_to user_path(comment.user) do %>
-        <%= image_tag comment.user.get_profile_image(50,50) %>
-        <%= comment.user.name %>
+        <%= image_tag comment.user.get_profile_image(50,50), class: "rounded-circle" %>
+      <% end %>
+      <%= comment.user.name %>
+      <span class="text-secondary text-left"><%= comment.created_at.strftime('%Y/%m/%d') %></span>
+    </td>
+  </tr>
+  <tr>
+    <td class="col-md-10"><p><%= comment.comment %></p></td>
+    <td class="col-md-1">
+      <% if comment.user == current_user || comment.coordinate.user == current_user %>
+        <%= link_to "削除", coordinate_comment_path(comment.coordinate, comment), method: :delete, remote: true, class: "btn btn-outline-danger btn-sm" %>
       <% end %>
     </td>
-    <td class="col-md-6"><%= comment.comment %></td>
-    <td class="col-md-2">
-    <% if comment.user == current_user || comment.coordinate.user == current_user %>
-      <%= link_to "削除", coordinate_comment_path(comment.coordinate, comment), method: :delete, remote: true, class: "btn btn-outline-danger" %>
-    <% end %>
-    </td>
-    <td class="col-md-2">
+    <td class="col-md-1">
       <%= link_to coordinate_comment_reports_path(coordinate,comment), method: :post, data: { confirm: '本当に管理者に通報しますか？' } do %>
         <i class="fas fa-bell"></i>通報
       <% end %>

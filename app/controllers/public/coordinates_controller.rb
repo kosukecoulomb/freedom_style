@@ -24,12 +24,6 @@ class Public::CoordinatesController < ApplicationController
     @coordinate = Coordinate.new
     # タグ検索用
     @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
-    # 登録アイテムと紐付けるための変数
-    @outer_items = Item.where(user_id: @user.id, category: 0)
-    @tops_items = Item.where(user_id: @user.id, category: 1)
-    @bottoms_items = Item.where(user_id: @user.id, category: 2)
-    @shoes_items = Item.where(user_id: @user.id, category: 3)
-    @other_items = Item.where(user_id: @user.id, category: 4)
   end
 
   def create
@@ -37,13 +31,6 @@ class Public::CoordinatesController < ApplicationController
     @user = current_user
     # タグ検索用
     @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
-    # 登録アイテムと紐付けるための変数
-    @outer_items = Item.where(user_id: @user.id, category: 0)
-    @tops_items = Item.where(user_id: @user.id, category: 1)
-    @bottoms_items = Item.where(user_id: @user.id, category: 2)
-    @shoes_items = Item.where(user_id: @user.id, category: 3)
-    @other_items = Item.where(user_id: @user.id, category: 4)
-    # タグ検索用
     tag_list = params[:coordinate][:tag_name].split(nil)
     if @coordinate.save
       @coordinate.save_tag(tag_list) # タグ検索用
@@ -57,10 +44,6 @@ class Public::CoordinatesController < ApplicationController
   def show
     @coordinate = Coordinate.find(params[:id])
     @comment = Comment.new
-    @user = @coordinate.user
-    # タグ検索用
-    @coordinate_tags = @coordinate.tags.all
-    @tag_list = Tag.all
     # 紐付けられたアイテムを探して持ってくる
     @outer_item = Item.find_by(id: @coordinate.outer_id)
     @tops_item = Item.find_by(id: @coordinate.tops_id)
@@ -70,7 +53,7 @@ class Public::CoordinatesController < ApplicationController
     @other2_item = Item.find_by(id: @coordinate.other2_id)
     # 似たようなコーデを表示
     @similar_coordinates = Coordinate.limit(4).where(dress_code: @coordinate.dress_code, season: @coordinate.season).
-      joins(:user).merge(User.where(gender: @user.gender)).
+      joins(:user).merge(User.where(gender: @coordinate.user.gender)).
       order(created_at: :desc).where.not(id: @coordinate.id)
   end
 
@@ -79,12 +62,6 @@ class Public::CoordinatesController < ApplicationController
     @coordinate = Coordinate.find(params[:id])
     # タグ検索用
     @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
-    # new同様
-    @outer_items = Item.where(user_id: @user.id, category: 0)
-    @tops_items = Item.where(user_id: @user.id, category: 1)
-    @bottoms_items = Item.where(user_id: @user.id, category: 2)
-    @shoes_items = Item.where(user_id: @user.id, category: 3)
-    @other_items = Item.where(user_id: @user.id, category: 4)
   end
 
   def update
@@ -92,12 +69,6 @@ class Public::CoordinatesController < ApplicationController
     @user = current_user
     # タグ検索用
     @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
-    # new同様
-    @outer_items = Item.where(user_id: @user.id, category: 0)
-    @tops_items = Item.where(user_id: @user.id, category: 1)
-    @bottoms_items = Item.where(user_id: @user.id, category: 2)
-    @shoes_items = Item.where(user_id: @user.id, category: 3)
-    @other_items = Item.where(user_id: @user.id, category: 4)
     # タグ検索用
     tag_list = params[:coordinate][:tag_name].split(nil)
     if @coordinate.update(coordinate_params)
