@@ -86,7 +86,7 @@ $(window).on('load', function () {
 
 
 const API_KEY = gon.weather_key;
-$(function () {
+document.addEventListener('turbolinks:load', function () {
   $('#btn').on('click', function() {
     // 入力された都市名でWebAPIに天気情報をリクエスト
     $.ajax({
