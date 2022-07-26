@@ -1,17 +1,19 @@
 //アップロード画像プレビュー
 document.addEventListener('turbolinks:load', function () {
-  const uploader = document.querySelector('.uploader');
-  if (!uploader){ return false;}
-  uploader.addEventListener('change', function (event) {
-    //画像の読み込み
-    const file = uploader.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-      const image = reader.result;
-      //元の画像とupload画像を入れ替える
-      document.querySelector('.avatar').attr('src', image);
-    }
+  $(function() {
+    const uploader = document.querySelector('.uploader');
+    if (!uploader){ return false;}
+    uploader.addEventListener('change', function (event) {
+      //画像の読み込み
+      const file = uploader.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        const image = reader.result;
+        //元の画像とupload画像を入れ替える
+        document.querySelector('.avatar').setAttribute('src', image);
+      }
+    });
   });
 });
 
@@ -85,28 +87,29 @@ $(window).on('load', function () {
 });
 
 
-const API_KEY = gon.weather_key;
+// 天気表示
 document.addEventListener('turbolinks:load', function () {
+  const API_KEY = gon.weather_key;
   $('#btn').on('click', function() {
     // 入力された都市名でWebAPIに天気情報をリクエスト
     $.ajax({
       url: "https://api.openweathermap.org/data/2.5/weather?q=" + $('#cityname').val() + "&units=metric&appid=" + API_KEY,
       dataType : 'jsonp',
-    }).done(function (data){
-      //通信成功
+    }).done(function (data) {
+      // 通信成功
       // 位置
       $('#place').text(data.name);
-      // 最高気温
-      $('#temp_max').text(data.main.temp_max);
-      // 最低気温
-      $('#temp_min').text(data.main.temp_min);
       // 天気
       $('#weather').text(data.weather[0].main);
       // 天気アイコン
       $('#img').attr("src","http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
       $('#img').attr("alt",data.weather[0].main);
+      // 最高気温
+      $('#temp_max').text(data.main.temp_max);
+      // 最低気温
+      $('#temp_min').text(data.main.temp_min);
     }).fail(function (data) {
-      //通信失敗
+      // 通信失敗
       alert('通信に失敗しました。');
     });
   });

@@ -89,6 +89,6 @@ class Public::UsersController < ApplicationController
   def user_search_params
     params.fetch(:search, {}).permit(:gender, :generation, :body_shape, :tall_from, :tall_to, :keyword)
   end
-  
-  
+
+
 end
