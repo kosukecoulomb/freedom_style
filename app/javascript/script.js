@@ -1,19 +1,22 @@
 //アップロード画像プレビュー
 document.addEventListener('turbolinks:load', function () {
-  const uploader = document.querySelector('.uploader');
-  if (!uploader){ return false;}
-  uploader.addEventListener('change', function (event) {
-    //画像の読み込み
-    const file = uploader.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-      const image = reader.result;
-      //元の画像とuploadg画像を入れ替える
-      document.querySelector('.avatar').setAttribute('src', image);
-    }
+  $(function() {
+    const uploader = document.querySelector('.uploader');
+    if (!uploader){ return false;}
+    uploader.addEventListener('change', function (event) {
+      //画像の読み込み
+      const file = uploader.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        const image = reader.result;
+        //元の画像とupload画像を入れ替える
+        document.querySelector('.avatar').setAttribute('src', image);
+      }
+    });
   });
 });
+
 
 
 //スキッパー

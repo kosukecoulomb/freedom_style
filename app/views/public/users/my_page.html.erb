@@ -38,7 +38,7 @@
               <%= link_to tag_coordinates_path(tag_id: tag.id) do %>
                 <%= image_tag coordinate.get_coordinate_image(300,300), class: "image-fluid" %>
                 <div class="mask">
-                  <div class="caption"><%= tag.tag_name %></div>
+                  <div class="caption"><h3><%= tag.tag_name %></h3></div>
                 </div>
               <% end %>
             <% end %>
