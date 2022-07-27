@@ -59,7 +59,7 @@ document.addEventListener("turbolinks:load", function() {
 
 
 //ヘッダーの自動隠し機能
-const beforePos = 0;//スクロールの値の比較用の設定
+var beforePos = 0;//スクロールの値の比較用の設定
 
 function ScrollAnime() {
   const elemTop = $('#contents').offset().top;
