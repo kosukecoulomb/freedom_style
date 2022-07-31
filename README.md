@@ -75,10 +75,12 @@
 - フォロー機能の非同期通信(Ajax)
 - コメント機能の非同期通信(Ajax)
 - コメント通報ステータスの非同期通信(Ajax)
-- 投稿検索機能の非同期化(Ajax)
+- 検索機能の非同期通信(Ajax)
 - 画像アップロード・レビュー機能(ActiveStorage,jQuery)
 - ヘッダーの自動隠し・一番上に戻る機能(jQuery)
 - 天気検索機能(Ajax,外部API(OpenWeatherMap))
+- GitHub Actions(CI/CDツール）による自動デプロイ
+- SSL(https)認証
 
 ## 使用素材
 - 画像フリー素材(photoAC：https://www.photo-ac.com/）
