@@ -101,8 +101,6 @@ document.addEventListener('turbolinks:load', function () {
       // 通信成功
       // 位置
       $('#place').text(data.name);
-      // 天気
-      //$('#weather').text(data.weather[0].main);
       // 天気アイコン
       $('#img').attr("src","http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
       $('#img').attr("alt",data.weather[0].main);
