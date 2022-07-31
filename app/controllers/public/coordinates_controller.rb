@@ -4,6 +4,7 @@ class Public::CoordinatesController < ApplicationController
 
   def index
     # キーワード検索用
+    gon.weather_key = ENV['WEATHER_API_KEY']
     @search_params = coordinate_search_params
     @coordinates = Coordinate.search(@search_params).order(created_at: :desc)
   end

@@ -67,7 +67,7 @@ function ScrollAnime() {
     //ヘッダーの出し入れをする
   if(elemTop > scroll || 0 > scroll - beforePos){
 	//ヘッダーが上から出現する
-	  $('#header').removeClass('UpMove');	
+	  $('#header').removeClass('UpMove');
 	  $('#header').addClass('DownMove');
   } else {
 	//ヘッダーが上に消える
@@ -87,3 +87,33 @@ $(window).on('load', function () {
 	ScrollAnime();//スクロール途中でヘッダーが消え、上にスクロールすると復活する関数を呼ぶ
 });
 
+
+// 天気表示
+document.addEventListener('turbolinks:load', function () {
+  const API_KEY = gon.weather_key;
+  $(function(){
+  $('#btn').on('click', function() {
+    // 入力された都市名でWebAPIに天気情報をリクエスト
+    $.ajax({
+      url: "https://api.openweathermap.org/data/2.5/weather?q=" + $('#cityname').val() + "&units=metric&appid=" + API_KEY,
+      dataType : 'jsonp',
+    }).done(function (data) {
+      // 通信成功
+      // 位置
+      $('#place').text(data.name);
+      // 天気
+      //$('#weather').text(data.weather[0].main);
+      // 天気アイコン
+      $('#img').attr("src","http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
+      $('#img').attr("alt",data.weather[0].main);
+      // 最高気温
+      $('#temp_max').text(data.main.temp_max);
+      // 最低気温
+      $('#temp_min').text(data.main.temp_min);
+    }).fail(function (data) {
+      // 通信失敗
+      alert('通信に失敗しました。');
+    });
+  });
+  });
+});

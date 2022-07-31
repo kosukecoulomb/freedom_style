@@ -7,7 +7,7 @@
           <%= link_to "新規投稿", new_coordinate_path, class: "btn btn-outline-info" %>
         <% end %>
       </div>
-      
+
       <div id="top">
         <a href="#">
           <button class="btn btn-outline-secondary" id="index-scroll">↑</button>
@@ -16,7 +16,15 @@
 
       <!-- 条件検索 -->
       <div class="m-3 text-center">
-        <%= form_with(scope: :search, url: coordinates_path, method: :get) do |f| %>
+        <div class="justify-content-center form-inline">
+          <input id="cityname" type="text" size="20" maxlength="14" placeholder="Tokyo(ローマ字入力)">
+          <button class="btn btn-outline-primary btn-sm" id="btn">天気表示</button>
+          <div id="icon"><img id="img"></div>
+          <span id="weather"></span>
+          <span>気温 :</span>
+          <span class="text-danger" id="temp_max"></span>℃/<span class="text-primary" id="temp_min"></span>℃
+        </div>
+        <%= form_with(scope: :search, url: coordinates_path, local: false, method: :get) do |f| %>
             <%= f.select :gender, User.genders.keys.map{|k| [I18n.t("enums.user.gender.#{k}"), k]}, { include_blank: '好みの服装'}, value: @search_params[:gender] %>
             <%= f.select :generation, User.generations.keys.map{|k| [I18n.t("enums.user.generation.#{k}"), k]}, { include_blank: '世代'}, value: @search_params[:generation] %>
             <%= f.select :body_shape, User.body_shapes.keys.map{|k| [I18n.t("enums.user.body_shape.#{k}"), k]}, { include_blank: '体型'}, value: @search_params[:body_shape] %>
@@ -27,14 +35,17 @@
             身長：<%= f.number_field :tall_from, in: 100..200, class: "form-check-inline" %>cm以上〜
             <%= f.number_field :tall_to, in: 100..200, class: "form-check-inline" %>cm以下
             <%= f.text_field :keyword, value: @search_params[:keyword], placeholder: "キーワード" %>
-            <%= button_tag type: "submit", class: "form-check-inline btn btn-outline-dark" do %>
+            <%= button_tag type: "submit", class: "form-check-inline btn btn-dark" do %>
               <i class="fas fa-search"></i>
             <% end %>
+            <button class="btn btn-sm btn-primary" onclick="window.location.reload();">条件リセット</button>
           </div>
         <% end %>
       </div>
 
-      <%= render "layouts/coordinates", coordinates: @coordinates %>
+      <div id="coordinates">
+        <%= render "layouts/coordinates", coordinates: @coordinates %>
+      </div>
     </div>
   </div>
 </div>
