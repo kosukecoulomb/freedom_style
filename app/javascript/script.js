@@ -18,6 +18,7 @@ document.addEventListener('turbolinks:load', function () {
 });
 
 
+
 //スキッパー
 $(document).ready(function () {
   $("#theTarget").skippr({
@@ -47,7 +48,7 @@ $(document).ready(function () {
 
 //一番上に戻るボタン
 document.addEventListener("turbolinks:load", function() {
-  $('#top a').on('click',function(event){
+  $('#top a').on('click', function (event) {
     $('body, html').animate({
       scrollTop:0
     }, 800);
@@ -68,7 +69,7 @@ function ScrollAnime() {
 	//ヘッダーが上から出現する
 	  $('#header').removeClass('UpMove');
 	  $('#header').addClass('DownMove');
-  }else {
+  } else {
 	//ヘッダーが上に消える
     $('#header').removeClass('DownMove');
     $('#header').addClass('UpMove');

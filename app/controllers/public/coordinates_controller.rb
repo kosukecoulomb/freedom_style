@@ -13,9 +13,7 @@ class Public::CoordinatesController < ApplicationController
     @coordinates = Coordinate.includes(:user).where(user_id: [current_user.id, *current_user.following_ids]).order(created_at: :desc)
     @following_coordinates = Coordinate.includes(:user).where(user_id: [*current_user.following_ids]).order(created_at: :desc)
     # フォロワーがなくタイムラインが空の場合は似たユーザー、さらになければ通常のユーザーを表示する
-    more_short = current_user.tall.to_i - 4
-    more_tall = current_user.tall.to_i + 5
-    @similar_users = User.where(tall: more_short..more_tall, gender: current_user.gender).where.not(id: current_user.id)
+    @similar_users = User.similar(current_user)
     @users = User.all.limit(4).where.not(id: current_user.id)
   end
 
@@ -23,27 +21,14 @@ class Public::CoordinatesController < ApplicationController
     @user = current_user
     @coordinate = Coordinate.new
     # タグ検索用
-    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
-    # 登録アイテムと紐付けるための変数
-    @outer_items = Item.where(user_id: @user.id, category: 0)
-    @tops_items = Item.where(user_id: @user.id, category: 1)
-    @bottoms_items = Item.where(user_id: @user.id, category: 2)
-    @shoes_items = Item.where(user_id: @user.id, category: 3)
-    @other_items = Item.where(user_id: @user.id, category: 4)
+    @tag_list = Tag.popularity(30)
   end
 
   def create
     @coordinate = Coordinate.new(coordinate_params)
     @user = current_user
     # タグ検索用
-    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
-    # 登録アイテムと紐付けるための変数
-    @outer_items = Item.where(user_id: @user.id, category: 0)
-    @tops_items = Item.where(user_id: @user.id, category: 1)
-    @bottoms_items = Item.where(user_id: @user.id, category: 2)
-    @shoes_items = Item.where(user_id: @user.id, category: 3)
-    @other_items = Item.where(user_id: @user.id, category: 4)
-    # タグ検索用
+    @tag_list = Tag.popularity(30)
     tag_list = params[:coordinate][:tag_name].split(nil)
     if @coordinate.save
       @coordinate.save_tag(tag_list) # タグ検索用
@@ -57,10 +42,6 @@ class Public::CoordinatesController < ApplicationController
   def show
     @coordinate = Coordinate.find(params[:id])
     @comment = Comment.new
-    @user = @coordinate.user
-    # タグ検索用
-    @coordinate_tags = @coordinate.tags.all
-    @tag_list = Tag.all
     # 紐付けられたアイテムを探して持ってくる
     @outer_item = Item.find_by(id: @coordinate.outer_id)
     @tops_item = Item.find_by(id: @coordinate.tops_id)
@@ -69,36 +50,25 @@ class Public::CoordinatesController < ApplicationController
     @other1_item = Item.find_by(id: @coordinate.other1_id)
     @other2_item = Item.find_by(id: @coordinate.other2_id)
     # 似たようなコーデを表示
-    @similar_coordinates = Coordinate.limit(4).where(dress_code: @coordinate.dress_code, season: @coordinate.season).
-      joins(:user).merge(User.where(gender: @user.gender)).
-      order(created_at: :desc).where.not(id: @coordinate.id)
+    @similar_coordinates = Coordinate.latest(4).where(dress_code: @coordinate.dress_code, season: @coordinate.season).
+      joins(:user).merge(User.where(gender: @coordinate.user.gender)).
+      where.not(id: @coordinate.id)
   end
 
   def edit
     @user = current_user
     @coordinate = Coordinate.find(params[:id])
     # タグ検索用
-    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
-    # new同様
-    @outer_items = Item.where(user_id: @user.id, category: 0)
-    @tops_items = Item.where(user_id: @user.id, category: 1)
-    @bottoms_items = Item.where(user_id: @user.id, category: 2)
-    @shoes_items = Item.where(user_id: @user.id, category: 3)
-    @other_items = Item.where(user_id: @user.id, category: 4)
+    @tag_list = Tag.popularity(30)
+    @current_tags = @coordinate.tags.pluck(:tag_name)
   end
 
   def update
     @coordinate = Coordinate.find(params[:id])
     @user = current_user
     # タグ検索用
-    @tag_list = Tag.limit(10).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
-    # new同様
-    @outer_items = Item.where(user_id: @user.id, category: 0)
-    @tops_items = Item.where(user_id: @user.id, category: 1)
-    @bottoms_items = Item.where(user_id: @user.id, category: 2)
-    @shoes_items = Item.where(user_id: @user.id, category: 3)
-    @other_items = Item.where(user_id: @user.id, category: 4)
-    # タグ検索用
+    @tag_list = Tag.popularity(30)
+    @current_tags = @coordinate.tags.pluck(:tag_name)
     tag_list = params[:coordinate][:tag_name].split(nil)
     if @coordinate.update(coordinate_params)
       @coordinate.save_tag(tag_list)
@@ -118,14 +88,14 @@ class Public::CoordinatesController < ApplicationController
 
   # タグ検索結果ページ
   def tag_search
-    @tag_list = Tag.limit(30).find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
+    @tag_list = Tag.popularity(30)
     @tag = Tag.find(params[:tag_id])
   end
 
   private
 
   def coordinate_params
-    params.require(:coordinate).permit(:coordinate_image, :user_id, :title, :body, :dress_code, :season, :temperature, :outer_id, :tops_id, :bottoms_id, :shoes_id, :other1_id, :other2_id, tags_attributes: [:tag_name])
+    params.require(:coordinate).permit(:coordinate_image, :user_id, :title, :body, :dress_code, :season, :temperature, :outer_id, :tops_id, :bottoms_id, :shoes_id, :other1_id, :other2_id)
   end
 
   def ensure_current_user

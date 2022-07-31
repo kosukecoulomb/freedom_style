@@ -3,7 +3,7 @@
     <div class="col-md-12">
 
       <%= render "layouts/error", resource: @coordinate %>
-      
+
       <!--タグ検索機能-->
       <%= render "public/coordinates/tag_list", tag_list: @tag_list %>
 
@@ -27,27 +27,27 @@
               <table class="table">
                 <tr>
                   <th>アウター</th>
-                  <td><%= f.select :outer_id, @outer_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                  <td><%= f.select :outer_id, @user.items.outer.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
                 </tr>
                 <tr>
                   <th>トップス</th>
-                  <td><%= f.select :tops_id, @tops_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                  <td><%= f.select :tops_id, @user.items.tops.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
                 </tr>
                 <tr>
                   <th>ボトムス</th>
-                  <td><%= f.select :bottoms_id, @bottoms_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                  <td><%= f.select :bottoms_id, @user.items.bottoms.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
                 </tr>
                 <tr>
                   <th>靴</th>
-                  <td><%= f.select :shoes_id, @shoes_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                  <td><%= f.select :shoes_id, @user.items.shoes.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
                 </tr>
                 <tr>
                   <th>その他1</th>
-                  <td><%= f.select :other1_id, @other_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                  <td><%= f.select :other1_id, @user.items.others.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
                 </tr>
                 <tr>
                   <th>その他2</th>
-                  <td><%= f.select :other2_id, @other_items.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
+                  <td><%= f.select :other2_id, @user.items.others.map{ |item| [item.item_name, item.id] }, { include_blank: 'アイテム選択'} %></td>
                 </tr>
               </table>
             </div>
@@ -76,7 +76,7 @@
                 <%= f.text_area :body, size: "35x15" %>
 
                 <h5>タグ入力</h5>
-                <%= f.text_field :tag_name, :size => "40", placeholder: "#ワントーン #春" %>
+                <%= f.text_field :tag_name, value: @current_tags, :size => "40", placeholder: "#ワントーン #春" %>
                 <P>※複数タグを付ける場合は間に半角スペース</P>
 
                 <%= f.submit "編集を保存" , class: "btn btn-outline-success m-1" %>

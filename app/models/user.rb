@@ -4,6 +4,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # 絞り込みメソッド
+  scope :similar, -> (user) do
+    more_short = user.tall.to_i - 4
+    more_tall = user.tall.to_i + 5
+    where(tall: more_short..more_tall, gender: user.gender).where.not(id: user.id)
+  end
+
   # ゲストログイン機能
   def self.guest
     find_or_create_by!(name: 'guestuser', email: 'guest@example.com') do |user|
@@ -94,4 +101,6 @@ class User < ApplicationRecord
   enum gender: { man: 0, woman: 1, genderless: 2, other: 3, no_answer: 4 }
   enum generation: { teens: 0, twenties: 1, thirties: 2, forties: 3, over_fifties: 4 }
   enum body_shape: { slender: 0, normal: 1, fat: 2, solid: 3 }
+
+
 end

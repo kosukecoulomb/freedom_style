@@ -1,4 +1,11 @@
 class Coordinate < ApplicationRecord
+  # 絞り込みメソッド
+  scope :latest, -> (count) { limit(count).order(created_at: :desc) }
+  scope :my_favorites, -> (user) do
+    favorites = Favorite.where(user_id: user.id).pluck(:coordinate_id)
+    order(created_at: :desc).find(favorites)
+  end
+
   # アソシエーション
   belongs_to :user
   has_many :items

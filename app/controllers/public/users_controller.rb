@@ -12,22 +12,17 @@ class Public::UsersController < ApplicationController
     @user = current_user
     @coordinates = Coordinate.where(user_id: @user.id)
     # おすすめコーデの表示
-    more_short = current_user.tall.to_i - 4
-    more_tall = current_user.tall.to_i + 5
-    @recommendations = Coordinate.joins(:user).merge(User.where(tall: more_short..more_tall, gender: @user.gender)).
-      limit(4).order(created_at: :desc).where.not(user_id: @user.id)
+    @recommendations = Coordinate.joins(:user).merge(User.similar(@user)).latest(3)
     # いいねしたコーデ表示
-    favorites = Favorite.where(user_id: @user.id).pluck(:coordinate_id)
-    @favorite_coordinates = Coordinate.limit(4).order(created_at: :desc).find(favorites)
+    @favorite_coordinates = Coordinate.latest(3).my_favorites(@user)
     # フォローしているユーザーの投稿
-    @following_coordinates = Coordinate.limit(4).order(created_at: :desc).where(user_id: [*current_user.following_ids])
+    @following_coordinates = Coordinate.latest(3).where(user_id: [*@user.following_ids])
     # トレンドタグの表示
-    @tag_list = Tag.limit(3).find(TagMap.group(:tag_id).order('count(coordinate_id) desc').pluck(:tag_id))
+    @tag_list = Tag.popularity(3)
   end
 
   def favorites
-    favorites = Favorite.where(user_id: current_user.id).pluck(:coordinate_id)
-    @favorite_coordinates = Coordinate.order(created_at: :desc).find(favorites)
+    @favorite_coordinates = Coordinate.order(created_at: :desc).my_favorites(current_user)
   end
 
   def show
@@ -62,13 +57,13 @@ class Public::UsersController < ApplicationController
 
   # フォロー・フォロワーを表示
   def followings
-    user = User.find(params[:id])
-    @users = user.followings
+    @user = User.find(params[:id])
+    @users = @user.followings
   end
 
   def followers
-    user = User.find(params[:id])
-    @users = user.followers
+    @user = User.find(params[:id])
+    @users = @user.followers
   end
 
   private

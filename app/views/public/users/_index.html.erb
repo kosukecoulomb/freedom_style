@@ -22,8 +22,8 @@
         </div>
       </div>
       <div class="card-body d-flex d-inline-flex justify-content-center" style="height: 12rem;">
-        <% user.coordinates.limit(3).order(created_at: :desc).each do |coordinate| %>
-          <%= link_to coordinate_path(coordinate), :target => ["_blank"] do %>
+        <% user.coordinates.latest(30).each do |coordinate| %>
+          <%= link_to coordinate_path(coordinate) do %>
             <%= image_tag coordinate.get_coordinate_image(150,150), class: "img-fluid" %>
           <% end %>
         <% end %>
