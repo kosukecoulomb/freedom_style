@@ -1,0 +1,12 @@
+<div class="d-flex flex-wrap">
+  <% items.each do |item| %>
+    <div class="coordinate_image">
+      <%= link_to item_path(item) do %>
+        <%= image_tag item.get_item_image(200,200), class: "img-fluid rounded-circle" %>
+          <div class="mask">
+            <div class="caption"><%= item.item_name %></div>
+        	</div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

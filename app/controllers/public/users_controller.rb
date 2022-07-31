@@ -8,7 +8,6 @@ class Public::UsersController < ApplicationController
   end
 
   def my_page
-    gon.weather_key = ENV['WEATHER_API_KEY']
     @user = current_user
     @coordinates = Coordinate.where(user_id: @user.id)
     # おすすめコーデの表示
