@@ -91,6 +91,7 @@ $(window).on('load', function () {
 // 天気表示
 document.addEventListener('turbolinks:load', function () {
   const API_KEY = gon.weather_key;
+  $(function(){
   $('#btn').on('click', function() {
     // 入力された都市名でWebAPIに天気情報をリクエスト
     $.ajax({
@@ -101,7 +102,7 @@ document.addEventListener('turbolinks:load', function () {
       // 位置
       $('#place').text(data.name);
       // 天気
-      $('#weather').text(data.weather[0].main);
+      //$('#weather').text(data.weather[0].main);
       // 天気アイコン
       $('#img').attr("src","http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
       $('#img').attr("alt",data.weather[0].main);
@@ -113,5 +114,6 @@ document.addEventListener('turbolinks:load', function () {
       // 通信失敗
       alert('通信に失敗しました。');
     });
+  });
   });
 });
