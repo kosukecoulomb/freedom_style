@@ -5,7 +5,7 @@ class Coordinate < ApplicationRecord
     favorites = Favorite.where(user_id: user.id).pluck(:coordinate_id)
     order(created_at: :desc).find(favorites)
   end
-  
+
   # アソシエーション
   belongs_to :user
   has_many :items
@@ -39,7 +39,7 @@ class Coordinate < ApplicationRecord
   scope :dress_code_choise, -> (dress_code) { where(dress_code: dress_code) if dress_code.present? }
   scope :season_choise, -> (season) { where(season: season) if season.present? }
   scope :temperature_choise, -> (temperature) { where(temperature: temperature) if temperature.present? }
-  scope :word_like, -> (keyword) { 
+  scope :word_like, -> (keyword) {
     where('title LIKE ? OR body LIKE?', "%#{keyword}%", "%#{keyword}%") if keyword.present?
     }
   # アソシエーションするユーザーモデルからも検索できるように

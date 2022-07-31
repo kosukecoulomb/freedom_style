@@ -60,6 +60,7 @@ class Public::CoordinatesController < ApplicationController
     @coordinate = Coordinate.find(params[:id])
     # タグ検索用
     @tag_list = Tag.popularity(30)
+    @current_tags = @coordinate.tags.pluck(:tag_name)
   end
 
   def update
@@ -67,7 +68,7 @@ class Public::CoordinatesController < ApplicationController
     @user = current_user
     # タグ検索用
     @tag_list = Tag.popularity(30)
-    # タグ検索用
+    @current_tags = @coordinate.tags.pluck(:tag_name)
     tag_list = params[:coordinate][:tag_name].split(nil)
     if @coordinate.update(coordinate_params)
       @coordinate.save_tag(tag_list)
@@ -94,7 +95,7 @@ class Public::CoordinatesController < ApplicationController
   private
 
   def coordinate_params
-    params.require(:coordinate).permit(:coordinate_image, :user_id, :title, :body, :dress_code, :season, :temperature, :outer_id, :tops_id, :bottoms_id, :shoes_id, :other1_id, :other2_id, tags_attributes: [:tag_name])
+    params.require(:coordinate).permit(:coordinate_image, :user_id, :title, :body, :dress_code, :season, :temperature, :outer_id, :tops_id, :bottoms_id, :shoes_id, :other1_id, :other2_id)
   end
 
   def ensure_current_user

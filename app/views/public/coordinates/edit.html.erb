@@ -76,7 +76,7 @@
                 <%= f.text_area :body, size: "35x15" %>
 
                 <h5>タグ入力</h5>
-                <%= f.text_field :tag_name, :size => "40", placeholder: "#ワントーン #春" %>
+                <%= f.text_field :tag_name, value: @current_tags, :size => "40", placeholder: "#ワントーン #春" %>
                 <P>※複数タグを付ける場合は間に半角スペース</P>
 
                 <%= f.submit "編集を保存" , class: "btn btn-outline-success m-1" %>
