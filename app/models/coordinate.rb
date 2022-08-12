@@ -77,7 +77,10 @@ class Coordinate < ApplicationRecord
         visited_id: user_id,
         action: 'favorite'
       )
-      notification.save
+      if notification.visitor_id == notification.visited_id
+        notification.checked = true
+      end
+      notification.save if notification.valid?
     end
   end
 
@@ -99,7 +102,10 @@ class Coordinate < ApplicationRecord
       visited_id: visited_id,
       action: 'comment'
     )
-    notification.save
+    if notification.visitor_id == notification.visited_id
+      notification.checked = true
+    end
+    notification.save if notification.valid?
   end
 
   # 画像投稿

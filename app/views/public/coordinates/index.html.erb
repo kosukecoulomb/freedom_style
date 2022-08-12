@@ -17,14 +17,15 @@
       <!-- 条件検索 -->
       <div class="m-3 text-center">
         <div class="justify-content-center form-inline">
+          <span class="">天気検索：</span>
           <input id="cityname" type="text" size="20" maxlength="14" placeholder="Tokyo(ローマ字入力)">
-          <button class="btn btn-outline-primary btn-sm" id="btn">天気表示</button>
+          <button class="btn btn-outline-primary btn-sm mr-1" id="btn">表示</button>
           <span>都市 :</span>
           <span id="place"></span>
           <div id="icon"><img id="img"></div>
           <span id="weather"></span>
           <span>気温 :</span>
-          <span class="text-danger" id="temp_max"></span>℃/<span class="text-primary" id="temp_min"></span>℃
+          最高<span class="text-danger" id="temp_max"></span>℃/最低<span class="text-primary" id="temp_min"></span>℃
         </div>
         <%= form_with(scope: :search, url: coordinates_path, local: false, method: :get) do |f| %>
             <%= f.select :gender, User.genders.keys.map{|k| [I18n.t("enums.user.gender.#{k}"), k]}, { include_blank: '好みの服装'}, value: @search_params[:gender] %>

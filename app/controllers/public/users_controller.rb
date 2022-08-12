@@ -10,9 +10,9 @@ class Public::UsersController < ApplicationController
   def my_page
     @user = current_user
     @coordinates = Coordinate.where(user_id: @user.id)
-    # おすすめコーデの表示
+    # おすすめコーデの表示 scopeでcoordinateモデルにlatestメソッド、useerモデルにsimilarメソッド定義
     @recommendations = Coordinate.joins(:user).merge(User.similar(@user)).latest(3)
-    # いいねしたコーデ表示
+    # いいねしたコーデ表示 scopeでcoordinateモデルにmy_favoriteメソッド定義
     @favorite_coordinates = Coordinate.latest(3).my_favorites(@user)
     # フォローしているユーザーの投稿
     @following_coordinates = Coordinate.latest(3).where(user_id: [*@user.following_ids])
