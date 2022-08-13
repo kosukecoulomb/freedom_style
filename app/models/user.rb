@@ -10,7 +10,7 @@ class User < ApplicationRecord
     more_tall = user.tall.to_i + 5
     where(tall: more_short..more_tall, gender: user.gender).where.not(id: user.id)
   end
-
+  
   # ゲストログイン機能
   def self.guest
     find_or_create_by!(name: 'guestuser', email: 'guest@example.com') do |user|

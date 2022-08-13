@@ -5,7 +5,9 @@ class Coordinate < ApplicationRecord
     favorites = Favorite.where(user_id: user.id).pluck(:coordinate_id)
     order(created_at: :desc).find(favorites)
   end
-
+  
+  
+  
   # アソシエーション
   belongs_to :user
   has_many :items

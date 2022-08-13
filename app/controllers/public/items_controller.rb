@@ -23,11 +23,6 @@ class Public::ItemsController < ApplicationController
 
   def collection
     @user = User.find(params[:id])
-    @outer_items = Item.where(user_id: @user.id, category: 0)
-    @tops_items = Item.where(user_id: @user.id, category: 1)
-    @bottoms_items = Item.where(user_id: @user.id, category: 2)
-    @shoes_items = Item.where(user_id: @user.id, category: 3)
-    @other_items = Item.where(user_id: @user.id, category: 4)
   end
 
   def show

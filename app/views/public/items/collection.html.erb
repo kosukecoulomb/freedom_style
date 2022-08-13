@@ -6,8 +6,8 @@
       <h5 class="mt-3">アウター</h5>
       <div class="d-flex flex-wrap">
         <div class="row no-padding card-wrapper">
-          <% if @outer_items.present? %>
-            <% @outer_items.each do |item| %>
+          <% if @user.items.outer.present? %>
+            <% @user.items.outer.each do |item| %>
               <div class="coordinate_image">
                 <div class="card shadow-lg">
                   <%= link_to item_path(item) do %>
@@ -28,8 +28,8 @@
       <h5 class="mt-3">トップス</h5>
       <div class="d-flex flex-wrap">
         <div class="row no-padding card-wrapper">
-          <% if @tops_items.present? %>
-            <% @tops_items.each do |item| %>
+          <% if @user.items.tops.present? %>
+            <% @user.items.tops.each do |item| %>
               <div class="coordinate_image">
                 <div class="card shadow-lg">
                   <%= link_to item_path(item) do %>
@@ -50,8 +50,8 @@
       <h5 class="mt-3">ボトムス</h5>
       <div class="d-flex flex-wrap">
         <div class="row no-padding card-wrapper">
-          <% if @bottoms_items.present? %>
-            <% @bottoms_items.each do |item| %>
+          <% if @user.items.bottoms.present? %>
+            <% @user.items.bottoms.each do |item| %>
               <div class="coordinate_image">
                 <div class="card shadow-lg">
                   <%= link_to item_path(item) do %>
@@ -72,8 +72,8 @@
       <h5 class="mt-3">靴</h5>
       <div class="d-flex flex-wrap">
         <div class="row no-padding card-wrapper">
-          <% if @shoes_items.present? %>
-            <% @shoes_items.each do |item| %>
+          <% if @user.items.shoes.present? %>
+            <% @user.items.shoes.each do |item| %>
               <div class="coordinate_image">
                 <div class="card shadow-lg">
                   <%= link_to item_path(item) do %>
@@ -94,8 +94,8 @@
       <h5 class="mt-3">その他・アクセサリーなど</h5>
       <div class="d-flex flex-wrap">
         <div class="row no-padding card-wrapper">
-          <% if @other_items.present? %>
-            <% @other_items.each do |item| %>
+          <% if @user.items.others.present? %>
+            <% @user.items.others.each do |item| %>
               <div class="coordinate_image">
                 <div class="card shadow-lg">
                   <%= link_to item_path(item) do %>
