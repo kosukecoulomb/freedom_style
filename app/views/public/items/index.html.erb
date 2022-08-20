@@ -18,15 +18,15 @@
       <div class="m-3 text-center">
         <%= form_with(scope: :search, url: items_path, local: false, method: :get) do |f| %>
           <div class="form-check m-1">
-                  <%= f.select :category, Item.categories.keys.map{|k| [I18n.t("enums.item.category.#{k}"), k]}, { include_blank: 'カテゴリー'}, value: @search_params[:dress_code] %>
+            <%= f.select :category, Item.categories.keys.map{|k| [I18n.t("enums.item.category.#{k}"), k]}, { include_blank: 'カテゴリー'}, value: @search_params[:dress_code] %>
             価格：<%= f.number_field :price_from, class: "form-check-inline" %>円以上〜
-                  <%= f.number_field :price_to, class: "form-check-inline" %>円以下
+            <%= f.number_field :price_to, class: "form-check-inline" %>円以下
           </div>
-                  <%= f.text_field :keyword, value: @search_params[:keyword],size: "30", placeholder: "アイテム名・ブランド名・色など" %>
-                  <%= button_tag type: "submit", class: "btn btn-dark" do %>
-                    <i class="fas fa-search"></i>
-                  <% end %>
-                  <button class="btn btn-sm btn-primary" onclick="window.location.reload();">条件リセット</button>
+          <%= f.text_field :keyword, value: @search_params[:keyword],size: "30", placeholder: "アイテム名・ブランド名・色など" %>
+          <%= button_tag type: "submit", class: "btn btn-sm btn-dark" do %>
+            <i class="fas fa-search"></i>
+          <% end %>
+          <button class="form-check-inline btn btn-sm btn-primary" onclick="window.location.reload();">条件リセット</button>
         <% end %>
       </div>
 

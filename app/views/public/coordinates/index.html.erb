@@ -35,13 +35,13 @@
             <%= f.select :season, Coordinate.seasons.keys.map{|k| [I18n.t("enums.coordinate.season.#{k}"), k]}, { include_blank: '季節'}, value: @search_params[:season] %>
             <%= f.select :temperature, Coordinate.temperatures.keys.map{|k| [I18n.t("enums.coordinate.temperature.#{k}"), k]}, { include_blank: '気温'}, value: @search_params[:temperature] %>
           <div class="form-check">
-            身長：<%= f.number_field :tall_from, in: 100..200, class: "form-check-inline" %>cm以上〜
-            <%= f.number_field :tall_to, in: 100..200, class: "form-check-inline" %>cm以下
+            身長：<%= f.number_field :tall_from, in: 140..200, class: "form-check-inline" %>cm以上〜
+            <%= f.number_field :tall_to, in: 140..200, class: "form-check-inline" %>cm以下
             <%= f.text_field :keyword, value: @search_params[:keyword], placeholder: "キーワード" %>
-            <%= button_tag type: "submit", class: "form-check-inline btn btn-dark" do %>
+            <%= button_tag type: "submit", class: "form-check-inline btn btn-sm btn-dark" do %>
               <i class="fas fa-search"></i>
             <% end %>
-            <button class="btn btn-sm btn-primary" onclick="window.location.reload();">条件リセット</button>
+            <button class="form-check-inline btn btn-sm btn-primary" onclick="window.location.reload();">条件リセット</button>
           </div>
         <% end %>
       </div>

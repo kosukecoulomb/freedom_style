@@ -16,12 +16,12 @@
           <%= f.select :gender, User.genders.keys.map{|k| [I18n.t("enums.user.gender.#{k}"), k]}, { include_blank: '好みの服装'}, value: @search_params[:gender] %>
           <%= f.select :body_shape, User.body_shapes.keys.map{|k| [I18n.t("enums.user.body_shape.#{k}"), k]}, { include_blank: '体型'}, value: @search_params[:body_shape] %>
             身長：<%= f.number_field :tall_from, in: 100..200, class: "form-check-inline" %>cm以上〜
-            <%= f.number_field :tall_to, in: 100..200, class: "orm-check-inline" %>cm以下
+            <%= f.number_field :tall_to, in: 100..200, class: "form-check-inline" %>cm以下
             <%= f.text_field :keyword, value: @search_params[:keyword], placeholder: "名前・キーワードなど" %>
-            <%= button_tag type: "submit", class: "orm-check-inline btn btn-dark" do %>
+            <%= button_tag type: "submit", class: "form-check-inline btn btn-sm btn-dark" do %>
               <i class="fas fa-search"></i>
             <% end %>
-            <button class="btn btn-sm btn-primary" onclick="window.location.reload();">条件リセット</button>
+            <button class="form-check-inline btn btn-sm btn-primary" onclick="window.location.reload();">条件リセット</button>
         <% end %>
       </div>
 
