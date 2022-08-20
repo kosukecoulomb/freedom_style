@@ -53,7 +53,9 @@
                         <td><%= coordinate.temperature_i18n %></td>
                       </tr>
                     </table>
-                    <%= coordinate.body %>
+                    <div class="text-truncate">
+                      <%= coordinate.body %>
+                    </div>
                     <div class="mt-5" id="coordinate_<%= coordinate.id %>" >
                       <div class="favorite_btn">
                         <%= render "public/favorites/favorite_btn", coordinate: coordinate %>

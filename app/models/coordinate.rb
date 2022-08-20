@@ -6,8 +6,6 @@ class Coordinate < ApplicationRecord
     order(created_at: :desc).find(favorites)
   end
   
-  
-  
   # アソシエーション
   belongs_to :user
   has_many :items
